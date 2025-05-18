@@ -7,6 +7,8 @@ public class Customer extends User {
     private String email;
     private String phoneNumber;
     private ArrayList<Address> address = new ArrayList<>();
+    private ArrayList<Cart> carts=new ArrayList<>();
+    private ArrayList<Order> orders=new ArrayList<>();
 
     public Customer(String fName, String lName, String password, String email,
                     String phoneNumber){
@@ -54,5 +56,21 @@ public class Customer extends User {
     @Override
     public void setPassword(String password) {
         super.setPassword(password);
+    }
+
+    public ArrayList<Cart> getCarts() {
+        return carts;
+    }
+
+    public Cart getCart(int index) {
+        return carts.get(index);
+    }
+
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+
+    public void addCart(Cart cart) {
+        carts.add(cart);
     }
 }

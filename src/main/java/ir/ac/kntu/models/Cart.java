@@ -19,9 +19,8 @@ public class Cart {   //contains orders, whether purchased or not
         this.products = products;
     }
 
-    public ArrayList<Product> addToCart(Product product){
+    public void addToCart(Product product){
         products.add(product);
-        return products;
     }
 
     public boolean isPurchased() {
