@@ -10,7 +10,7 @@ public class Customer extends User {
 
     public Customer(String fName, String lName, String password, String email,
                     String phoneNumber){
-        super(fName, lName);
+        super(fName, lName, password);
         setWallet(new Wallet(true));
         this.password = password;
         this.email = email;

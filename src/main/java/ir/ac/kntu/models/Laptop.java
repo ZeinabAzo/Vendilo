@@ -1,16 +1,17 @@
 package ir.ac.kntu.models;
 
+import ir.ac.kntu.enums.GPUModel;
 import ir.ac.kntu.enums.WebcamStatus;
 
 public class Laptop extends Digital{
 
-    private boolean GPUModel;
+    private GPUModel GPUModel;
     private boolean btSupport;
     private WebcamStatus webcamStatus;
 
 
     public Laptop(String name, double price, int inventory, String brand,
-                  double internalStorage, String ram, boolean GPUModel,
+                  double internalStorage, String ram, GPUModel GPUModel,
                   boolean btSupport, WebcamStatus webcamStatus) {
         super(name, price, inventory, brand, internalStorage, ram);
         this.GPUModel = GPUModel;
@@ -19,7 +20,7 @@ public class Laptop extends Digital{
     }
 
     // Optional: add getters/setters if needed
-    public boolean hasGPUModel() {
+    public GPUModel hasGPUModel() {
         return GPUModel;
     }
 
@@ -35,7 +36,7 @@ public class Laptop extends Digital{
         return btSupport;
     }
 
-    public void setGPUModel(boolean GPUModel) {
+    public void setGPUModel(GPUModel GPUModel) {
         this.GPUModel = GPUModel;
     }
 

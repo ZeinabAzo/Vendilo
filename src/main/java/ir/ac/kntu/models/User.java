@@ -7,16 +7,17 @@ public abstract class User {
     protected String password;
     private Wallet wallet;
 
-    public User(String fName, String lName) {
+    public User(String fName, String lName, String password) {
         this.fName = fName;
         this.lName = lName;
+        this.password=password;
     }
 
     public String getPassword() {
         return password;
     }
 
-    protected void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
