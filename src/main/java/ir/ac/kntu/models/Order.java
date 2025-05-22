@@ -1,7 +1,7 @@
 package ir.ac.kntu.models;
 
 import java.time.LocalDate;
-import static ir.ac.kntu.ui.Page.printError;
+import static ir.ac.kntu.util.PrintHelper.printError;
 
 
 public class Order {

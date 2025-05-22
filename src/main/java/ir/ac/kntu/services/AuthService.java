@@ -1,6 +1,6 @@
 package ir.ac.kntu.services;
 
-import ir.ac.kntu.ui.Page;
+import static ir.ac.kntu.util.PrintHelper.printError;
 
 public class AuthService {
 
@@ -15,7 +15,7 @@ public class AuthService {
         if(name.matches("([a-zA-Z]+\\s*)*")){
             return true;
         }else{
-            Page.printError("Invalid name format");
+            printError("Invalid name format");
             return false;
         }
     }
@@ -24,7 +24,7 @@ public class AuthService {
         if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#_\\-]).{8,15}$")){
             return true;
         }else{
-            Page.printError("""
+            printError("""
                     Invalid password. Password must contain at least:
                     one lowercase letter (a-z)
                     one uppercase letter (A-Z)
@@ -39,7 +39,7 @@ public class AuthService {
         if (email.matches("^[\\w._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             return true;
         } else {
-            Page.printError("Invalid email format.");
+            printError("Invalid email format.");
             return false;
         }
     }
@@ -48,7 +48,7 @@ public class AuthService {
         if (phoneNumber.matches("[0-9]{10,11}")) {
             return true;
         } else {
-            Page.printError("Invalid phone number. It must contain 10 or 11 digits.");
+            printError("Invalid phone number. It must contain 10 or 11 digits.");
             return false;
         }
     }
@@ -57,7 +57,7 @@ public class AuthService {
         if (ID.matches("[0-9]{10}")) {
             return true;
         } else {
-            Page.printError("Invalid phone number. It must contain 10 digits.");
+            printError("Invalid phone number. It must contain 10 digits.");
             return false;
         }
     }

@@ -1,18 +1,8 @@
-package ir.ac.kntu.ui;
+package ir.ac.kntu.util;
 
-public class Page {
+public class PrintHelper {
 
-    private Page previousPage;
-
-    public Page(Page previousPage){
-        this.previousPage=previousPage;
-    }
-
-    public Page getPreviousPage() {
-        return previousPage;
-    }
-
-    public class consoleColors {
+    public static class consoleColors {
 
         // Dim/Faint style
         public static final String DIM = "\u001B[2m";

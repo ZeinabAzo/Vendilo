@@ -6,7 +6,7 @@ import ir.ac.kntu.models.Customer;
 import ir.ac.kntu.models.Order;
 import ir.ac.kntu.models.Address;
 
-import static ir.ac.kntu.ui.Page.printError;
+import static ir.ac.kntu.util.PrintHelper.printError;
 
 public class CustomerService {
 

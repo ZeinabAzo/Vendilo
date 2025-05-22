@@ -1,6 +1,7 @@
 package ir.ac.kntu.models;
 
-import static ir.ac.kntu.ui.Page.printError;
+
+import static ir.ac.kntu.util.PrintHelper.printError;
 
 public class Wallet {
     private double balance;
