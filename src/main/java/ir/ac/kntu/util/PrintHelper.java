@@ -52,7 +52,7 @@ public class PrintHelper {
     }
 
     public static void option(int index, String massage){
-        System.out.println(consoleColors.DIM+ consoleColors.BRIGHT_YELLOW  +"         ▻ "+ index +
+        System.out.println(consoleColors.DIM+ consoleColors.YELLOW  +"         ▻ "+ index +
                 ". " + massage + consoleColors.RESET );
     }
 
@@ -66,18 +66,18 @@ public class PrintHelper {
 
     public static void lowerBorder(String massage){
         int spaces= massage.length();
-        System.out.println(consoleColors.BRIGHT_BLUE + "◺—————");
+        System.out.print(consoleColors.BRIGHT_BLUE + "◺—————");
         for (int i=0; i<spaces+10; i++){
-            System.out.println("—");
+            System.out.print("—");
         }
         System.out.println("—————◿" +consoleColors.RESET);
     }
 
     public static void miniLowerBorder(String massage){
         int spaces= massage.length();
-        System.out.println(consoleColors.BRIGHT_BLUE + "◺——");
+        System.out.print(consoleColors.BRIGHT_BLUE + "◺——");
         for (int i=0; i<spaces+8; i++){
-            System.out.println("—");
+            System.out.print("—");
         }
         System.out.println("——◿" +consoleColors.RESET);
     }

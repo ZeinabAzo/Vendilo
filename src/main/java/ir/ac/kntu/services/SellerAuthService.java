@@ -43,12 +43,12 @@ public class SellerAuthService extends AuthService {
     }
 
     public Seller signUp(HashMap<String, String> info) {
-        String firstName = info.get("firstName");
-        String lastName = info.get("lastName");
+        String firstName = info.get("firstname");
+        String lastName = info.get("lastname");
         String password = info.get("password");
         String shopID = info.get("shopID");
         String state = info.get("state");
-        String phoneNumber = info.get("phoneNumber");
+        String phoneNumber = info.get("phone number");
 
         Address shopLocation= new Address("state");
 

@@ -5,6 +5,7 @@ import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.data.SellerDB;
+import ir.ac.kntu.ui.EntryMenu;
 
 public class Vendilo{
 
@@ -16,5 +17,8 @@ public class Vendilo{
 
         Navigate navigator = new Navigate(customerDB, sellerDB, adminDB, productDB);
         navigator.setServices();
+
+        EntryMenu entryMenu=new EntryMenu(navigator);
+        entryMenu.entry();
     }
 }

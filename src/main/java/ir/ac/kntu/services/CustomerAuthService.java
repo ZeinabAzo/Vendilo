@@ -33,7 +33,7 @@ public class CustomerAuthService extends AuthService {
     }
 
     public Customer loginByPhoneNumber(HashMap<String, String> info){
-        String phoneNumber = info.get("phoneNumber");
+        String phoneNumber = info.get("phone number");
         String password = info.get("password");
 
         if(isValidPhoneNumber(phoneNumber) && isValidPassword(password)) {
@@ -47,11 +47,11 @@ public class CustomerAuthService extends AuthService {
     }
 
     public Customer signUp(HashMap<String, String> info){
-        String firstName = info.get("firstName");
-        String lastName = info.get("lastName");
+        String firstName = info.get("firstname");
+        String lastName = info.get("lastname");
         String password = info.get("password");
         String email = info.get("email");
-        String phoneNumber = info.get("phoneNumber");
+        String phoneNumber = info.get("phone number");
 
         if(isValidInput(firstName, lastName, password, email, phoneNumber)){
             Customer customer = new Customer(firstName, lastName, password, email, phoneNumber);

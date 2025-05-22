@@ -1,7 +1,6 @@
 package ir.ac.kntu.ui;
 
 import ir.ac.kntu.controllers.Navigate;
-import ir.ac.kntu.models.Customer;
 import ir.ac.kntu.models.User;
 import ir.ac.kntu.util.PrintHelper.consoleColors;
 import ir.ac.kntu.util.PrintHelper;
@@ -21,9 +20,9 @@ public class EntryMenu {
 
         while(true){
 
-            System.out.println(consoleColors.BRIGHT_BLUE + "◸—————" + "    ⁂Welcome to " + consoleColors.RESET );
+            System.out.print(consoleColors.BRIGHT_BLUE + "◸—————" + "    ⁂Welcome to " + consoleColors.RESET );
             System.out.print(consoleColors.PURPLE+ "VENDILO");
-            System.out.print(consoleColors.BRIGHT_BLUE + "⁂    —————◹" + consoleColors.RESET);
+            System.out.println(consoleColors.BRIGHT_BLUE + "⁂    —————◹" + consoleColors.RESET);
             PrintHelper.option(1, "Log in");
             PrintHelper.option(2, "Sign up");
             PrintHelper.option(3, "Exit");
@@ -31,18 +30,24 @@ public class EntryMenu {
 
             User user=new User();
             int choice= ScannerWrapper.nextInt();
-            ScannerWrapper.next();
 
             switch (choice){
-                case 1 -> user=loginMenu();
-                case 2 -> user=signupMenu();
+                case 1 -> {
+                    user = loginMenu();
+                    PrintHelper.printSuccess("Entering your profile successfully ...");
+                    navigator.decideForUser(user);
+                }
+                case 2 -> {
+                    user = signupMenu();
+                    PrintHelper.printSuccess("Entering your profile successfully ...");
+                    navigator.decideForUser(user);
+                }
                 case 3 -> {
                     return;
                 }
                 default -> PrintHelper.printError("Invalid command!");
             }
 
-            navigator.decideForUser(user);
 
         }
     }
@@ -57,13 +62,13 @@ public class EntryMenu {
             PrintHelper.option(3, "return");
             PrintHelper.option(4, "exit");
             int choice = ScannerWrapper.nextInt();
-            ScannerWrapper.nextLine();
 
             HashMap<String, String> info = new HashMap<>();
 
             switch (choice) {
                 case 1 -> {
                     info = PrintHelper.askForInformation("customer");
+                    System.out.println(info);
                     return navigator.leadToSignUP(info, "customer");
                 }
                 case 2 -> {
@@ -92,7 +97,6 @@ public class EntryMenu {
             PrintHelper.option(4, "return");
             PrintHelper.option(5, "exit");
             int choice = ScannerWrapper.nextInt();
-            ScannerWrapper.nextLine();
 
             switch (choice) {
                 case 1 -> {
@@ -121,7 +125,6 @@ public class EntryMenu {
         PrintHelper.option(3, "return");
         PrintHelper.miniLowerBorder("Choose your way to login");
         int chosen = ScannerWrapper.nextInt();
-        ScannerWrapper.nextLine();
 
         HashMap<String, String> info = new HashMap<>();
         User user;

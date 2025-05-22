@@ -73,12 +73,13 @@ public class Navigate {
     }
 
     public void decideForUser(User user){
+
         if(user instanceof Customer){
 
         }else if(user instanceof Seller){
 
         }else{
-
+            AdminController adminController=new AdminController(customerDB, sellerDB, adminDB, productDB);
         }
     }
 
