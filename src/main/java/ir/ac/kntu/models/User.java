@@ -1,6 +1,6 @@
 package ir.ac.kntu.models;
 
-public abstract class User {
+public class User {
 
     private String fName;
     private String lName;
@@ -11,6 +11,9 @@ public abstract class User {
         this.fName = fName;
         this.lName = lName;
         this.password=password;
+    }
+
+    public User(){
     }
 
     public String getPassword() {

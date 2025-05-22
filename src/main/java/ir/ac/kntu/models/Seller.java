@@ -10,8 +10,8 @@ public class Seller extends User{
     //after the seller gets verified by an admin, we generate a shopID for him/her
     //then the seller can access menu and things related to it.
 
-    public Seller(String fName, String lName, String password, String ID, String phoneNumber,
-                  Address shopLocation) {
+    public Seller(String fName, String lName, String ID, String phoneNumber,
+                  Address shopLocation, String password) {
         super(fName, lName, password);
         setWallet(new Wallet(false));
         this.ID = ID;

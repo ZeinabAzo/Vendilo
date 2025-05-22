@@ -9,8 +9,8 @@ public class Customer extends User {
     private ArrayList<Address> addresses = new ArrayList<>();
     private ArrayList<Cart> carts=new ArrayList<>();
 
-    public Customer(String fName, String lName, String password, String email,
-                    String phoneNumber){
+    public Customer(String fName, String lName, String email,
+                    String phoneNumber, String password){
         super(fName, lName, password);
         setWallet(new Wallet(true));
         this.email = email;

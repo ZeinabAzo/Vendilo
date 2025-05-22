@@ -1,5 +1,7 @@
 package ir.ac.kntu.util;
 
+import java.util.HashMap;
+
 public class PrintHelper {
 
     public static class consoleColors {
@@ -37,15 +39,83 @@ public class PrintHelper {
         public static final String BG_CYAN = "\u001B[46m";
     }
 
-    public static void printAnnouncement(String message){
-        System.out.println(consoleColors.BRIGHT_PURPLE + "[Announcement] " + message + consoleColors.RESET);
+    public static void printAnnouncement(String massage){
+        System.out.println(consoleColors.BRIGHT_PURPLE + "[Announcement] " + massage + consoleColors.RESET);
     }
 
-    public static void printSuccess(String message) {
-        System.out.println(consoleColors.GREEN + "[SUCCESS] " + message + consoleColors.RESET);
+    public static void printSuccess(String massage) {
+        System.out.println(consoleColors.GREEN + "[SUCCESS] " + massage + consoleColors.RESET);
     }
 
-    public static void printError(String message) {
-        System.out.println(consoleColors.RED + "[ERROR] " + message + consoleColors.RESET);
+    public static void printError(String massage) {
+        System.out.println(consoleColors.RED + "[ERROR] " + massage + consoleColors.RESET);
     }
+
+    public static void option(int index, String massage){
+        System.out.println(consoleColors.DIM+ consoleColors.BRIGHT_YELLOW  +"         ▻ "+ index +
+                ". " + massage + consoleColors.RESET );
+    }
+
+    public static void upperBorder(String massage){
+        System.out.println(consoleColors.BRIGHT_BLUE + "◸—————    ⁂" + massage +"⁂    ————◹"+ consoleColors.RESET);
+    }
+
+    public static void miniUpperBorder(String massage){
+        System.out.println(consoleColors.BRIGHT_BLUE + "◸———  ⁎◊" + massage +"◊⁎  ———◹"+ consoleColors.RESET);
+    }
+
+    public static void lowerBorder(String massage){
+        int spaces= massage.length();
+        System.out.println(consoleColors.BRIGHT_BLUE + "◺—————");
+        for (int i=0; i<spaces+10; i++){
+            System.out.println("—");
+        }
+        System.out.println("—————◿" +consoleColors.RESET);
+    }
+
+    public static void miniLowerBorder(String massage){
+        int spaces= massage.length();
+        System.out.println(consoleColors.BRIGHT_BLUE + "◺——");
+        for (int i=0; i<spaces+8; i++){
+            System.out.println("—");
+        }
+        System.out.println("——◿" +consoleColors.RESET);
+    }
+
+    public static HashMap<String, String> askForInformation(String user){
+        String[] admin= new String[]{"name", "username", "password"};
+        String[] customer= new String[]{"firstname", "lastname", "email", "phone number", "password"};
+        String[] seller= new String[]{"firstname", "lastname", "ID", "state", "phone number", "password"};
+        HashMap<String, String> information=new HashMap<>();
+
+        switch (user.toLowerCase()){
+            case "admin" -> {
+                for(int i=0; i<admin.length; i++){
+                    option(i+1, admin[i]);
+                    String data= ScannerWrapper.nextLine();
+                    information.put(admin[i], data);
+                }
+            }
+            case "customer" -> {
+                for(int i=0; i<customer.length; i++){
+                    option(i+1, customer[i]);
+                    String data= ScannerWrapper.nextLine();
+                    information.put(customer[i], data);
+                }
+            }
+            case "seller" -> {
+                for(int i=0; i<seller.length; i++){
+                    option(i+1, seller[i]);
+                    String data= ScannerWrapper.nextLine();
+                    information.put(seller[i], data);
+                }
+            }
+            default -> {
+                return null;
+            }
+        }
+        return information;
+    }
+
 }
+
