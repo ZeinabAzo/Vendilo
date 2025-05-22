@@ -18,8 +18,6 @@ public class CustomerService {
         this.customerDB = customerDB;
     }
 
-
-
     public boolean purchaseCart(Cart cart, Customer customer, Address address) {
         if (cart == null || customer == null) {
             printError("Cart or customer not recognized.");
