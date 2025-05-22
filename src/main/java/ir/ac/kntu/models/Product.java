@@ -5,11 +5,13 @@ public abstract class Product {
     private String name;
     private double price;
     private int inventory;
+    private Seller seller;
 
-    public Product(String name, double price, int inventory){
+    public Product(String name, double price, int inventory, Seller seller){
         this.name=name;
         this.price=price;
         this.inventory=inventory;
+        this.seller=seller;
     }
 
     public String getName() {
@@ -28,11 +30,23 @@ public abstract class Product {
         this.inventory = inventory;
     }
 
+    public boolean sellProduct(){
+        if(inventory>0) {
+            inventory -= 1;
+            return true;
+        }
+        return false;
+    }
+
     public void setPrice(double price) {
         this.price = price;
     }
 
     public int getInventory() {
         return inventory;
+    }
+
+    public Seller getSeller() {
+        return seller;
     }
 }

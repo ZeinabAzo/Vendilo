@@ -10,10 +10,10 @@ public class Laptop extends Digital{
     private WebcamStatus webcamStatus;
 
 
-    public Laptop(String name, double price, int inventory, String brand,
+    public Laptop(String name, double price, Seller seller, int inventory, String brand,
                   double internalStorage, String ram, GPUModel GPUModel,
                   boolean btSupport, WebcamStatus webcamStatus) {
-        super(name, price, inventory, brand, internalStorage, ram);
+        super(name, price, seller, inventory, brand, internalStorage, ram);
         this.GPUModel = GPUModel;
         this.btSupport = btSupport;
         this.webcamStatus = webcamStatus;

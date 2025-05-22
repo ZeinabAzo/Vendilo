@@ -1,5 +1,7 @@
 package ir.ac.kntu.models;
 
+import static ir.ac.kntu.ui.Page.printError;
+
 public class Wallet {
     private double balance;
     private boolean canCharge;
@@ -28,11 +30,11 @@ public class Wallet {
 
     public boolean withdraw(double amount) {
         if (amount <= 0) {
-            //"Amount must be positive."
+            printError("Amount must be positive.");
             return false;
         }
         if (amount > balance) {
-            //"Error: Withdrawal amount exceeds wallet balance."
+            printError("Error: Withdrawal amount exceeds wallet balance.");
             return false;
         }
         balance -= amount;

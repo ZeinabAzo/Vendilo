@@ -1,5 +1,7 @@
 package ir.ac.kntu.ui;
 
+import ir.ac.kntu.controllers.AuthController;
+
 import java.util.Scanner;
 
 public class LoginPage extends Page{
@@ -23,11 +25,23 @@ public class LoginPage extends Page{
 
         int choice=scanner.nextInt();
         switch (choice){
-            case 1 -> { int i=0; }
+            case 1 -> {
+            }
             // ...
             default -> {
                 printError("Invalid choice. Please enter a number between 1 and 5.");
             }
         }
+    }
+
+    private boolean case1(){
+
+        System.out.println("Enter your name:");
+        String name=scanner.nextLine();
+        System.out.println("Enter your username");
+        String username=scanner.nextLine();
+        System.out.println("Enter your password");
+        String password=scanner.nextLine();
+        return false;
     }
 }

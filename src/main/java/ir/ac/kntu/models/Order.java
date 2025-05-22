@@ -1,6 +1,8 @@
 package ir.ac.kntu.models;
 
 import java.time.LocalDate;
+import static ir.ac.kntu.ui.Page.printError;
+
 
 public class Order {
 
@@ -8,19 +10,41 @@ public class Order {
     private Customer customer;
     private Seller seller;
     private LocalDate orderDate;
-    private Address startLocation;   // Seller’s shop
-    private Address shippingAddress; // Customer’s delivery address
+    private Address shippingAddress;
 
     public Order(Product product, Customer customer, Seller seller, LocalDate orderDate,
                  Address shippingAddress) {
         this.product = product;
         this.customer = customer;
-        this.seller=seller;
+        this.seller = seller;
         this.orderDate = orderDate;
-        startLocation = seller.getAddress();
-        this.shippingAddress=shippingAddress;
+        this.shippingAddress = shippingAddress;
     }
 
+    public static Order createOrder(Product product, Customer customer, Address shippingAddress, Cart cart) {
+        if (product == null || customer == null || shippingAddress == null) {
+            printError("The entered data was not recognized.");
+            return null;
+        }
+
+        if (product.getInventory() <= 0) {
+            printError("Product is out of stock.");
+            return null;
+        }
+
+        if (customer.getCart(cart) == null) {
+            printError("The entered cart was not recognized.");
+            return null;
+        }
+
+        Order newOrder = new Order(product, customer, product.getSeller(), LocalDate.now(), shippingAddress);
+        customer.getCart(cart).addToCart(newOrder);
+        product.sellProduct();
+
+        return newOrder;
+    }
+
+    // Getters and setters...
     public Product getProduct() {
         return product;
     }
@@ -43,7 +67,6 @@ public class Order {
 
     public void setSeller(Seller seller) {
         this.seller = seller;
-        this.startLocation = seller.getAddress(); // Ensure consistency
     }
 
     public LocalDate getOrderDate() {
@@ -54,14 +77,6 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Address getStartLocation() {
-        return startLocation;
-    }
-
-    public void setStartLocation(Address startLocation) {
-        this.startLocation = startLocation;
-    }
-
     public Address getShippingAddress() {
         return shippingAddress;
     }
@@ -69,5 +84,4 @@ public class Order {
     public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
-
 }

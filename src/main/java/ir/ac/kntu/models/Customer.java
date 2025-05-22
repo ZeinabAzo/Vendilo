@@ -6,15 +6,13 @@ public class Customer extends User {
 
     private String email;
     private String phoneNumber;
-    private ArrayList<Address> address = new ArrayList<>();
+    private ArrayList<Address> addresses = new ArrayList<>();
     private ArrayList<Cart> carts=new ArrayList<>();
-    private ArrayList<Order> orders=new ArrayList<>();
 
     public Customer(String fName, String lName, String password, String email,
                     String phoneNumber){
         super(fName, lName, password);
         setWallet(new Wallet(true));
-        this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
@@ -35,22 +33,22 @@ public class Customer extends User {
         this.phoneNumber = phoneNumber;
     }
 
-    public ArrayList<Address> getAddress() {
-        return address;
+    public ArrayList<Address> getAddresses() {
+        return addresses;
     }
 
     public void setAddress(ArrayList<Address> address) {
-        this.address = address;
+        this.addresses = address;
     }
 
 
     public void addAddress(Address address) {
-        this.address.add(address);
+        this.addresses.add(address);
     }
 
 
     public void removeAddress(Address address) {
-        this.address.remove(address);
+        this.addresses.remove(address);
     }
 
     @Override
@@ -66,8 +64,8 @@ public class Customer extends User {
         return carts.get(index);
     }
 
-    public ArrayList<Order> getOrders() {
-        return orders;
+    public Cart getCart(Cart cart){
+        return carts.stream().filter(c -> c.equals(cart)).findFirst().orElse(null);
     }
 
     public void addCart(Cart cart) {

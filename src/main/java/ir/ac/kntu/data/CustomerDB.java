@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CustomerDB {
 
-    private final List<Customer> customers;
+    private ArrayList<Customer> customers;
 
     public CustomerDB() {
         this.customers = new ArrayList<>();
@@ -16,7 +16,7 @@ public class CustomerDB {
         this.customers = new ArrayList<>(customers);
     }
 
-    public List<Customer> getCustomers() {
+    public ArrayList<Customer> getCustomers() {
         return new ArrayList<>(customers);
     }
 
@@ -31,12 +31,12 @@ public class CustomerDB {
     }
 
     public Customer findByEmail(String email) {
-        for (Customer c : customers) {
-            if (c.getEmail().equals(email)) {
-                return c;
-            }
-        }
-        return null;
+        return customers.stream().filter( c -> c.getEmail().equals(email)).findFirst().orElse(null);
+
+    }
+
+    public Customer getCustomer(Customer customer){
+        return customers.stream().filter(c -> c.equals(customer)).findFirst().orElse(null);
     }
 
     public boolean updateCustomer(Customer updated) {

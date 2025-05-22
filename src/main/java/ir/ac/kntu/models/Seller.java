@@ -6,24 +6,26 @@ public class Seller extends User{
     private String phoneNumber;
     private Address shopLocation;
     private String shopID;
-    private Address address;
 
     //after the seller gets verified by an admin, we generate a shopID for him/her
-    //afterward the seller can access menu and things related to it.
+    //then the seller can access menu and things related to it.
 
     public Seller(String fName, String lName, String password, String ID, String phoneNumber,
-                  Address shopLocation, Address address) {
+                  Address shopLocation) {
         super(fName, lName, password);
-        setWallet(new Wallet(false)); // calls User constructor
+        setWallet(new Wallet(false));
         this.ID = ID;
         this.phoneNumber = phoneNumber;
         this.shopLocation = shopLocation;
-        this.shopID = null;
-        this.address=address;
+        this.shopID = null;//generate later
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getShopLocation() {
+        return shopLocation;
+    }
+
+    public String getShopID() {
+        return shopID;
     }
 
     @Override

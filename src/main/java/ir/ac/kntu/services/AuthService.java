@@ -1,17 +1,17 @@
 package ir.ac.kntu.services;
 
-import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.ui.Page;
 
 public class AuthService {
 
-    private CustomerDB customerDB;
-
-    public AuthService(CustomerDB customerDB) {
-        this.customerDB = customerDB;
+    public AuthService() {
     }
 
-    public boolean isNameValid(String name){
+    public String[] attachNames(String fName, String lName){
+        return new String[]{fName, lName};
+    }
+
+    public boolean isValidName(String name){
         if(name.matches("([a-zA-Z]+\\s*)*")){
             return true;
         }else{
@@ -52,4 +52,23 @@ public class AuthService {
             return false;
         }
     }
+
+    public boolean isValidID(String ID){
+        if (ID.matches("[0-9]{10}")) {
+            return true;
+        } else {
+            Page.printError("Invalid phone number. It must contain 10 digits.");
+            return false;
+        }
+    }
+
+    public boolean isValidCustomerAddress(String title, String state, String city){
+        return title.matches("([a-zA-Z]+\\s*)*") && state.matches("([a-zA-Z]+\\s*)*") &&
+                city.matches("([a-zA-Z]+\\s*)*");
+    }
+
+    public boolean isValidSellerAddress(String state){
+        return state.matches("([a-zA-Z]+\\s*)*");
+    }
+
 }

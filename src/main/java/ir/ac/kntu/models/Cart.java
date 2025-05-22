@@ -4,23 +4,27 @@ import java.util.ArrayList;
 
 public class Cart {   //contains orders, whether purchased or not
 
-    private ArrayList<Product> products= new ArrayList<>();
+    private ArrayList<Order> orders= new ArrayList<>();
     private boolean isPurchased=false;
 
-    public Cart(ArrayList<Product> products){
-        this.products=products;
+    public Cart(ArrayList<Order> orders){
+        this.orders=orders;
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
+    public ArrayList<Order> getOrders() {
+        return orders;
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
     }
 
-    public void addToCart(Product product){
-        products.add(product);
+    public void addToCart(Order order){
+        orders.add(order);
+    }
+
+    public void removeFromCart(Order order){
+        orders.remove(order);
     }
 
     public boolean isPurchased() {

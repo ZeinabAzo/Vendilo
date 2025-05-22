@@ -47,7 +47,7 @@ public class Page {
         public static final String BG_CYAN = "\u001B[46m";
     }
 
-    public void printAnnouncement(String message){
+    public static void printAnnouncement(String message){
         System.out.println(consoleColors.BRIGHT_PURPLE + "[Announcement] " + message + consoleColors.RESET);
     }
 
