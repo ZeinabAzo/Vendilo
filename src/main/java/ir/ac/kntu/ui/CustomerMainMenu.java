@@ -32,7 +32,7 @@ public class CustomerMainMenu {
 
         switch (choice){
             case 1 -> searchOptions();
-
+            case 2 -> cartMenu();
         }
 
     }
@@ -48,6 +48,13 @@ public class CustomerMainMenu {
         PrintHelper.option(1, "Show cart");
         PrintHelper.option(2, "Purchase cart");
         PrintHelper.miniLowerBorder("Customer cart:");
+        int choice = ScannerWrapper.nextInt();
+
+        switch (choice){
+            case 1 -> {
+
+            }
+        }
 
 
     }

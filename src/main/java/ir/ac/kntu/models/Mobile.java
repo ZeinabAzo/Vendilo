@@ -41,4 +41,9 @@ public class Mobile extends Digital{
     public void setMobileNetworkType(MobileNetworkType mobileNetworkType) {
         this.mobileNetworkType = mobileNetworkType;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

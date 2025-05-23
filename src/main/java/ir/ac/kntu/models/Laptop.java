@@ -20,9 +20,12 @@ public class Laptop extends Digital{
     }
 
     // Optional: add getters/setters if needed
-    public GPUModel hasGPUModel() {
+
+
+    public GPUModel getGPUModel() {
         return GPUModel;
     }
+
 
     public boolean hasBtSupport() {
         return btSupport;

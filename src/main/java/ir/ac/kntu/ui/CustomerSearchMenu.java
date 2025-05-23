@@ -55,9 +55,7 @@ public class CustomerSearchMenu {
         int choice=ScannerWrapper.nextInt();
 
         switch (choice){
-            case 1 -> {
-                customerController.orderProduct(productList.get(chosen));
-            }
+            case 1 -> customerController.orderProduct(productList.get(chosen));
             case 2 -> {
             }
         }
@@ -77,12 +75,14 @@ public class CustomerSearchMenu {
 
     private void priceRangeOptions(){
         PrintHelper.option(1, "Product name");
-        PrintHelper.option(2,  gi"Product type");
+        PrintHelper.option(2, "Product type");
         PrintHelper.option(3, "Product name and product type");
         int choice=ScannerWrapper.nextInt();
 
         switch (choice){
-            case 1 ->
+            case 1 ->{
+
+            }
         }
     }
 
