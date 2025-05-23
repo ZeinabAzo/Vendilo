@@ -29,6 +29,7 @@ public class CustomerSearchMenu {
 
         switch (choice){
             case 1 -> searchByName();
+            case 2 ->
         }
     }
 
@@ -38,7 +39,10 @@ public class CustomerSearchMenu {
         String name=ScannerWrapper.nextLine();
         HashMap<Seller, Product> filtered= customerController.searchByName(name);
         List<Product> productList = new ArrayList<>(filtered.values());
+        showProducts(productList);
+    }
 
+    private void showProducts(List<Product> productList){
         int chosen=SplitDisplay.show(productList);
         showProduct(productList.get(chosen));
         PrintHelper.option(1, "Add to cart");
@@ -47,23 +51,23 @@ public class CustomerSearchMenu {
 
         switch (choice){
             case 1 -> {
-                Product product =productList.get(chosen);
-                Cart cart=findCart();
-                Order order= new Order(product, customerController.getCustomer(), product.getSeller(), LocalDate.now());
-                cart.addToCart(order);
+                customerController.orderProduct(productList.get(chosen));
             }
             case 2 -> {
             }
         }
     }
 
-    private Cart findCart(){
-        int chosen=SplitDisplay.show(customerController.getCustomer().getCarts());
-        return customerController.getCustomer().getCart(chosen);
+    private void showProduct(Product product) {
+        //show fields and details
     }
 
-    private void showProduct(Product product){
-        //show it somehow
+    private void searchByType(){
+        PrintHelper.ask("Enter the product type:");
+        String type=ScannerWrapper.nextLine();
+        HashMap<Seller, Product> filtered= customerController.searchByName(type);
+        List<Product> productList = new ArrayList<>(filtered.values());
+        showProducts(productList);
     }
 
     private void priceRangeOptions(){
