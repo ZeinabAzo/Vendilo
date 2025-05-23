@@ -60,4 +60,39 @@ public class SearchProducts {
         return filtered;
     }
 
+    public HashMap<Seller, Product> searchByTypeAndPrice(Class<?> type, double[] priceRange) {
+        HashMap<Seller, Product> filtered = new HashMap<>();
+
+        for (Map.Entry<Seller, Product> entry : productDB.getProductDB().entrySet()) {
+            Product product = entry.getValue();
+
+            boolean matchesType = type.isInstance(product);
+            boolean matchesPrice = product.getPrice() >= priceRange[0] && product.getPrice() <= priceRange[1];
+
+            if (matchesType && matchesPrice) {
+                filtered.put(entry.getKey(), product);
+            }
+        }
+
+        return filtered;
+    }
+
+    public HashMap<Seller, Product> searchByNameAndPrice(String name, double[] priceRange) {
+        HashMap<Seller, Product> filtered = new HashMap<>();
+
+        for (Map.Entry<Seller, Product> entry : productDB.getProductDB().entrySet()) {
+            Product product = entry.getValue();
+
+            boolean matchesName = product.getName().equals(name);
+            boolean matchesPrice = product.getPrice() >= priceRange[0] && product.getPrice() <= priceRange[1];
+
+            if (matchesName && matchesPrice) {
+                filtered.put(entry.getKey(), product);
+            }
+        }
+
+        return filtered;
+    }
+
+
 }

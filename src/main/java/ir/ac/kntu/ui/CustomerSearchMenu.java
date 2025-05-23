@@ -5,8 +5,6 @@ import ir.ac.kntu.models.*;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 import ir.ac.kntu.util.SplitDisplay;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,12 +22,19 @@ public class CustomerSearchMenu {
         PrintHelper.option(1, "Product name");
         PrintHelper.option(2, "Product type");
         PrintHelper.option(3,"Price range");
+        PrintHelper.option(4, "return");
         PrintHelper.miniLowerBorder("Set needed filters :");
         int choice= ScannerWrapper.nextInt();
 
         switch (choice){
             case 1 -> searchByName();
-            case 2 ->
+            case 2 -> searchByType();
+            case 3 -> priceRangeOptions();
+            case 4 ->{
+            }
+            default -> {
+                //maybe place it in a loop
+            }
         }
     }
 
@@ -72,12 +77,16 @@ public class CustomerSearchMenu {
 
     private void priceRangeOptions(){
         PrintHelper.option(1, "Product name");
-        PrintHelper.option(2, "Product type");
+        PrintHelper.option(2,  gi"Product type");
         PrintHelper.option(3, "Product name and product type");
         int choice=ScannerWrapper.nextInt();
 
         switch (choice){
-
+            case 1 ->
         }
+    }
+
+    private void namePrice(){
+
     }
 }
