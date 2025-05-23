@@ -10,15 +10,12 @@ public class Order {
     private Customer customer;
     private Seller seller;
     private LocalDate orderDate;
-    private Address shippingAddress;
 
-    public Order(Product product, Customer customer, Seller seller, LocalDate orderDate,
-                 Address shippingAddress) {
+    public Order(Product product, Customer customer, Seller seller, LocalDate orderDate) {
         this.product = product;
         this.customer = customer;
         this.seller = seller;
         this.orderDate = orderDate;
-        this.shippingAddress = shippingAddress;
     }
 
     public static Order createOrder(Product product, Customer customer, Address shippingAddress, Cart cart) {
@@ -37,7 +34,7 @@ public class Order {
             return null;
         }
 
-        Order newOrder = new Order(product, customer, product.getSeller(), LocalDate.now(), shippingAddress);
+        Order newOrder = new Order(product, customer, product.getSeller(), LocalDate.now());
         customer.getCart(cart).addToCart(newOrder);
         product.sellProduct();
 
@@ -77,11 +74,4 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Address getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(Address shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
 }

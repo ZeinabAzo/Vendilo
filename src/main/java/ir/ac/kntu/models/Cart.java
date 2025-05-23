@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Cart {   //contains orders, whether purchased or not
 
     private ArrayList<Order> orders= new ArrayList<>();
+    private Address shippingAddress;
     private boolean isPurchased=false;
 
     public Cart(ArrayList<Order> orders){
@@ -13,6 +14,14 @@ public class Cart {   //contains orders, whether purchased or not
 
     public ArrayList<Order> getOrders() {
         return orders;
+    }
+
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public Address getShippingAddress() {
+        return shippingAddress;
     }
 
     public void setOrders(ArrayList<Order> orders) {

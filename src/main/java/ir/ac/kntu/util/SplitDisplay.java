@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SplitDisplay {
 
-    public static int splitDisplay(List<?> list){
+    public static int show(List<?> list){
 
         int currentState=0;
         int k=1;

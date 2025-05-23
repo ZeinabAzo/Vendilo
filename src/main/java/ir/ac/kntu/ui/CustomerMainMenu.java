@@ -38,34 +38,8 @@ public class CustomerMainMenu {
     }
 
     private void searchOptions(){
-
-        PrintHelper.miniUpperBorder("Set needed filters :");
-        PrintHelper.option(1, "Product name");
-        PrintHelper.option(2, "Product type");
-        PrintHelper.option(3,"Price range");
-        PrintHelper.miniLowerBorder("Set needed filters :");
-        int choice=ScannerWrapper.nextInt();
-
-        switch (choice){
-            case 1 ->  {
-                PrintHelper.ask("Enter the product name:");
-                String name=ScannerWrapper.nextLine();
-                HashMap<Seller, Product> filtered= customerController.searchByName(name);//idk its getting dirty
-            }
-        }
-
-
-    }
-
-    private void priceRangeOptions(){
-        PrintHelper.option(1, "Product name");
-        PrintHelper.option(2, "Product type");
-        PrintHelper.option(3, "Product name and product type");
-        int choice=ScannerWrapper.nextInt();
-
-        switch (choice){
-
-        }
+        CustomerSearchMenu customerSearchMenu=new CustomerSearchMenu(customerController);
+        customerSearchMenu.firstPage();
     }
 
     private void cartMenu(){
