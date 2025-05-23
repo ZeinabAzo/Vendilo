@@ -6,11 +6,9 @@ import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.services.AdminAuthService;
 import ir.ac.kntu.services.CustomerAuthService;
-import ir.ac.kntu.services.SearchProducts;
 import ir.ac.kntu.services.SellerAuthService;
 
-public class AdminController {
-
+public class SellerController {
     private CustomerDB customerDB;
     private SellerDB sellerDB;
     private AdminDB adminDB;
@@ -18,9 +16,8 @@ public class AdminController {
     private AdminAuthService adminAuthService;
     private CustomerAuthService customerAuthService;
     private SellerAuthService sellerAuthService;
-    private SearchProducts searchProducts;
 
-    public AdminController(CustomerDB customerDB, SellerDB sellerDB, AdminDB adminDB, ProductDB productDB){
+    public SellerController(CustomerDB customerDB, SellerDB sellerDB, AdminDB adminDB, ProductDB productDB){
         this.customerDB=customerDB;
         this.sellerDB=sellerDB;
         this.adminDB=adminDB;
@@ -28,8 +25,9 @@ public class AdminController {
     }
 
     public void setServices(){//add necessary services
-        SearchProducts searchProducts1= new SearchProducts(productDB);
+        adminAuthService=new AdminAuthService(adminDB);
+        customerAuthService=new CustomerAuthService(customerDB);
+        sellerAuthService=new SellerAuthService(sellerDB);
     }
-
 
 }
