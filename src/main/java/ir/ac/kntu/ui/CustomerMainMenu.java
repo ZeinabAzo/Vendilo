@@ -1,8 +1,12 @@
 package ir.ac.kntu.ui;
 
 import ir.ac.kntu.controllers.CustomerController;
+import ir.ac.kntu.models.Product;
+import ir.ac.kntu.models.Seller;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
+
+import java.util.HashMap;
 
 public class CustomerMainMenu {
 
@@ -44,7 +48,9 @@ public class CustomerMainMenu {
 
         switch (choice){
             case 1 ->  {
-
+                PrintHelper.ask("Enter the product name:");
+                String name=ScannerWrapper.nextLine();
+                HashMap<Seller, Product> filtered= customerController.searchByName(name);//idk its getting dirty
             }
         }
 

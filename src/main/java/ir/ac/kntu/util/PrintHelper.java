@@ -39,8 +39,8 @@ public class PrintHelper {
         public static final String BG_CYAN = "\u001B[46m";
     }
 
-    public static void printAnnouncement(String massage){
-        System.out.println(consoleColors.BRIGHT_PURPLE + "[Announcement] " + massage + consoleColors.RESET);
+    public static void ask(String massage){
+        System.out.println(consoleColors.BRIGHT_PURPLE + "[:D] " + massage + consoleColors.RESET);
     }
 
     public static void printSuccess(String massage) {

@@ -54,6 +54,9 @@ public class SellerAuthService extends AuthService {
 
         if (isValidInput(firstName, lastName, password, shopID, phoneNumber, state)) {
             Seller seller = new Seller(firstName, lastName, shopID, phoneNumber, shopLocation, password);
+            GenerateShopID generateShopID=new GenerateShopID(sellerDB);
+            String id=generateShopID.generateID();
+            seller.setShopID(id);
             sellerDB.addSeller(seller);
             return seller;
         }

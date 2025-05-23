@@ -20,6 +20,10 @@ public class Seller extends User{
         this.shopID = null;//generate later
     }
 
+    public void setShopID(String shopID) {
+        this.shopID = shopID;
+    }
+
     public Address getShopLocation() {
         return shopLocation;
     }
