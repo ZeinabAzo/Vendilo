@@ -14,20 +14,25 @@ public class SellerMainMenu {
     }
 
     public void showPage(){
-        PrintHelper.upperBorder("Seller profile");
-        PrintHelper.option(1, "Products");
-        PrintHelper.option(2, "Wallet");
-        PrintHelper.option(3, "Orders");
-        PrintHelper.option(4, "return");
-        PrintHelper.lowerBorder("Seller profile");
-        int choice= ScannerWrapper.nextInt();
+        while (true){
+            PrintHelper.upperBorder("Seller profile");
+            PrintHelper.option(1, "Products");
+            PrintHelper.option(2, "Wallet");
+            PrintHelper.option(3, "Orders");
+            PrintHelper.option(4, "return");
+            PrintHelper.lowerBorder("Seller profile");
+            int choice = ScannerWrapper.nextInt();
 
-        switch (choice){
-            case 1 -> {
-                ProductSellerMenu productSellerMenu=new ProductSellerMenu(sellerController);
-                productSellerMenu.productOptions();
+            switch (choice) {
+                case 1 -> {
+                    ProductSellerMenu productSellerMenu = new ProductSellerMenu(sellerController);
+                    productSellerMenu.productOptions();
+                }
+                case 4 -> {
+                    return;
+                }
+
             }
-
         }
 
     }
