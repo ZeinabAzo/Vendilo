@@ -78,9 +78,9 @@ public class Navigate {
             CustomerController customerController=new CustomerController((Customer) user, productDB);
             customerController.setServices();
         }else if(user instanceof Seller){
-
+            SellerController sellerController=new SellerController(sellerDB, productDB ,(Seller) user);
         }else{
-            AdminController adminController=new AdminController(customerDB, sellerDB, adminDB, productDB);
+            AdminController adminController=new AdminController( sellerDB, productDB, (Admin) user);
         }
     }
 

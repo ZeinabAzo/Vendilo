@@ -26,8 +26,12 @@ public abstract class Product {
         return price;
     }
 
-    public void setInventory(int inventory) {
-        this.inventory = inventory;
+    public boolean setInventory(int inventory) {
+        if(inventory>=0) {
+            this.inventory = inventory;
+            return true;
+        }
+        return false;
     }
 
     public boolean sellProduct(){

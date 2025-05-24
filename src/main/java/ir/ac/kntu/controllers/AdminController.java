@@ -4,32 +4,34 @@ import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.data.SellerDB;
+import ir.ac.kntu.models.Admin;
+import ir.ac.kntu.models.Product;
+import ir.ac.kntu.models.Seller;
 import ir.ac.kntu.services.AdminAuthService;
 import ir.ac.kntu.services.CustomerAuthService;
 import ir.ac.kntu.services.SearchProducts;
 import ir.ac.kntu.services.SellerAuthService;
 
+import java.util.ArrayList;
+
 public class AdminController {
 
-    private CustomerDB customerDB;
-    private SellerDB sellerDB;
     private AdminDB adminDB;
+    private Admin admin;
     private ProductDB productDB;
-    private AdminAuthService adminAuthService;
-    private CustomerAuthService customerAuthService;
-    private SellerAuthService sellerAuthService;
     private SearchProducts searchProducts;
 
-    public AdminController(CustomerDB customerDB, SellerDB sellerDB, AdminDB adminDB, ProductDB productDB){
-        this.customerDB=customerDB;
-        this.sellerDB=sellerDB;
+    public AdminController( AdminDB adminDB, ProductDB productDB, Admin admin){
         this.adminDB=adminDB;
         this.productDB=productDB;
+        this.admin=admin;
     }
 
     public void setServices(){//add necessary services
-        SearchProducts searchProducts1= new SearchProducts(productDB);
+        searchProducts= new SearchProducts(productDB);
     }
+
+
 
 
 }

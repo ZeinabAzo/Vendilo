@@ -153,8 +153,10 @@ public class CustomerSearchMenu {
     private void showProducts(List<Product> productList) {
         while (true) {
             int chosen = SplitDisplay.show(productList);
-            if (chosen < 0 || chosen >= productList.size()) {
+            if (chosen < -1 || chosen >= productList.size()) {
                 PrintHelper.printError("Invalid selection.");
+                return;
+            }else if(chosen==-1){
                 return;
             }
 

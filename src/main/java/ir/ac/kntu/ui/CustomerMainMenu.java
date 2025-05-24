@@ -2,8 +2,6 @@ package ir.ac.kntu.ui;
 
 import ir.ac.kntu.controllers.CustomerController;
 import ir.ac.kntu.models.Cart;
-import ir.ac.kntu.models.Product;
-import ir.ac.kntu.models.Seller;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 import ir.ac.kntu.util.SplitDisplay;
