@@ -32,6 +32,10 @@ public class Seller extends User{
         return productsForSale;
     }
 
+    public void addProduct(Product product){
+        productsForSale.add(product);
+    }
+
     public Address getShopLocation() {
         return shopLocation;
     }

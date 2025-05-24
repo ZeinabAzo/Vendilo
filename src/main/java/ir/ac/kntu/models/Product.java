@@ -1,11 +1,14 @@
 package ir.ac.kntu.models;
 
-public abstract class Product {
+public class Product {
 
     private String name;
     private double price;
     private int inventory;
     private Seller seller;
+
+    public Product(){
+    }
 
     public Product(String name, double price, int inventory, Seller seller){
         this.name=name;
@@ -13,6 +16,7 @@ public abstract class Product {
         this.inventory=inventory;
         this.seller=seller;
     }
+
 
     public String getName() {
         return name;

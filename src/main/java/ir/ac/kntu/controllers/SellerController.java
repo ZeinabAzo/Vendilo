@@ -30,6 +30,10 @@ public class SellerController {
     public void setServices(){//add necessary services
     }
 
+    public Seller getSeller() {
+        return seller;
+    }
+
     public Product showProducts(){
         ArrayList<Product> products = seller.getProductsForSale();
         int chosen = SplitDisplay.show(products);
@@ -54,4 +58,8 @@ public class SellerController {
         return product.setInventory(product.getInventory()+count);
     }
 
+    public void addProduct(Product newProduct) {
+        productDB.addProduct(seller, newProduct);
+        seller.addProduct(newProduct);
+    }
 }
