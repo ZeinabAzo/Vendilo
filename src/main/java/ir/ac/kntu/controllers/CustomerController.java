@@ -3,6 +3,7 @@ package ir.ac.kntu.controllers;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.services.SearchProducts;
+import ir.ac.kntu.ui.ShowProductInfo;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.SplitDisplay;
 
@@ -25,11 +26,35 @@ public class CustomerController {
     }
 
     public void setServices() {//add necessary services
-        SearchProducts searchProducts = new SearchProducts(productDB);
+        this.searchProducts = new SearchProducts(productDB);
     }
 
     public HashMap<Seller, Product> searchByName(String name) {
         return searchProducts.searchProductByName(name);
+    }
+
+    public HashMap<Seller, Product> searchByNameAndPrice(String name, double[] priceRange) {
+        return searchProducts.searchByNameAndPrice(name, priceRange);
+    }
+
+    public HashMap<Seller, Product> searchByTypeAndPrice(String type, double[] priceRange) {
+        try {
+            Class<?> className = Class.forName("ir.ac.kntu.models." + type);
+            return searchProducts.searchByTypeAndPrice(className, priceRange);
+        } catch (ClassNotFoundException e) {
+            PrintHelper.printError("Invalid type: " + type);
+            return null;
+        }
+    }
+
+    public HashMap<Seller, Product> searchByAllFilters(String type, String name, double[] priceRange) {
+        try {
+            Class<?> className = Class.forName("ir.ac.kntu.models." + type);
+            return searchProducts.allFilteredSearch(priceRange, name, className);
+        } catch (ClassNotFoundException e) {
+            PrintHelper.printError("Invalid type: " + type);
+            return null;
+        }
     }
 
     public void orderProduct(Product product) {
@@ -51,5 +76,9 @@ public class CustomerController {
             PrintHelper.printError("Invalid type: " + type);
             return null;
         }
+    }
+
+    public void showProductInfo(){
+        ShowProductInfo showProductInfo=new ShowProductInfo(productDB);
     }
 }

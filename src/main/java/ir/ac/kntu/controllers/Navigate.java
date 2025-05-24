@@ -75,7 +75,8 @@ public class Navigate {
     public void decideForUser(User user){
 
         if(user instanceof Customer){
-
+            CustomerController customerController=new CustomerController((Customer) user, productDB);
+            customerController.setServices();
         }else if(user instanceof Seller){
 
         }else{

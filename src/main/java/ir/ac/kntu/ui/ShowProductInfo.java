@@ -1,8 +1,6 @@
 package ir.ac.kntu.ui;
 
 import ir.ac.kntu.data.ProductDB;
-import ir.ac.kntu.enums.BookGenre;
-import ir.ac.kntu.enums.GPUModel;
 import ir.ac.kntu.models.Book;
 import ir.ac.kntu.models.Laptop;
 import ir.ac.kntu.models.Mobile;
