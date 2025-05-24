@@ -43,7 +43,11 @@ public class EntryMenu {
                     navigator.decideForUser(user);
                 }
                 case 3 -> {
-                    return;
+                    PrintHelper.ask("Are you sure you want to exit? (yes/no)");
+                    String confirm = ScannerWrapper.nextLine().toLowerCase();
+                    if (confirm.equals("yes") || confirm.equals("y")) {
+                        return;
+                    }
                 }
                 default -> PrintHelper.printError("Invalid command!");
             }
@@ -76,7 +80,7 @@ public class EntryMenu {
                     return navigator.leadToSignUP(info, "seller");
                 }
                 case 3 -> {
-                    //idk . do sth to return? chat gpt please help!
+                    return null;
                 }
                 case 4 -> run=false;
                 default -> PrintHelper.printError("Invalid choice! try again:");
@@ -109,7 +113,7 @@ public class EntryMenu {
                     return handleAdminLogin();
                 }
                 case 4 -> {
-                    //idk . do sth to return? chat gpt please help!
+                    return null;
                 }
                 case 5 -> run = false;
                 default -> PrintHelper.printError("Invalid choice! try again:");
@@ -151,6 +155,7 @@ public class EntryMenu {
                 return navigator.login("customer", info, "phoneNumber");
             }
             case 3 ->{
+                return null;
             }
             default -> PrintHelper.printError("Invalid choice.");
         }

@@ -51,6 +51,10 @@ public class PrintHelper {
         System.out.println(consoleColors.GREEN + "[SUCCESS] " + massage + consoleColors.RESET);
     }
 
+    public static void printInfo(String massage) {
+        System.out.println(consoleColors.DIM+ consoleColors.GREEN + "[INFORMATION] " + massage + consoleColors.RESET);
+    }
+
     public static void printError(String massage) {
         System.out.println(consoleColors.RED + "[ERROR] " + massage + consoleColors.RESET);
     }
