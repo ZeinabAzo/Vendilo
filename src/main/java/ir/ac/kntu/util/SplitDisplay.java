@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SplitDisplay {
 
-    public static int show(List<?> list){
+    public static int show(List<?> list){//check for return int -1 as "return" and not an index in usages
 
         int currentState=0;
         int k=1;

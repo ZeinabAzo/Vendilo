@@ -1,10 +1,12 @@
 package ir.ac.kntu.ui;
 
 import ir.ac.kntu.controllers.CustomerController;
+import ir.ac.kntu.models.Cart;
 import ir.ac.kntu.models.Product;
 import ir.ac.kntu.models.Seller;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
+import ir.ac.kntu.util.SplitDisplay;
 
 import java.util.HashMap;
 
@@ -20,7 +22,7 @@ public class CustomerMainMenu {
         while (true) {
             PrintHelper.upperBorder("Customer profile");
             PrintHelper.option(1, "Search products");
-            PrintHelper.option(2, "Cart");
+            PrintHelper.option(2, "Carts");
             PrintHelper.option(3, "Addresses");
             PrintHelper.option(4, "Wallet");
             PrintHelper.option(5, "Orders");
@@ -33,7 +35,7 @@ public class CustomerMainMenu {
 
             switch (choice) {
                 case 1 -> searchOptions();
-                case 2 -> cartMenu();
+                case 2 -> showAllCarts();
                 case 3 -> addressOptions();
                 case 4 -> walletMenu();
                 case 5 -> orders();
@@ -52,7 +54,31 @@ public class CustomerMainMenu {
         customerSearchMenu.firstPage();
     }
 
-    private void cartMenu() {
+    private void showAllCarts(){
+        while(true) {
+            PrintHelper.option(1, "See all carts");
+            PrintHelper.option(2, "return");
+            int choice=ScannerWrapper.nextInt();
+
+            switch (choice) {
+                case 1 -> {
+                    int index = SplitDisplay.show(customerController.getCustomer().getCarts());
+                    if (index == -1 || index >= customerController.getCustomer().getCarts().size()) {
+                        PrintHelper.printError("Invalid cart selected or operation canceled.");
+                        return;
+                    }
+                    cartMenu(customerController.getCustomer().getCart(index));
+                }
+                case 2 -> {
+                    return;
+                }
+                default -> PrintHelper.printError("Invalid option!");
+
+            }
+        }
+    }
+
+    private void cartMenu(Cart cart) {
         while (true) {
             PrintHelper.miniUpperBorder("Customer cart:");
             PrintHelper.option(1, "Show cart");
