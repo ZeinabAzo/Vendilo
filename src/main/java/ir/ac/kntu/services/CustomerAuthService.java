@@ -54,7 +54,7 @@ public class CustomerAuthService extends AuthService {
         String phoneNumber = info.get("phone number");
 
         if(isValidInput(firstName, lastName, password, email, phoneNumber)){
-            Customer customer = new Customer(firstName, lastName, password, email, phoneNumber);
+            Customer customer = new Customer(firstName, lastName, email, phoneNumber, password);
             customerDB.addCustomer(customer);
             return customer;
         }

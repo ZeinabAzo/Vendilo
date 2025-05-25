@@ -20,9 +20,9 @@ public class EntryMenu {
 
         while(true){
 
-            System.out.print(consoleColors.BRIGHT_BLUE + "◸—————" + "    ⁂Welcome to " + consoleColors.RESET );
+            System.out.print(consoleColors.CYAN + "◸—————" + "    ⁂Welcome to " + consoleColors.RESET );
             System.out.print(consoleColors.PURPLE+ "VENDILO");
-            System.out.println(consoleColors.BRIGHT_BLUE + "⁂    —————◹" + consoleColors.RESET);
+            System.out.println(consoleColors.CYAN + "⁂    —————◹" + consoleColors.RESET);
             PrintHelper.option(1, "Log in");
             PrintHelper.option(2, "Sign up");
             PrintHelper.option(3, "Exit");
@@ -34,16 +34,24 @@ public class EntryMenu {
             switch (choice){
                 case 1 -> {
                     user = loginMenu();
-                    PrintHelper.printSuccess("Entering your profile successfully ...");
-                    navigator.decideForUser(user);
+                    if(user != null ){
+                        PrintHelper.printSuccess("Entering your profile successfully ...");
+                        navigator.decideForUser(user);
+                    }else{
+                        PrintHelper.printError("try again you idiot");
+                    }
                 }
                 case 2 -> {
                     user = signupMenu();
-                    PrintHelper.printSuccess("Entering your profile successfully ...");
-                    navigator.decideForUser(user);
+                    if (user != null){
+                        PrintHelper.printSuccess("Entering your profile successfully ...");
+                        navigator.decideForUser(user);
+                    }else{
+                        PrintHelper.printError("try again you idiot");
+                    }
                 }
                 case 3 -> {
-                    PrintHelper.ask("Are you sure you want to exit? (yes/no)");
+                    PrintHelper.ask("Are you sure you want to exit? (yes/hell no)");
                     String confirm = ScannerWrapper.nextLine().toLowerCase();
                     if (confirm.equals("yes") || confirm.equals("y")) {
                         return;
@@ -72,7 +80,6 @@ public class EntryMenu {
             switch (choice) {
                 case 1 -> {
                     info = PrintHelper.askForInformation("customer");
-                    System.out.println(info);
                     return navigator.leadToSignUP(info, "customer");
                 }
                 case 2 -> {
@@ -82,7 +89,13 @@ public class EntryMenu {
                 case 3 -> {
                     return null;
                 }
-                case 4 -> run=false;
+                case 4 -> {
+                    PrintHelper.ask("Are you sure you want to exit? (yes/hell no)");
+                    String confirm = ScannerWrapper.nextLine().toLowerCase();
+                    if (confirm.equals("yes") || confirm.equals("y")) {
+                        System.exit(0);
+                    }
+                }
                 default -> PrintHelper.printError("Invalid choice! try again:");
             }
 
@@ -113,7 +126,11 @@ public class EntryMenu {
                     return handleAdminLogin();
                 }
                 case 4 -> {
-                    return null;
+                    PrintHelper.ask("Are you sure you want to exit? (yes/hell no)");
+                    String confirm = ScannerWrapper.nextLine().toLowerCase();
+                    if (confirm.equals("yes") || confirm.equals("y")) {
+                        System.exit(0);
+                    }
                 }
                 case 5 -> run = false;
                 default -> PrintHelper.printError("Invalid choice! try again:");

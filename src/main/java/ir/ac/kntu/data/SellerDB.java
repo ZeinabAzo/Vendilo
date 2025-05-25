@@ -12,7 +12,7 @@ public class SellerDB {
     }
 
     public SellerDB(ArrayList<Seller> sellers) {
-        this.sellers = new ArrayList<>(sellers);
+        this.sellers = sellers;
     }
 
     public ArrayList<Seller> getSellers() {

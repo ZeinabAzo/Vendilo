@@ -1,6 +1,7 @@
 package ir.ac.kntu.util;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import ir.ac.kntu.models.Seller;
 
@@ -13,10 +14,14 @@ import java.util.ArrayList;
 public class SellerDatabase {
     private static final String FILE_PATH = "database/sellers.json";
 
+    private static final Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .create();
+
     public static ArrayList<Seller> load() {
         try (FileReader reader = new FileReader(FILE_PATH)) {
             Type listType = new TypeToken<ArrayList<Seller>>(){}.getType();
-            return new Gson().fromJson(reader, listType);
+            return gson.fromJson(reader, listType);
         } catch (IOException e) {
             return new ArrayList<>();
         }
@@ -24,7 +29,7 @@ public class SellerDatabase {
 
     public static void save(ArrayList<Seller> sellers) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            new Gson().toJson(sellers, writer);
+            gson.toJson(sellers, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }

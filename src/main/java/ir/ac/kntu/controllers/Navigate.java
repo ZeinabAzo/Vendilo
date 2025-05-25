@@ -11,6 +11,7 @@ import ir.ac.kntu.models.User;
 import ir.ac.kntu.services.AdminAuthService;
 import ir.ac.kntu.services.CustomerAuthService;
 import ir.ac.kntu.services.SellerAuthService;
+import ir.ac.kntu.ui.CustomerMainMenu;
 
 import java.util.HashMap;
 
@@ -78,6 +79,8 @@ public class Navigate {
         if(user instanceof Customer){
             CustomerController customerController=new CustomerController((Customer) user, productDB);
             customerController.setServices();
+            CustomerMainMenu customerMainMenu=new CustomerMainMenu(customerController);
+            customerMainMenu.showPage();
         }else if(user instanceof Seller){
             SellerController sellerController=new SellerController(sellerDB, productDB ,(Seller) user);
         }else{

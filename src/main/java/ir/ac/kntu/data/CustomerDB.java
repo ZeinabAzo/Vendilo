@@ -12,8 +12,8 @@ public class CustomerDB {
         this.customers = new ArrayList<>();
     }
 
-    public CustomerDB(List<Customer> customers) {
-        this.customers = new ArrayList<>(customers);
+    public CustomerDB(ArrayList<Customer> customers) {
+        this.customers = customers;
     }
 
     public ArrayList<Customer> getCustomers() {

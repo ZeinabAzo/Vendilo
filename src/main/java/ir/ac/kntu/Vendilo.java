@@ -10,14 +10,18 @@ import ir.ac.kntu.models.Customer;
 import ir.ac.kntu.models.Product;
 import ir.ac.kntu.models.Seller;
 import ir.ac.kntu.ui.EntryMenu;
-import ir.ac.kntu.util.AdminDatabase;
-import ir.ac.kntu.util.CustomerDatabase;
-import ir.ac.kntu.util.ProductDatabase;
-import ir.ac.kntu.util.SellerDatabase;
+import ir.ac.kntu.util.*;
 
 import java.util.ArrayList;
 
 public class Vendilo{
+
+    private static final String ADMIN_JSON_PATH = "database/admins.json";
+    private static final String CUSTOMER_JSON_PATH = "database/customers.json";
+    private static final String SELLER_JSON_PATH = "database/sellers.json";
+    private static final String PRODUCT_JSON_PATH = "database/products.json";
+
+
 
     public void run(){
 
@@ -36,7 +40,7 @@ public class Vendilo{
             CustomerDatabase.save(customerDB.getCustomers());
             SellerDatabase.save(sellerDB.getSellers());
             ProductDatabase.save(productDB.getProducts());
-            System.out.println("All data saved successfully.");
+            PrintHelper.printSuccess("All data saved successfully.");
         }));
 
         Navigate navigator = new Navigate(customerDB, sellerDB, adminDB, productDB);

@@ -1,0 +1,15 @@
+[
+  {
+    "email": "zeinab@gmail.com",
+    "phoneNumber": "09876543211",
+    "addresses": [],
+    "carts": [],
+    "fName": "zeinab",
+    "lName": "azordeh",
+    "password": "Po78_@dfghj",
+    "wallet": {
+      "balance": 0.0,
+      "canCharge": true
+    }
+  }
+]

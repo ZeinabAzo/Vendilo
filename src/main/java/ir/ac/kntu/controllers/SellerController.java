@@ -59,7 +59,7 @@ public class SellerController {
     }
 
     public void addProduct(Product newProduct) {
-        productDB.addProduct(seller, newProduct);
+        productDB.addProduct( newProduct);
         seller.addProduct(newProduct);
     }
 }
