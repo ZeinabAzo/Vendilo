@@ -4,6 +4,7 @@ import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.data.SellerDB;
+import ir.ac.kntu.models.Admin;
 import ir.ac.kntu.models.Customer;
 import ir.ac.kntu.models.Seller;
 import ir.ac.kntu.models.User;
@@ -80,7 +81,7 @@ public class Navigate {
         }else if(user instanceof Seller){
             SellerController sellerController=new SellerController(sellerDB, productDB ,(Seller) user);
         }else{
-            AdminController adminController=new AdminController( sellerDB, productDB, (Admin) user);
+            AdminController adminController=new AdminController( adminDB, productDB, (Admin) user);
         }
     }
 

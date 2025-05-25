@@ -7,15 +7,13 @@ import java.util.List;
 
 public class AdminDB {
 
-    private List<Admin> admins;
-    private Admin admin1=new Admin("jdl", "dewj8", "ewj");
-    private Admin admin2=new Admin("idkh", "kjxwa", "dkj");
+    private ArrayList<Admin> admins;
 
-    public AdminDB(){
-        this.admins = new ArrayList<>(List.of(admin1, admin2));
+    public AdminDB(ArrayList<Admin> admins){
+        this.admins =admins;
     }
 
-    public List<Admin> getAdmins() {
+    public ArrayList<Admin> getAdmins() {
         return admins;
     }
 
