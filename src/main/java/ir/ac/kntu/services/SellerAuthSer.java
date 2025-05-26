@@ -5,20 +5,21 @@ import ir.ac.kntu.models.Address;
 import ir.ac.kntu.models.Seller;
 
 import java.util.HashMap;
+import java.util.Map;
 
-public class SellerAuthService extends AuthService {
+public class SellerAuthSer extends AuthService {
 
     private SellerDB sellerDB;
 
-    public SellerAuthService(SellerDB sellerDB) {
+    public SellerAuthSer(SellerDB sellerDB) {
         super();
         this.sellerDB = sellerDB;
     }
 
-    public boolean isValidInput(String firstName, String lastName, String password, String ID, String phoneNumber,
+    public boolean isValidInput(String firstName, String lastName, String password, String thisId, String phoneNumber,
                                 String state) {
         return isValidName(firstName) && isValidName(lastName) && isValidPassword(password)
-                && isValidID(ID) && isValidPhoneNumber(phoneNumber) && isValidSellerAddress(state);
+                && isValidID(thisId) && isValidPhoneNumber(phoneNumber) && isValidSellerAddress(state);
     }
 
     public Address addressDetector(String state) {
@@ -28,7 +29,7 @@ public class SellerAuthService extends AuthService {
         return null;
     }
 
-    public Seller login(HashMap<String, String> info) {
+    public Seller login(Map<String, String> info) {
         String shopID = info.get("shopID");
         String password = info.get("password");
 
@@ -42,7 +43,7 @@ public class SellerAuthService extends AuthService {
         return null;
     }
 
-    public Seller signUp(HashMap<String, String> info) {
+    public Seller signUp(Map<String, String> info) {
         String firstName = info.get("firstname");
         String lastName = info.get("lastname");
         String password = info.get("password");
@@ -50,12 +51,12 @@ public class SellerAuthService extends AuthService {
         String state = info.get("state");
         String phoneNumber = info.get("phone number");
 
-        Address shopLocation= new Address("state");
+        Address shopLocation = new Address(state);
 
         if (isValidInput(firstName, lastName, password, shopID, phoneNumber, state)) {
             Seller seller = new Seller(firstName, lastName, shopID, phoneNumber, shopLocation, password);
-            GenerateShopID generateShopID=new GenerateShopID(sellerDB);
-            String id=generateShopID.generateID();
+            GenerateShopID generateShopID = new GenerateShopID(sellerDB);
+            String id = generateShopID.generateID();
             seller.setShopID(id);
             sellerDB.addSeller(seller);
             return seller;

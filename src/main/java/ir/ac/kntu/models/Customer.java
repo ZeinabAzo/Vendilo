@@ -1,20 +1,23 @@
 package ir.ac.kntu.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Customer extends User {
 
     private String email;
     private String phoneNumber;
-    private ArrayList<Address> addresses = new ArrayList<>();
-    private ArrayList<Cart> carts=new ArrayList<>();
+    private List<Address> addresses;
+    private List<Cart> carts;
 
     public Customer(String fName, String lName, String email,
-                    String phoneNumber, String password){
+                    String phoneNumber, String password) {
         super(fName, lName, password);
         setWallet(new Wallet(true));
         this.email = email;
         this.phoneNumber = phoneNumber;
+        addresses=new ArrayList<>();
+        carts=new ArrayList<>();
     }
 
     public String getEmail() {
@@ -33,11 +36,11 @@ public class Customer extends User {
         this.phoneNumber = phoneNumber;
     }
 
-    public ArrayList<Address> getAddresses() {
+    public List<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddress(ArrayList<Address> address) {
+    public void setAddress(List<Address> address) {
         this.addresses = address;
     }
 
@@ -51,12 +54,7 @@ public class Customer extends User {
         this.addresses.remove(address);
     }
 
-    @Override
-    public void setPassword(String password) {
-        super.setPassword(password);
-    }
-
-    public ArrayList<Cart> getCarts() {
+    public List<Cart> getCarts() {
         return carts;
     }
 
@@ -64,7 +62,7 @@ public class Customer extends User {
         return carts.get(index);
     }
 
-    public Cart getCart(Cart cart){
+    public Cart getCart(Cart cart) {
         return carts.stream().filter(c -> c.equals(cart)).findFirst().orElse(null);
     }
 

@@ -1,20 +1,19 @@
 package ir.ac.kntu.ui;
 
-import ir.ac.kntu.controllers.SellerController;
-import ir.ac.kntu.models.Product;
+import ir.ac.kntu.controllers.SellControl;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 
 public class SellerMainMenu {
 
-    private SellerController sellerController;
+    private SellControl sellerController;
 
-    public SellerMainMenu(SellerController sellerController){
-        this.sellerController=sellerController;
+    public SellerMainMenu(SellControl sellerController) {
+        this.sellerController = sellerController;
     }
 
-    public void showPage(){
-        while (true){
+    public void showPage() {
+        while (true) {
             PrintHelper.upperBorder("Seller profile");
             PrintHelper.option(1, "Products");
             PrintHelper.option(2, "Wallet");
@@ -25,7 +24,7 @@ public class SellerMainMenu {
 
             switch (choice) {
                 case 1 -> {
-                    ProductSellerMenu productSellerMenu = new ProductSellerMenu(sellerController);
+                    SellProdMenu productSellerMenu = new SellProdMenu(sellerController);
                     productSellerMenu.productOptions();
                 }
                 case 4 -> {

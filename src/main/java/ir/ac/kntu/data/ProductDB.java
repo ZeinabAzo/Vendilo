@@ -1,26 +1,25 @@
 package ir.ac.kntu.data;
 
 import ir.ac.kntu.models.Product;
-import ir.ac.kntu.models.Seller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class ProductDB {
 
-    private ArrayList<Product> products;
+    private List<Product> products;
 
-    public ProductDB(ArrayList<Product> products) {
-        this.products = products;
+    public ProductDB(List<Product> products) {
+        this.products = new ArrayList<>(products);
     }
 
 
-    public void addProduct(Product product){
+    public void addProduct(Product product) {
         products.add(product);
     }
 
 
-    public ArrayList<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 }

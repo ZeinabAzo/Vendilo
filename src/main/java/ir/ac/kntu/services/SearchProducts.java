@@ -4,19 +4,18 @@ import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.models.Product;
 import ir.ac.kntu.models.Seller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 public class SearchProducts {
 
     private ProductDB productDB;
 
-    public SearchProducts(ProductDB productDB){
+    public SearchProducts(ProductDB productDB) {
         this.productDB = productDB;
     }
 
-    public HashMap<Seller, Product> searchProductByName(String name){
+    public Map<Seller, Product> searchProductByName(String name) {
         HashMap<Seller, Product> filteredProducts = new HashMap<>();
 
         for (Product product : productDB.getProducts()) {
@@ -28,7 +27,7 @@ public class SearchProducts {
         return filteredProducts;
     }
 
-    public HashMap<Seller, Product> searchByType(Class<?> type) {
+    public Map<Seller, Product> searchByType(Class<?> type) {
         HashMap<Seller, Product> filteredProducts = new HashMap<>();
 
         for (Product product : productDB.getProducts()) {
@@ -40,7 +39,7 @@ public class SearchProducts {
         return filteredProducts;
     }
 
-    public HashMap<Seller, Product> allFilteredSearch(double[] priceRange, String name, Class<?> type) {
+    public Map<Seller, Product> allFilteredSearch(double[] priceRange, String name, Class<?> type) {
         HashMap<Seller, Product> filtered = new HashMap<>();
 
         for (Product product : productDB.getProducts()) {
@@ -56,7 +55,7 @@ public class SearchProducts {
         return filtered;
     }
 
-    public HashMap<Seller, Product> searchByTypeAndPrice(Class<?> type, double[] priceRange) {
+    public Map<Seller, Product> searchByTypeAndPrice(Class<?> type, double[] priceRange) {
         HashMap<Seller, Product> filtered = new HashMap<>();
 
         for (Product product : productDB.getProducts()) {
@@ -71,7 +70,7 @@ public class SearchProducts {
         return filtered;
     }
 
-    public HashMap<Seller, Product> searchByNameAndPrice(String name, double[] priceRange) {
+    public Map<Seller, Product> searchByNameAndPrice(String name, double[] priceRange) {
         HashMap<Seller, Product> filtered = new HashMap<>();
 
         for (Product product : productDB.getProducts()) {

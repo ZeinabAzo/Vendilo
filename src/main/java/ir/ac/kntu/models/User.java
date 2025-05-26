@@ -10,10 +10,10 @@ public class User {
     public User(String fName, String lName, String password) {
         this.fName = fName;
         this.lName = lName;
-        this.password=password;
+        this.password = password;
     }
 
-    public User(){
+    public User() {
     }
 
     public String getPassword() {

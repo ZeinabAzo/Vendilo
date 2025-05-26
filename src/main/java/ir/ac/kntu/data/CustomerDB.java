@@ -1,23 +1,24 @@
 package ir.ac.kntu.data;
 
 import ir.ac.kntu.models.Customer;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDB {
 
-    private ArrayList<Customer> customers;
+    private List<Customer> customers;
 
     public CustomerDB() {
         this.customers = new ArrayList<>();
     }
 
-    public CustomerDB(ArrayList<Customer> customers) {
-        this.customers = customers;
+    public CustomerDB(List<Customer> customers) {
+        this.customers =new ArrayList<>(customers);
     }
 
-    public ArrayList<Customer> getCustomers() {
-        return new ArrayList<>(customers);
+    public List<Customer> getCustomers() {
+        return customers;
     }
 
     public void addCustomer(Customer customer) {
@@ -31,11 +32,11 @@ public class CustomerDB {
     }
 
     public Customer findByEmail(String email) {
-        return customers.stream().filter( c -> c.getEmail().equals(email)).findFirst().orElse(null);
+        return customers.stream().filter(c -> c.getEmail().equals(email)).findFirst().orElse(null);
 
     }
 
-    public Customer getCustomer(Customer customer){
+    public Customer getCustomer(Customer customer) {
         return customers.stream().filter(c -> c.equals(customer)).findFirst().orElse(null);
     }
 

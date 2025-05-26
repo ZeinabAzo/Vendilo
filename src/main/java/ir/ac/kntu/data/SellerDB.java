@@ -2,21 +2,22 @@ package ir.ac.kntu.data;
 
 import ir.ac.kntu.models.Seller;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SellerDB {
 
-    private  ArrayList<Seller> sellers;
+    private List<Seller> sellers;
 
     public SellerDB() {
         this.sellers = new ArrayList<>();
     }
 
-    public SellerDB(ArrayList<Seller> sellers) {
-        this.sellers = sellers;
+    public SellerDB(List<Seller> sellers) {
+        this.sellers =new ArrayList<>(sellers) ;
     }
 
-    public ArrayList<Seller> getSellers() {
-        return new ArrayList<>(sellers);
+    public List<Seller> getSellers() {
+        return sellers;
     }
 
     public void addSeller(Seller seller) {
@@ -30,7 +31,7 @@ public class SellerDB {
     }
 
     public Seller findByShopID(String shopID) {
-        return sellers.stream().filter( s -> s.getShopID().equals(shopID)).findFirst().orElse(null);
+        return sellers.stream().filter(s -> s.getShopID().equals(shopID)).findFirst().orElse(null);
     }
 
     public boolean updateSeller(Seller updated) {

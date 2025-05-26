@@ -1,18 +1,19 @@
 package ir.ac.kntu.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cart {   //contains orders, whether purchased or not
 
-    private ArrayList<Order> orders= new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
     private Address shippingAddress;
-    private boolean isPurchased=false;
+    private boolean isPurchased = false;
 
-    public Cart(ArrayList<Order> orders){
-        this.orders=orders;
+    public Cart(List<Order> orders) {
+        this.orders = orders;
     }
 
-    public ArrayList<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
@@ -24,15 +25,15 @@ public class Cart {   //contains orders, whether purchased or not
         return shippingAddress;
     }
 
-    public void setOrders(ArrayList<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 
-    public void addToCart(Order order){
+    public void addToCart(Order order) {
         orders.add(order);
     }
 
-    public void removeFromCart(Order order){
+    public void removeFromCart(Order order) {
         orders.remove(order);
     }
 

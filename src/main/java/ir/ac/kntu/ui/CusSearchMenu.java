@@ -1,6 +1,6 @@
 package ir.ac.kntu.ui;
 
-import ir.ac.kntu.controllers.CustomerController;
+import ir.ac.kntu.controllers.CusControl;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CustomerSearchMenu {
+public class CusSearchMenu {
 
-    private final CustomerController customerController;
+    private final CusControl cusControl;
 
-    public CustomerSearchMenu(CustomerController customerController) {
-        this.customerController = customerController;
+    public CusSearchMenu(CusControl cusControl) {
+        this.cusControl = cusControl;
     }
 
     public void firstPage() {
@@ -44,7 +44,7 @@ public class CustomerSearchMenu {
     private void searchByName() {
         PrintHelper.ask("Enter the product name:");
         String name = ScannerWrapper.nextLine();
-        HashMap<Seller, Product> filtered = customerController.searchByName(name);
+        HashMap<Seller, Product> filtered = (HashMap<Seller, Product>) cusControl.searchByName(name);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
@@ -58,7 +58,7 @@ public class CustomerSearchMenu {
     private void searchByType() {
         PrintHelper.ask("Enter the product type:");
         String type = ScannerWrapper.nextLine();
-        HashMap<Seller, Product> filtered = customerController.searchByType(type);
+        HashMap<Seller, Product> filtered = (HashMap<Seller, Product>) cusControl.searchByType(type);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
@@ -95,7 +95,7 @@ public class CustomerSearchMenu {
         String name = ScannerWrapper.nextLine();
         double[] range = askPriceRange();
 
-        HashMap<Seller, Product> filtered = customerController.searchByNameAndPrice(name, range);
+        HashMap<Seller, Product> filtered = (HashMap<Seller, Product>) cusControl.searchByNameAndPrice(name, range);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
@@ -111,7 +111,7 @@ public class CustomerSearchMenu {
         String type = ScannerWrapper.nextLine();
         double[] range = askPriceRange();
 
-        HashMap<Seller, Product> filtered = customerController.searchByTypeAndPrice(type, range);
+        HashMap<Seller, Product> filtered = (HashMap<Seller, Product>) cusControl.searchByTypeAndPrice(type, range);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
@@ -131,7 +131,7 @@ public class CustomerSearchMenu {
 
         double[] range = askPriceRange();
 
-        HashMap<Seller, Product> filtered = customerController.searchByAllFilters(type, name, range);
+        HashMap<Seller, Product> filtered = (HashMap<Seller, Product>) cusControl.searchByAllFilters(type, name, range);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
@@ -156,7 +156,7 @@ public class CustomerSearchMenu {
             if (chosen < -1 || chosen >= productList.size()) {
                 PrintHelper.printError("Invalid selection.");
                 return;
-            }else if(chosen==-1){
+            } else if (chosen == -1) {
                 return;
             }
 
@@ -168,7 +168,7 @@ public class CustomerSearchMenu {
 
             int choice = ScannerWrapper.nextInt();
             switch (choice) {
-                case 1 -> customerController.orderProduct(selected);
+                case 1 -> cusControl.orderProduct(selected);
                 case 2 -> {
                     return; // back to menu
                 }
@@ -178,6 +178,6 @@ public class CustomerSearchMenu {
     }
 
     private void showProduct(Product product) {
-        customerController.showProductInfo();
+        cusControl.showProductInfo();
     }
 }

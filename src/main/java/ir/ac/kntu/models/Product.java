@@ -7,14 +7,14 @@ public class Product {
     private int inventory;
     private Seller seller;
 
-    public Product(){
+    public Product() {
     }
 
-    public Product(String name, double price, int inventory, Seller seller){
-        this.name=name;
-        this.price=price;
-        this.inventory=inventory;
-        this.seller=seller;
+    public Product(String name, double price, int inventory, Seller seller) {
+        this.name = name;
+        this.price = price;
+        this.inventory = inventory;
+        this.seller = seller;
     }
 
 
@@ -31,15 +31,15 @@ public class Product {
     }
 
     public boolean setInventory(int inventory) {
-        if(inventory>=0) {
+        if (inventory >= 0) {
             this.inventory = inventory;
             return true;
         }
         return false;
     }
 
-    public boolean sellProduct(){
-        if(inventory>0) {
+    public boolean sellProduct() {
+        if (inventory > 0) {
             inventory -= 1;
             return true;
         }

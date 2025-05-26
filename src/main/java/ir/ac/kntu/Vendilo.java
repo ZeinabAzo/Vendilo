@@ -13,27 +13,27 @@ import ir.ac.kntu.ui.EntryMenu;
 import ir.ac.kntu.util.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Vendilo{
+public class Vendilo {
 
-    private static final String ADMIN_JSON_PATH = "database/admins.json";
-    private static final String CUSTOMER_JSON_PATH = "database/customers.json";
-    private static final String SELLER_JSON_PATH = "database/sellers.json";
-    private static final String PRODUCT_JSON_PATH = "database/products.json";
+    public static final String ADMIN_JSON_PATH = "database/admins.json";
+    public static final String CUSTOMER_JSON_PATH = "database/customers.json";
+    public static final String SELLER_JSON_PATH = "database/sellers.json";
+    public static final String PRODUCT_JSON_PATH = "database/products.json";
 
 
+    public void run() {
 
-    public void run(){
+        List<Admin> admins = AdminDatabase.load();
+        List<Customer> customers = CustomerDatabase.load();
+        List<Seller> sellers = SellerDatabase.load();
+        List<Product> products = ProductDatabase.load();
 
-        ArrayList<Admin> admins = AdminDatabase.load();
-        ArrayList<Customer> customers = CustomerDatabase.load();
-        ArrayList<Seller> sellers = SellerDatabase.load();
-        ArrayList<Product> products = ProductDatabase.load();
-
-        CustomerDB customerDB=new CustomerDB(customers);
-        SellerDB sellerDB=new SellerDB(sellers);
-        AdminDB adminDB=new AdminDB(admins);
-        ProductDB productDB=new ProductDB(products);
+        CustomerDB customerDB = new CustomerDB(customers);
+        SellerDB sellerDB = new SellerDB(sellers);
+        AdminDB adminDB = new AdminDB(admins);
+        ProductDB productDB = new ProductDB(products);
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             AdminDatabase.save(adminDB.getAdmins());
@@ -46,7 +46,7 @@ public class Vendilo{
         Navigate navigator = new Navigate(customerDB, sellerDB, adminDB, productDB);
         navigator.setServices();
 
-        EntryMenu entryMenu=new EntryMenu(navigator);
+        EntryMenu entryMenu = new EntryMenu(navigator);
         entryMenu.entry();
     }
 }

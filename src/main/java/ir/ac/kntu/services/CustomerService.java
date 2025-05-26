@@ -11,7 +11,7 @@ import static ir.ac.kntu.util.PrintHelper.printError;
 public class CustomerService {
 
     private CustomerDB customerDB;
-    public static double shippingFee=50;
+    public static double shippingFee = 50;
 
 
     public CustomerService(CustomerDB customerDB) {
@@ -24,23 +24,7 @@ public class CustomerService {
             return false;
         }
 
-        boolean shippingCost =true;
-        double totalPrice = 0;
-
-        for (Order order : cart.getOrders()) {
-            if (order != null && order.getProduct() != null) {
-                if(!(order.getSeller().getShopLocation().getState().equals(address.getState()))){
-                    shippingCost=false;
-                }
-                totalPrice += order.getProduct().getPrice();
-            }
-        }
-
-        if (shippingCost){
-            totalPrice+=shippingFee/3;
-        }else{
-            totalPrice+=shippingFee;
-        }
+        double totalPrice = getTotalPrice(cart, address);
 
         boolean success = customer.getWallet().withdraw(totalPrice);
 
@@ -57,5 +41,26 @@ public class CustomerService {
 
         customerCart.setPurchased(true);
         return true;
+    }
+
+    private static double getTotalPrice(Cart cart, Address address) {
+        boolean shippingCost = true;
+        double totalPrice = 0;
+
+        for (Order order : cart.getOrders()) {
+            if (order != null && order.getProduct() != null) {
+                if (!(order.getSeller().getShopLocation().getState().equals(address.getState()))) {
+                    shippingCost = false;
+                }
+                totalPrice += order.getProduct().getPrice();
+            }
+        }
+
+        if (shippingCost) {
+            totalPrice += shippingFee / 3;
+        } else {
+            totalPrice += shippingFee;
+        }
+        return totalPrice;
     }
 }

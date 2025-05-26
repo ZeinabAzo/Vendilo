@@ -3,29 +3,26 @@ package ir.ac.kntu.models;
 import ir.ac.kntu.enums.GPUModel;
 import ir.ac.kntu.enums.WebcamStatus;
 
-public class Laptop extends Digital{
+public class Laptop extends Digital {
 
-    private GPUModel GPUModel;
+    private GPUModel gpuModel;
     private boolean btSupport;
     private WebcamStatus webcamStatus;
 
-
     public Laptop(String name, double price, Seller seller, int inventory, String brand,
-                  double internalStorage, String ram, GPUModel GPUModel,
+                  double internalStorage, String ram, GPUModel gpuModel,
                   boolean btSupport, WebcamStatus webcamStatus) {
         super(name, price, seller, inventory, brand, internalStorage, ram);
-        this.GPUModel = GPUModel;
+        this.gpuModel = gpuModel;
         this.btSupport = btSupport;
         this.webcamStatus = webcamStatus;
     }
 
     // Optional: add getters/setters if needed
 
-
-    public GPUModel getGPUModel() {
-        return GPUModel;
+    public GPUModel getGpuModel() {
+        return gpuModel;
     }
-
 
     public boolean hasBtSupport() {
         return btSupport;
@@ -39,8 +36,8 @@ public class Laptop extends Digital{
         return btSupport;
     }
 
-    public void setGPUModel(GPUModel GPUModel) {
-        this.GPUModel = GPUModel;
+    public void setGpuModel(GPUModel gpuModel) {
+        this.gpuModel = gpuModel;
     }
 
     public void setWebcamStatus(WebcamStatus webcamStatus) {

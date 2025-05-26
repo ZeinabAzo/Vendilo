@@ -1,38 +1,39 @@
 package ir.ac.kntu.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Seller extends User{
+public class Seller extends User {
 
-    private String ID;
+    private String nationalId;
     private String phoneNumber;
     private Address shopLocation;
     private String shopID;
-    private ArrayList<Product> productsForSale;
+    private List<Product> productsForSale;
 
     //after the seller gets verified by an admin, we generate a shopID for him/her
     //then the seller can access menu and things related to it.
 
-    public Seller(String fName, String lName, String ID, String phoneNumber,
+    public Seller(String fName, String lName, String nationalId, String phoneNumber,
                   Address shopLocation, String password) {
         super(fName, lName, password);
         setWallet(new Wallet(false));
-        this.ID = ID;
+        this.nationalId = nationalId;
         this.phoneNumber = phoneNumber;
         this.shopLocation = shopLocation;
         this.shopID = null;//generate later
-        productsForSale=new ArrayList<>();
+        productsForSale = new ArrayList<>();
     }
 
     public void setShopID(String shopID) {
         this.shopID = shopID;
     }
 
-    public ArrayList<Product> getProductsForSale() {
+    public List<Product> getProductsForSale() {
         return productsForSale;
     }
 
-    public void addProduct(Product product){
+    public void addProduct(Product product) {
         productsForSale.add(product);
     }
 
@@ -44,8 +45,4 @@ public class Seller extends User{
         return shopID;
     }
 
-    @Override
-    public void setPassword(String password) {
-        super.setPassword(password);
-    }
 }

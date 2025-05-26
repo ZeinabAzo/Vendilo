@@ -5,14 +5,14 @@ public class Address {
     private String state;
     private String city;
 
-    public Address(String title, String state, String city){
-        this.title=title;
-        this.state=state;
-        this.city=city;
+    public Address(String title, String state, String city) {
+        this.title = title;
+        this.state = state;
+        this.city = city;
     }
 
-    public Address(String state){
-        this.state=state;
+    public Address(String state) {
+        this.state = state;
     }
 
     public String getTitle() {

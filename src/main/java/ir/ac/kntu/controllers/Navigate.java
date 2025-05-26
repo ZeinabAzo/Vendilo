@@ -8,12 +8,12 @@ import ir.ac.kntu.models.Admin;
 import ir.ac.kntu.models.Customer;
 import ir.ac.kntu.models.Seller;
 import ir.ac.kntu.models.User;
-import ir.ac.kntu.services.AdminAuthService;
-import ir.ac.kntu.services.CustomerAuthService;
-import ir.ac.kntu.services.SellerAuthService;
-import ir.ac.kntu.ui.CustomerMainMenu;
+import ir.ac.kntu.services.AdminAuthSer;
+import ir.ac.kntu.services.CustAuthSer;
+import ir.ac.kntu.services.SellerAuthSer;
+import ir.ac.kntu.ui.CusMainMenu;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class Navigate {
 
@@ -21,30 +21,30 @@ public class Navigate {
     private SellerDB sellerDB;
     private AdminDB adminDB;
     private ProductDB productDB;
-    private AdminAuthService adminAuthService;
-    private CustomerAuthService customerAuthService;
-    private SellerAuthService sellerAuthService;
+    private AdminAuthSer adminAuthSer;
+    private CustAuthSer custAuthSer;
+    private SellerAuthSer sellerAuthSer;
 
-    public Navigate(CustomerDB customerDB, SellerDB sellerDB, AdminDB adminDB, ProductDB productDB){
-        this.customerDB=customerDB;
-        this.sellerDB=sellerDB;
-        this.adminDB=adminDB;
-        this.productDB=productDB;
+    public Navigate(CustomerDB customerDB, SellerDB sellerDB, AdminDB adminDB, ProductDB productDB) {
+        this.customerDB = customerDB;
+        this.sellerDB = sellerDB;
+        this.adminDB = adminDB;
+        this.productDB = productDB;
     }
 
-    public void setServices(){//add necessary services
-        adminAuthService=new AdminAuthService(adminDB);
-        customerAuthService=new CustomerAuthService(customerDB);
-        sellerAuthService=new SellerAuthService(sellerDB);
+    public void setServices() {//add necessary services
+        adminAuthSer = new AdminAuthSer(adminDB);
+        custAuthSer = new CustAuthSer(customerDB);
+        sellerAuthSer = new SellerAuthSer(sellerDB);
     }
 
-    public User leadToSignUP(HashMap<String, String> info , String user){
-        switch (user.toLowerCase()){
+    public User leadToSignUP(Map<String, String> info, String user) {
+        switch (user.toLowerCase()) {
             case "seller" -> {
-                return sellerAuthService.signUp(info);
+                return sellerAuthSer.signUp(info);
             }
             case "customer" -> {
-                return customerAuthService.signUp(info);
+                return custAuthSer.signUp(info);
             }
             default -> {
                 return null;
@@ -52,20 +52,20 @@ public class Navigate {
         }
     }
 
-    public User login(String user, HashMap<String, String> info, String chosenPath){
+    public User login(String user, Map<String, String> info, String chosenPath) {
         switch (user) {
             case "customer" -> {
                 if (chosenPath.equals("email")) {
-                    return customerAuthService.loginByEmail(info);
+                    return custAuthSer.loginByEmail(info);
                 } else if (chosenPath.equals("phoneNumber")) {
-                    return customerAuthService.loginByPhoneNumber(info);
+                    return custAuthSer.loginByPhoneNumber(info);
                 }
             }
             case "seller" -> {
-                return sellerAuthService.login(info);
+                return sellerAuthSer.login(info);
             }
             case "admin" -> {
-                return adminAuthService.login(info);
+                return adminAuthSer.login(info);
             }
             default -> {
                 return null;
@@ -74,17 +74,17 @@ public class Navigate {
         return null;
     }
 
-    public void decideForUser(User user){
+    public void decideForUser(User user) {
 
-        if(user instanceof Customer){
-            CustomerController customerController=new CustomerController((Customer) user, productDB);
-            customerController.setServices();
-            CustomerMainMenu customerMainMenu=new CustomerMainMenu(customerController);
+        if (user instanceof Customer) {
+            CusControl cusControl = new CusControl((Customer) user, productDB);
+            cusControl.setServices();
+            CusMainMenu customerMainMenu = new CusMainMenu(cusControl);
             customerMainMenu.showPage();
-        }else if(user instanceof Seller){
-            SellerController sellerController=new SellerController(sellerDB, productDB ,(Seller) user);
-        }else{
-            AdminController adminController=new AdminController( adminDB, productDB, (Admin) user);
+        } else if (user instanceof Seller) {
+            SellControl sellControl = new SellControl(sellerDB, productDB, (Seller) user);
+        } else {
+            AdmControl admControl = new AdmControl(adminDB, productDB, (Admin) user);
         }
     }
 

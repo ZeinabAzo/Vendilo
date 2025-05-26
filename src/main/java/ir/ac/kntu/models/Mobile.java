@@ -3,47 +3,43 @@ package ir.ac.kntu.models;
 import ir.ac.kntu.enums.MobileNetworkType;
 import ir.ac.kntu.enums.CameraResolution;
 
-public class Mobile extends Digital{
+public class Mobile extends Digital {
 
-    private CameraResolution frontCameraResolution;
-    private CameraResolution backCameraResolution;
-    private MobileNetworkType mobileNetworkType;
+    private CameraResolution frontCam;
+    private CameraResolution backCame;
+    private MobileNetworkType mobileNetType;
 
-    public Mobile(String name,double price, int inventory, Seller seller,String brand,
-                  double internalStorage, String ram, CameraResolution frontCameraResolution,
-                  CameraResolution backCameraResolution, MobileNetworkType mobileNetworkType){
-        super(name, price,seller, inventory, brand, internalStorage, ram);
-        this.frontCameraResolution=frontCameraResolution;
-        this.backCameraResolution=backCameraResolution;
-        this.mobileNetworkType=mobileNetworkType;
+    public Mobile(String name, double price, int inventory, Seller seller, String brand,
+                  double internalStorage, String ram, CameraResolution frontCam,
+                  CameraResolution backCam, MobileNetworkType type) {
+        super(name, price, seller, inventory, brand, internalStorage, ram);
+        this.frontCam = frontCam;
+        this.backCame = backCam;
+        this.mobileNetType = type;
     }
 
     public CameraResolution getFrontCameraResolution() {
-        return frontCameraResolution;
+        return frontCam;
     }
 
     public CameraResolution getBackCameraResolution() {
-        return backCameraResolution;
+        return backCame;
     }
 
-    public MobileNetworkType getMobileNetworkType() {
-        return mobileNetworkType;
+    public MobileNetworkType getMobileNetType() {
+        return mobileNetType;
     }
 
-    public void setBackCameraResolution(CameraResolution backCameraResolution) {
-        this.backCameraResolution = backCameraResolution;
+    public void setBackCameraResolution(CameraResolution cameraResolution) {
+        this.backCame = cameraResolution;
     }
 
-    public void setFrontCameraResolution(CameraResolution frontCameraResolution) {
-        this.frontCameraResolution = frontCameraResolution;
+    public void setFrontCameraResolution(CameraResolution cameraResolution) {
+        this.frontCam = cameraResolution;
     }
 
-    public void setMobileNetworkType(MobileNetworkType mobileNetworkType) {
-        this.mobileNetworkType = mobileNetworkType;
+    public void setMobileNetType(MobileNetworkType mobileNetType) {
+        this.mobileNetType = mobileNetType;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }

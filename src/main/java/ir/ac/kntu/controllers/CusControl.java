@@ -3,21 +3,20 @@ package ir.ac.kntu.controllers;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.services.SearchProducts;
-import ir.ac.kntu.ui.CustomerMainMenu;
 import ir.ac.kntu.ui.ShowProductInfo;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.SplitDisplay;
 
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.Map;
 
-public class CustomerController {
+public class CusControl {
 
     private ProductDB productDB;
     private Customer customer;
     private SearchProducts searchProducts;
 
-    public CustomerController(Customer customer, ProductDB productDB) {
+    public CusControl(Customer customer, ProductDB productDB) {
         this.customer = customer;
         this.productDB = productDB;
     }
@@ -30,15 +29,15 @@ public class CustomerController {
         this.searchProducts = new SearchProducts(productDB);
     }
 
-    public HashMap<Seller, Product> searchByName(String name) {
+    public Map<Seller, Product> searchByName(String name) {
         return searchProducts.searchProductByName(name);
     }
 
-    public HashMap<Seller, Product> searchByNameAndPrice(String name, double[] priceRange) {
+    public Map<Seller, Product> searchByNameAndPrice(String name, double[] priceRange) {
         return searchProducts.searchByNameAndPrice(name, priceRange);
     }
 
-    public HashMap<Seller, Product> searchByTypeAndPrice(String type, double[] priceRange) {
+    public Map<Seller, Product> searchByTypeAndPrice(String type, double[] priceRange) {
         try {
             Class<?> className = Class.forName("ir.ac.kntu.models." + type);
             return searchProducts.searchByTypeAndPrice(className, priceRange);
@@ -48,7 +47,7 @@ public class CustomerController {
         }
     }
 
-    public HashMap<Seller, Product> searchByAllFilters(String type, String name, double[] priceRange) {
+    public Map<Seller, Product> searchByAllFilters(String type, String name, double[] priceRange) {
         try {
             Class<?> className = Class.forName("ir.ac.kntu.models." + type);
             return searchProducts.allFilteredSearch(priceRange, name, className);
@@ -59,8 +58,8 @@ public class CustomerController {
     }
 
     public void orderProduct(Product product) {
-        Cart cart= findCart();
-        Order order=new Order(product, customer, product.getSeller(), LocalDate.now());
+        Cart cart = findCart();
+        Order order = new Order(product, customer, product.getSeller(), LocalDate.now());
         cart.addToCart(order);
     }
 
@@ -69,7 +68,7 @@ public class CustomerController {
         return customer.getCart(chosen);
     }
 
-    public HashMap<Seller, Product> searchByType(String type) {
+    public Map<Seller, Product> searchByType(String type) {
         try {
             Class<?> className = Class.forName("ir.ac.kntu.models." + type);
             return searchProducts.searchByType(className);
@@ -79,7 +78,7 @@ public class CustomerController {
         }
     }
 
-    public void showProductInfo(){
-        ShowProductInfo showProductInfo=new ShowProductInfo(productDB);
+    public void showProductInfo() {
+        ShowProductInfo showProductInfo = new ShowProductInfo(productDB);
     }
 }

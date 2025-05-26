@@ -4,26 +4,23 @@ import static ir.ac.kntu.util.PrintHelper.printError;
 
 public class AuthService {
 
-    public AuthService() {
-    }
-
-    public String[] attachNames(String fName, String lName){
+    public String[] attachNames(String fName, String lName) {
         return new String[]{fName, lName};
     }
 
-    public boolean isValidName(String name){
-        if(name.matches("([a-zA-Z]+\\s*)*")){
+    public boolean isValidName(String name) {
+        if (name.matches("([a-zA-Z]+\\s*)*")) {
             return true;
-        }else{
+        } else {
             printError("Invalid name format");
             return false;
         }
     }
 
-    public boolean isValidPassword(String password){
-        if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#_\\-]).{8,15}$")){
+    public boolean isValidPassword(String password) {
+        if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#_\\-]).{8,15}$")) {
             return true;
-        }else{
+        } else {
             printError("""
                     Invalid password. Password must contain at least:
                     one lowercase letter (a-z)
@@ -53,8 +50,8 @@ public class AuthService {
         }
     }
 
-    public boolean isValidID(String ID){
-        if (ID.matches("[0-9]{10}")) {
+    public boolean isValidID(String nationId) {
+        if (nationId.matches("[0-9]{10}")) {
             return true;
         } else {
             printError("Invalid phone number. It must contain 10 digits.");
@@ -62,12 +59,12 @@ public class AuthService {
         }
     }
 
-    public boolean isValidCustomerAddress(String title, String state, String city){
+    public boolean isValidCustomerAddress(String title, String state, String city) {
         return title.matches("([a-zA-Z]+\\s*)*") && state.matches("([a-zA-Z]+\\s*)*") &&
                 city.matches("([a-zA-Z]+\\s*)*");
     }
 
-    public boolean isValidSellerAddress(String state){
+    public boolean isValidSellerAddress(String state) {
         return state.matches("([a-zA-Z]+\\s*)*");
     }
 

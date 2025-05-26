@@ -3,22 +3,22 @@ package ir.ac.kntu.models;
 import ir.ac.kntu.enums.AgeGroup;
 import ir.ac.kntu.enums.BookGenre;
 
-public class Book extends Product{
+public class Book extends Product {
 
     private String authorName;
     private double pageCount;
     private BookGenre bookGenre;
     private AgeGroup ageGroup;
-    private String ISBN;
+    private String isbn;
 
     public Book(String name, double price, int inventory, Seller seller, String authorName, double pageCount,
-                BookGenre bookGenre, AgeGroup ageGroup, String ISBN){
+                BookGenre bookGenre, AgeGroup ageGroup, String isbn) {
         super(name, price, inventory, seller);
-        this.authorName=authorName;
-        this.pageCount=pageCount;
-        this.bookGenre=bookGenre;
-        this.ageGroup=ageGroup;
-        this.ISBN=ISBN;
+        this.authorName = authorName;
+        this.pageCount = pageCount;
+        this.bookGenre = bookGenre;
+        this.ageGroup = ageGroup;
+        this.isbn = isbn;
 
     }
 
@@ -54,12 +54,12 @@ public class Book extends Product{
         this.ageGroup = ageGroup;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
 }

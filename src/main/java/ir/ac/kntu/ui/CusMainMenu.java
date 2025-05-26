@@ -1,19 +1,15 @@
 package ir.ac.kntu.ui;
 
-import ir.ac.kntu.controllers.CustomerController;
-import ir.ac.kntu.models.Cart;
+import ir.ac.kntu.controllers.CusControl;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
-import ir.ac.kntu.util.SplitDisplay;
 
-import java.util.HashMap;
+public class CusMainMenu {
 
-public class CustomerMainMenu {
+    private CusControl ccusControl;
 
-    private CustomerController customerController;
-
-    public CustomerMainMenu(CustomerController customerController){
-        this.customerController = customerController;
+    public CusMainMenu(CusControl cusControl) {
+        this.ccusControl = cusControl;
     }
 
     public void showPage() {
@@ -79,12 +75,12 @@ public class CustomerMainMenu {
     }
 
     private void showAllCarts() {
-        CusCartMenu cusCartMenu=new CusCartMenu(customerController);
+        CusCartMenu cusCartMenu = new CusCartMenu(ccusControl);
         cusCartMenu.showAllCarts();
     }
 
     private void searchOptions() {
-        CustomerSearchMenu customerSearchMenu = new CustomerSearchMenu(customerController);
+        CusSearchMenu customerSearchMenu = new CusSearchMenu(ccusControl);
         customerSearchMenu.firstPage();
     }
 

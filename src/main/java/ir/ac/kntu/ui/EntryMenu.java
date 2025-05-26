@@ -2,7 +2,7 @@ package ir.ac.kntu.ui;
 
 import ir.ac.kntu.controllers.Navigate;
 import ir.ac.kntu.models.User;
-import ir.ac.kntu.util.PrintHelper.consoleColors;
+import ir.ac.kntu.util.PrintHelper.ConsoleColors;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 
@@ -12,51 +12,32 @@ public class EntryMenu {
 
     private Navigate navigator;
 
-    public EntryMenu(Navigate navigator){
-        this.navigator=navigator;
+    public EntryMenu(Navigate navigator) {
+        this.navigator = navigator;
     }
 
-    public void entry(){
+    public void entry() {
 
-        while(true){
+        while (true) {
 
-            System.out.print(consoleColors.CYAN + "◸—————" + "    ⁂Welcome to " + consoleColors.RESET );
-            System.out.print(consoleColors.PURPLE+ "VENDILO");
-            System.out.println(consoleColors.CYAN + "⁂    —————◹" + consoleColors.RESET);
-            PrintHelper.option(1, "Log in");
-            PrintHelper.option(2, "Sign up");
-            PrintHelper.option(3, "Exit");
-            PrintHelper.lowerBorder("welcome to vendilo");
+            firstMassage();
 
-            User user=new User();
-            int choice= ScannerWrapper.nextInt();
+            User user;
+            int choice = ScannerWrapper.nextInt();
 
-            switch (choice){
+            switch (choice) {
                 case 1 -> {
                     user = loginMenu();
-                    if(user != null ){
-                        PrintHelper.printSuccess("Entering your profile successfully ...");
-                        navigator.decideForUser(user);
-                    }else{
-                        PrintHelper.printError("try again you idiot");
-                    }
+                    decide(user);
                 }
                 case 2 -> {
                     user = signupMenu();
-                    if (user != null){
-                        PrintHelper.printSuccess("Entering your profile successfully ...");
-                        navigator.decideForUser(user);
-                    }else{
-                        PrintHelper.printError("try again you idiot");
-                    }
+                    decide(user);
                 }
                 case 3 -> {
-                    PrintHelper.ask("Are you sure you want to exit? (yes/hell no)");
-                    String confirm = ScannerWrapper.nextLine().toLowerCase();
-                    if (confirm.equals("yes") || confirm.equals("y")) {
-                        return;
-                    }
+                    return;
                 }
+                case 4 -> exit();
                 default -> PrintHelper.printError("Invalid command!");
             }
 
@@ -64,56 +45,75 @@ public class EntryMenu {
         }
     }
 
-    public User signupMenu(){
+    private static void exit() {
+        PrintHelper.ask("Are you sure you want to exit? (yes/hell no)");
+        String confirm = ScannerWrapper.nextLine().toLowerCase();
+        if (confirm.equals("yes") || confirm.equals("y")) {
+            System.exit(0);
+        }
+    }
 
-        boolean run=true;
-        while(run){
-            PrintHelper.upperBorder("Choose your role to sign up");
-            PrintHelper.option(1, "Customer");
-            PrintHelper.option(2, "Seller");
-            PrintHelper.option(3, "return");
-            PrintHelper.option(4, "exit");
-            int choice = ScannerWrapper.nextInt();
+    private void decide(User user) {
+        if (user != null) {
+            PrintHelper.printSuccess("Entering your profile successfully ...");
+            navigator.decideForUser(user);
+        } else {
+            PrintHelper.printError("try again you idiot");
+        }
+    }
+
+    private static void firstMassage() {
+        System.out.print(ConsoleColors.CYAN + "◸—————" + "    ⁂Welcome to " + ConsoleColors.RESET);
+        System.out.print(ConsoleColors.PURPLE + "VENDILO");
+        System.out.println(ConsoleColors.CYAN + "⁂    —————◹" + ConsoleColors.RESET);
+        PrintHelper.option(1, "Log in");
+        PrintHelper.option(2, "Sign up");
+        PrintHelper.option(3, "Exit");
+        PrintHelper.lowerBorder("welcome to vendilo");
+    }
+
+    public User signupMenu() {
+
+        while (true) {
+            int choice = getChoice();
 
             HashMap<String, String> info = new HashMap<>();
 
             switch (choice) {
                 case 1 -> {
-                    info = PrintHelper.askForInformation("customer");
-                    return navigator.leadToSignUP(info, "customer");
+                    return getUser(info, "customer");
                 }
                 case 2 -> {
-                    info = PrintHelper.askForInformation("seller");
-                    return navigator.leadToSignUP(info, "seller");
+                    return getUser(info, "seller");
                 }
                 case 3 -> {
                     return null;
                 }
-                case 4 -> {
-                    PrintHelper.ask("Are you sure you want to exit? (yes/hell no)");
-                    String confirm = ScannerWrapper.nextLine().toLowerCase();
-                    if (confirm.equals("yes") || confirm.equals("y")) {
-                        System.exit(0);
-                    }
-                }
+                case 4 -> exit();
                 default -> PrintHelper.printError("Invalid choice! try again:");
             }
 
         }
-        return null;
     }
 
-    public User loginMenu(){
+    private User getUser(HashMap<String, String> info, String customer) {
+        info = (HashMap<String, String>) PrintHelper.askForInformation(customer);
+        return navigator.leadToSignUP(info, customer);
+    }
 
-        boolean run=true;
-        while(run) {
-            PrintHelper.upperBorder("Choose your role to sign up");
-            PrintHelper.option(1, "Customer");
-            PrintHelper.option(2, "Seller");
-            PrintHelper.option(3, "Admin");
-            PrintHelper.option(4, "return");
-            PrintHelper.option(5, "exit");
-            int choice = ScannerWrapper.nextInt();
+    private static int getChoice() {
+        PrintHelper.upperBorder("Choose your role to sign up");
+        PrintHelper.option(1, "Customer");
+        PrintHelper.option(2, "Seller");
+        PrintHelper.option(3, "return");
+        PrintHelper.option(4, "exit");
+        return ScannerWrapper.nextInt();
+    }
+
+    public User loginMenu() {
+
+        while (true) {
+            int choice = getAnInt();
 
             switch (choice) {
                 case 1 -> {
@@ -126,86 +126,97 @@ public class EntryMenu {
                     return handleAdminLogin();
                 }
                 case 4 -> {
-                    PrintHelper.ask("Are you sure you want to exit? (yes/hell no)");
-                    String confirm = ScannerWrapper.nextLine().toLowerCase();
-                    if (confirm.equals("yes") || confirm.equals("y")) {
-                        System.exit(0);
-                    }
+                    return null;
                 }
-                case 5 -> run = false;
+                case 5 -> exit();
                 default -> PrintHelper.printError("Invalid choice! try again:");
             }
         }
-        return null;
     }
 
-    public User handleCustomerLogin(){
-        PrintHelper.miniUpperBorder("Choose your way to login");
-        PrintHelper.option(1, "Email");
-        PrintHelper.option(2, "Phone number");
-        PrintHelper.option(3, "return");
-        PrintHelper.miniLowerBorder("Choose your way to login");
-        int chosen = ScannerWrapper.nextInt();
+    private static int getAnInt() {
+        PrintHelper.upperBorder("Choose your role to sign up");
+        PrintHelper.option(1, "Customer");
+        PrintHelper.option(2, "Seller");
+        PrintHelper.option(3, "Admin");
+        PrintHelper.option(4, "return");
+        PrintHelper.option(5, "exit");
+        return ScannerWrapper.nextInt();
+    }
+
+    public User handleCustomerLogin() {
+        int chosen = getChosen();
 
         HashMap<String, String> info = new HashMap<>();
-        User user;
 
         switch (chosen) {
             case 1 -> {
-                PrintHelper.option(1, "Enter your email: ");
-                String email = ScannerWrapper.nextLine();
-                info.put("email", email);
-                PrintHelper.option(2, "Enter your password: ");
-                String password = ScannerWrapper.nextLine();
-                info.put("password", password);
-
-                return navigator.login("customer", info, "email");
+                return getUser("Enter your email: ", info, "email");
             }
             case 2 -> {
-                PrintHelper.option(1, "Enter your phone number: ");
-                String phoneNum = ScannerWrapper.nextLine();
-                info.put("phoneNumber", phoneNum);
-                PrintHelper.option(2, "Enter your password: ");
-                String password = ScannerWrapper.nextLine();
-                info.put("password", password);
-
-                return navigator.login("customer", info, "phoneNumber");
+                return getUser("Enter your phone number: ", info, "phoneNumber");
             }
-            case 3 ->{
+            case 3 -> {
                 return null;
             }
+            case 4 -> exit();
             default -> PrintHelper.printError("Invalid choice.");
         }
         return null;
     }
 
-    public User handleSellerLogin(){
+    private User getUser(String massage, HashMap<String, String> info, String chosenPath) {
+        PrintHelper.newLine();
+        PrintHelper.ask(massage);
+        String information = ScannerWrapper.nextLine();
+        info.put(chosenPath, information);
+        PrintHelper.ask("Enter your password: ");
+        String password = ScannerWrapper.nextLine();
+        info.put("password", password);
+
+        return navigator.login("customer", info, chosenPath);
+    }
+
+    private static int getChosen() {
+        PrintHelper.miniUpperBorder("Choose your way to login");
+        PrintHelper.option(1, "Email");
+        PrintHelper.option(2, "Phone number");
+        PrintHelper.option(3, "return");
+        PrintHelper.option(4, "exit");
+        PrintHelper.miniLowerBorder("Choose your way to login");
+        int chosen = ScannerWrapper.nextInt();
+        return chosen;
+    }
+
+    public User handleSellerLogin() {
 
         HashMap<String, String> info = new HashMap<>();
 
+        PrintHelper.newLine();
         PrintHelper.miniUpperBorder("Enter your information");
-        PrintHelper.option(1, "Enter your Shop ID");
-        String shopID=ScannerWrapper.nextLine();
+        PrintHelper.ask("Enter your Shop ID");
+        String shopID = ScannerWrapper.nextLine();
         info.put("shopID", shopID);
-        PrintHelper.option(2, "Enter your password");
-        String password=ScannerWrapper.nextLine();
+        PrintHelper.ask("Enter your password");
+        String password = ScannerWrapper.nextLine();
         info.put("password", password);
 
         return navigator.login("seller", info, null);
     }
 
-    public User handleAdminLogin(){
+    public User handleAdminLogin() {
         HashMap<String, String> info = new HashMap<>();
 
+        PrintHelper.newLine();
         PrintHelper.miniUpperBorder("Enter your information");
-        PrintHelper.option(1, "Enter your name");
-        String name=ScannerWrapper.nextLine();
+        PrintHelper.ask("Enter your name");
+        String name = ScannerWrapper.nextLine();
         info.put("name", name);
-        PrintHelper.option(2, "Enter your username");
-        String username=ScannerWrapper.nextLine();
+        PrintHelper.ask("Enter your username");
+        String username = ScannerWrapper.nextLine();
         info.put("username", username);
-        PrintHelper.option(3, "Enter your password");
-        String password=ScannerWrapper.nextLine();
+        PrintHelper.ask("Enter your password");
+        String password = ScannerWrapper.nextLine();
         info.put("password", password);
 
         return navigator.login("admin", info, null);

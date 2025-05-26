@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Vendilo vendilo=new Vendilo();
+        Vendilo vendilo = new Vendilo();
         vendilo.run();
 
     }

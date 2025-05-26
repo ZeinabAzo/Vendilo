@@ -1,6 +1,5 @@
 package ir.ac.kntu.util;
 
-import com.sun.source.tree.AssertTree;
 import ir.ac.kntu.models.Cart;
 import ir.ac.kntu.models.Order;
 
@@ -8,7 +7,7 @@ import java.util.*;
 
 public class PrintHelper {
 
-    public static class consoleColors {
+    public static class ConsoleColors {
 
         // Dim/Faint style
         public static final String DIM = "\u001B[2m";
@@ -44,53 +43,53 @@ public class PrintHelper {
     }
 
     public static void ask(String massage) {
-        System.out.println(consoleColors.BRIGHT_PURPLE + "[:D] " + massage + consoleColors.RESET);
+        System.out.println(ConsoleColors.BRIGHT_PURPLE + "[:D] " + massage + ConsoleColors.RESET);
     }
 
     public static void printSuccess(String massage) {
-        System.out.println(consoleColors.GREEN + "[SUCCESS] " + massage + consoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN + "[SUCCESS] " + massage + ConsoleColors.RESET);
     }
 
     public static void printInfo(String massage) {
-        System.out.println(consoleColors.DIM+ consoleColors.GREEN + "[INFORMATION] " + massage + consoleColors.RESET);
+        System.out.println(ConsoleColors.DIM + ConsoleColors.GREEN + "[INFORMATION] " + massage + ConsoleColors.RESET);
     }
 
     public static void printError(String massage) {
-        System.out.println(consoleColors.RED + "[ERROR] " + massage + consoleColors.RESET);
+        System.out.println(ConsoleColors.RED + "[ERROR] " + massage + ConsoleColors.RESET);
     }
 
     public static void option(int index, String massage) {
-        System.out.println(consoleColors.DIM + consoleColors.YELLOW + "         ▻ " + index +
-                ". " + massage + consoleColors.RESET);
+        System.out.println(ConsoleColors.DIM + ConsoleColors.YELLOW + "         ▻ " + index +
+                ". " + massage + ConsoleColors.RESET);
     }
 
     public static void upperBorder(String massage) {
-        System.out.println(consoleColors.CYAN + "◸—————    ⁂" + massage + "⁂    ————◹" + consoleColors.RESET);
+        System.out.println(ConsoleColors.CYAN + "◸—————     ⁂" + massage + "⁂     —————◹" + ConsoleColors.RESET);
     }
 
     public static void miniUpperBorder(String massage) {
-        System.out.println(consoleColors.CYAN + "◸———  ⁎◊" + massage + "◊⁎  ———◹" + consoleColors.RESET);
+        System.out.println(ConsoleColors.CYAN + "◸———  ⁎◊" + massage + "◊⁎  ———◹" + ConsoleColors.RESET);
     }
 
     public static void lowerBorder(String massage) {
         int spaces = massage.length();
-        System.out.print(consoleColors.CYAN + "◺—————");
+        System.out.print(ConsoleColors.CYAN + "◺—————");
         for (int i = 0; i < spaces + 10; i++) {
             System.out.print("—");
         }
-        System.out.println("——————◿" + consoleColors.RESET);
+        System.out.println("——————◿" + ConsoleColors.RESET);
     }
 
     public static void miniLowerBorder(String massage) {
         int spaces = massage.length();
-        System.out.print(consoleColors.CYAN + "◺——");
+        System.out.print(ConsoleColors.CYAN + "◺——");
         for (int i = 0; i < spaces + 8; i++) {
             System.out.print("—");
         }
-        System.out.println("———◿" + consoleColors.RESET);
+        System.out.println("———◿" + ConsoleColors.RESET);
     }
 
-    public static HashMap<String, String> askForInformation(String user) {
+    public static Map<String, String> askForInformation(String user) {
         String[] admin = new String[]{"name", "username", "password"};
         String[] customer = new String[]{"firstname", "lastname", "email", "phone number", "password"};
         String[] seller = new String[]{"firstname", "lastname", "ID", "state", "phone number", "password"};
@@ -125,8 +124,11 @@ public class PrintHelper {
         return information;
     }
 
+    public static void newLine() {
+        System.out.println("\n");
+    }
 
-    public static void printFancyTable(HashMap<String, String> productInfo) {
+    public static void printFancyTable(Map<String, String> productInfo) {
 
 //        Set<String> keySet = productInfo.g;// just get the first row to get our fields
 //        List<String> headers = new ArrayList<>(keySet);// for fieldnames at the top
@@ -196,8 +198,8 @@ public class PrintHelper {
 
     }
 
-    public static void showCart(Cart cart){
-        ArrayList<Order> orders=cart.getOrders();
+    public static void showCart(Cart cart) {
+        ArrayList<Order> orders = (ArrayList<Order>) cart.getOrders();
         SplitDisplay.show(orders);
     }
 

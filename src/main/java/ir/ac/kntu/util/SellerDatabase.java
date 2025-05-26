@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SellerDatabase {
     private static final String FILE_PATH = "database/sellers.json";
@@ -20,14 +21,15 @@ public class SellerDatabase {
 
     public static ArrayList<Seller> load() {
         try (FileReader reader = new FileReader(FILE_PATH)) {
-            Type listType = new TypeToken<ArrayList<Seller>>(){}.getType();
+            Type listType = new TypeToken<ArrayList<Seller>>() {
+            }.getType();
             return gson.fromJson(reader, listType);
         } catch (IOException e) {
             return new ArrayList<>();
         }
     }
 
-    public static void save(ArrayList<Seller> sellers) {
+    public static void save(List<Seller> sellers) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             gson.toJson(sellers, writer);
         } catch (IOException e) {

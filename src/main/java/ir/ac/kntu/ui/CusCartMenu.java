@@ -1,6 +1,6 @@
 package ir.ac.kntu.ui;
 
-import ir.ac.kntu.controllers.CustomerController;
+import ir.ac.kntu.controllers.CusControl;
 import ir.ac.kntu.models.Cart;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
@@ -8,26 +8,26 @@ import ir.ac.kntu.util.SplitDisplay;
 
 public class CusCartMenu {
 
-    CustomerController customerController;
+    CusControl cusControl;
 
-    public CusCartMenu(CustomerController customerController){
-        this.customerController=customerController;
+    public CusCartMenu(CusControl ccusControl) {
+        this.cusControl = ccusControl;
     }
 
-    public void showAllCarts(){
-        while(true) {
+    public void showAllCarts() {
+        while (true) {
             PrintHelper.option(1, "See all carts");
             PrintHelper.option(2, "return");
-            int choice= ScannerWrapper.nextInt();
+            int choice = ScannerWrapper.nextInt();
 
             switch (choice) {
                 case 1 -> {
-                    int index = SplitDisplay.show(customerController.getCustomer().getCarts());
-                    if (index == -1 || index >= customerController.getCustomer().getCarts().size()) {
+                    int index = SplitDisplay.show(cusControl.getCustomer().getCarts());
+                    if (index == -1 || index >= cusControl.getCustomer().getCarts().size()) {
                         PrintHelper.printError("Invalid cart selected or operation canceled.");
                         return;
                     }
-                    cartMenu(customerController.getCustomer().getCart(index));
+                    cartMenu(cusControl.getCustomer().getCart(index));
                 }
                 case 2 -> {
                     return;
@@ -63,7 +63,6 @@ public class CusCartMenu {
         // TODO: implement cart display
         PrintHelper.printSuccess("Cart shown here.");
     }
-
 
 
     private void purchaseCart() {
