@@ -68,8 +68,8 @@ public class CusCartMenu {
         PrintHelper.option(1, "purchase it");
         PrintHelper.option(2, "delete it");
         PrintHelper.option(3, "nothing, I was just visiting");
-        int choice=ScannerWrapper.nextInt();
-        switch (choice){
+        int choice = ScannerWrapper.nextInt();
+        switch (choice) {
             case 1 -> purchaseCart(cart);
             case 2 -> cusControl.deleteCart(cart);
             case 3 -> {
@@ -89,8 +89,8 @@ public class CusCartMenu {
             Address address = null;
 
             switch (choice) {
-                case 1 -> address= chooseExistingAddress();
-                case 2 -> address=insertAddress();
+                case 1 -> address = chooseExistingAddress();
+                case 2 -> address = insertAddress();
                 case 3 -> {
                     return;
                 }
@@ -102,10 +102,10 @@ public class CusCartMenu {
     }
 
     private Address chooseExistingAddress() {
-        int choice= SplitDisplay.show(cusControl.getCustomer().getAddresses());
-        if(choice==-1){
+        int choice = SplitDisplay.show(cusControl.getCustomer().getAddresses());
+        if (choice == -1) {
             PrintHelper.printError("something went wrong sorry");
-        } else if (choice <0 || choice>=cusControl.getCustomer().getAddresses().size()) {
+        } else if (choice < 0 || choice >= cusControl.getCustomer().getAddresses().size()) {
             PrintHelper.printError("Your choice is imaginary(i) (❁´◡`❁)");
             return null;
         }

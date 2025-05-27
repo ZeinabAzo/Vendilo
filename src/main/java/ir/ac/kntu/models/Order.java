@@ -8,12 +8,12 @@ import static ir.ac.kntu.util.PrintHelper.printError;
 public class Order {
 
     private Product product;
-    private Seller seller;
+    private String shopID;
     private LocalDate orderDate;
 
-    public Order(Product product, Seller seller, LocalDate orderDate) {
+    public Order(Product product, String shopID, LocalDate orderDate) {
         this.product = product;
-        this.seller = seller;
+        this.shopID=shopID;
         this.orderDate = orderDate;
     }
 
@@ -28,7 +28,7 @@ public class Order {
             return null;
         }
 
-        Order newOrder = new Order(product, seller , LocalDate.now());
+        Order newOrder = new Order(product, shopID , LocalDate.now());
         product.sellProduct();
 
         return newOrder;
@@ -43,13 +43,8 @@ public class Order {
         this.product = product;
     }
 
-
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
+    public String getShopID() {
+        return shopID;
     }
 
     public LocalDate getOrderDate() {
@@ -64,7 +59,7 @@ public class Order {
     public String toString() {
         return "Order {" +
                 "\n  Product: " + (product != null ? product : "N/A") +
-                ",\n  Seller: " + (seller != null ? seller.getfName() : "N/A") +
+                ",\n  Seller: " + (shopID != null ? shopID : "N/A") +
                 ",\n  Order Date: " + (orderDate != null ? orderDate : "N/A") +
                 "\n}";
     }

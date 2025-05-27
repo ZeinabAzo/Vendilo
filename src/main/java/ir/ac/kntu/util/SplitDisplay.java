@@ -1,5 +1,6 @@
 package ir.ac.kntu.util;
 
+import ir.ac.kntu.models.Address;
 import ir.ac.kntu.models.Cart;
 import ir.ac.kntu.models.Order;
 import ir.ac.kntu.models.Product;
@@ -107,6 +108,9 @@ public class SplitDisplay {
             System.out.println(massage);
         }else if(item instanceof Cart cart){
             String massage = cart.toString();
+            System.out.println(massage);
+        }else if(item instanceof Address address){
+            String massage = address.toString();
             System.out.println(massage);
         }
     }

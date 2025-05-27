@@ -1,4 +1,4 @@
-package ir.ac.kntu.util;
+package ir.ac.kntu.util.loaddb;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

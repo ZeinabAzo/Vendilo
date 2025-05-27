@@ -1,30 +1,29 @@
-package ir.ac.kntu.util;
+package ir.ac.kntu.util.loaddb;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import ir.ac.kntu.models.Product;
-import ir.ac.kntu.models.Seller;
+import ir.ac.kntu.models.Customer;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SellerDatabase {
-    private static final String FILE_PATH = "database/seller.json";
+public class CustomerDatabase {
+    private static final String FILE_PATH = "database/customer.json";
 
     private static final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(Product.class, new ProductAdapter())
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
             .setPrettyPrinting()
             .create();
 
-
-    public static ArrayList<Seller> load() {
+    public static ArrayList<Customer> load() {
         try (FileReader reader = new FileReader(FILE_PATH)) {
-            Type listType = new TypeToken<ArrayList<Seller>>() {
+            Type listType = new TypeToken<ArrayList<Customer>>() {
             }.getType();
             return gson.fromJson(reader, listType);
         } catch (IOException e) {
@@ -32,9 +31,9 @@ public class SellerDatabase {
         }
     }
 
-    public static void save(List<Seller> sellers) {
+    public static void save(List<Customer> customers) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            gson.toJson(sellers, writer);
+            gson.toJson(customers, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }

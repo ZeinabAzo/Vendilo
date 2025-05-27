@@ -44,6 +44,9 @@ public class Customer extends User {
         this.addresses = address;
     }
 
+    public Address getAddress(int index){
+        return addresses.get(index);
+    }
 
     public void addAddress(Address address) {
         this.addresses.add(address);

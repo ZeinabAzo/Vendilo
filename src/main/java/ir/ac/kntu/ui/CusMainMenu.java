@@ -43,35 +43,14 @@ public class CusMainMenu {
         }
     }
 
+    private void walletMenu() {
+        CusWalletM cusWalletM = new CusWalletM(ccusControl);
+        cusWalletM.walletMenu();
+    }
+
     private void addressOptions() {
-        while (true) {
-            PrintHelper.miniUpperBorder("  Address display  ");
-            PrintHelper.option(1, "Show all addresses");
-            PrintHelper.option(2, "Insert a new address");
-            PrintHelper.option(3, "Return");
-            PrintHelper.miniLowerBorder("  Address display  ");
-
-            int choice = ScannerWrapper.nextInt();
-
-            switch (choice) {
-                case 1 -> showAddresses();
-                case 2 -> insertAddress();
-                case 3 -> {
-                    return;
-                }
-                default -> PrintHelper.printError("Invalid option!");
-            }
-        }
-    }
-
-    private void insertAddress() {
-        // TODO
-        PrintHelper.printInfo("Inserting address...");
-    }
-
-    private void showAddresses() {
-        // TODO
-        PrintHelper.printInfo("Displaying all addresses...");
+        AddressCus addressCus = new AddressCus(ccusControl);
+        addressCus.firstShow();
     }
 
     private void showAllCarts() {
@@ -82,37 +61,6 @@ public class CusMainMenu {
     private void searchOptions() {
         CusSearchMenu customerSearchMenu = new CusSearchMenu(ccusControl);
         customerSearchMenu.firstPage();
-    }
-
-    private void walletMenu() {
-        while (true) {
-            PrintHelper.miniUpperBorder(" $  Hi, I'm your wallet!  $");
-            PrintHelper.option(1, "Show former transactions");
-            PrintHelper.option(2, "Charge Balance");
-            PrintHelper.option(3, "Return");
-            PrintHelper.miniLowerBorder(" $  Hi, I'm your wallet!  $");
-
-            int choice = ScannerWrapper.nextInt();
-
-            switch (choice) {
-                case 1 -> showTransactions();
-                case 2 -> chargeBalance();
-                case 3 -> {
-                    return;
-                }
-                default -> PrintHelper.printError("Invalid option!");
-            }
-        }
-    }
-
-    private void showTransactions() {
-
-        PrintHelper.printInfo("Showing transactions...");
-    }
-
-    private void chargeBalance() {
-
-        PrintHelper.printInfo("Charging wallet...");
     }
 
     private void orders() {

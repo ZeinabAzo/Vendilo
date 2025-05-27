@@ -7,6 +7,7 @@ import ir.ac.kntu.services.CustomerService;
 import ir.ac.kntu.services.SearchProducts;
 import ir.ac.kntu.ui.ShowProductInfo;
 import ir.ac.kntu.util.PrintHelper;
+import ir.ac.kntu.util.ScannerWrapper;
 import ir.ac.kntu.util.SplitDisplay;
 
 import java.time.LocalDate;
@@ -56,8 +57,8 @@ public class CusControl {
 
     public void orderProduct(Product product) {
         Cart cart = findCart();
-        Seller seller = sellerDB.findSeller(product.getSellerId());
-        Order order = new Order(product, seller, LocalDate.now());
+        String shopID = sellerDB.findSeller(product.getSellerId()).getShopID();
+        Order order = new Order(product, shopID, LocalDate.now());
         cart.addToCart(order);
     }
 
@@ -94,8 +95,35 @@ public class CusControl {
         if (!customer.getCart(cart).isPurchased()) {
             customerServ.purchaseCart(cart, customer, address);
         } else {
-            PrintHelper.printError("this cart is already purchased sorry");
-            return;
+            PrintHelper.printError("This cart is already purchased, hooray! ᓚᘏᗢ ");
         }
+    }
+
+    public void deleteAddress(int index) {
+        customer.getAddresses().remove(customer.getAddress(index));
+    }
+
+    public void editDescription(int index) {
+        PrintHelper.ask("Enter new description: ");
+        String des = ScannerWrapper.nextLine();
+        customer.getAddress(index).setDescription(des);
+    }
+
+    public void editCity(int index) {
+        PrintHelper.ask("Enter new city: ");
+        String city = ScannerWrapper.nextLine();
+        customer.getAddress(index).setCity(city);
+    }
+
+    public void editState(int index) {
+        PrintHelper.ask("Enter new state: ");
+        String state = ScannerWrapper.nextLine();
+        customer.getAddress(index).setState(state);
+    }
+
+    public void editTitle(int index) {
+        PrintHelper.ask("Enter new title: ");
+        String title = ScannerWrapper.nextLine();
+        customer.getAddress(index).setTitle(title);
     }
 }

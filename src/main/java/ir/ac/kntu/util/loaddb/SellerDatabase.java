@@ -1,9 +1,10 @@
-package ir.ac.kntu.util;
+package ir.ac.kntu.util.loaddb;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import ir.ac.kntu.models.Admin;
+import ir.ac.kntu.models.Product;
+import ir.ac.kntu.models.Seller;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,16 +13,18 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminDatabase {
-    private static final String FILE_PATH = "database/admin.json";
+public class SellerDatabase {
+    private static final String FILE_PATH = "database/seller.json";
 
     private static final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Product.class, new ProductAdapter())
             .setPrettyPrinting()
             .create();
 
-    public static List<Admin> load() {
+
+    public static ArrayList<Seller> load() {
         try (FileReader reader = new FileReader(FILE_PATH)) {
-            Type listType = new TypeToken<ArrayList<Admin>>() {
+            Type listType = new TypeToken<ArrayList<Seller>>() {
             }.getType();
             return gson.fromJson(reader, listType);
         } catch (IOException e) {
@@ -29,9 +32,9 @@ public class AdminDatabase {
         }
     }
 
-    public static void save(List<Admin> admins) {
+    public static void save(List<Seller> sellers) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            gson.toJson(admins, writer);
+            gson.toJson(sellers, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
