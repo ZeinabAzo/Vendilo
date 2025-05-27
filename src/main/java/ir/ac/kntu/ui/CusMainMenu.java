@@ -1,15 +1,17 @@
 package ir.ac.kntu.ui;
 
 import ir.ac.kntu.controllers.CusControl;
+import ir.ac.kntu.util.Exit;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
+import ir.ac.kntu.util.SplitDisplay;
 
 public class CusMainMenu {
 
-    private CusControl ccusControl;
+    private CusControl cusControl;
 
     public CusMainMenu(CusControl cusControl) {
-        this.ccusControl = cusControl;
+        this.cusControl = cusControl;
     }
 
     public void showPage() {
@@ -44,36 +46,58 @@ public class CusMainMenu {
     }
 
     private void walletMenu() {
-        CusWalletM cusWalletM = new CusWalletM(ccusControl);
+        CusWalletM cusWalletM = new CusWalletM(cusControl);
         cusWalletM.walletMenu();
     }
 
     private void addressOptions() {
-        AddressCus addressCus = new AddressCus(ccusControl);
+        AddressCus addressCus = new AddressCus(cusControl);
         addressCus.firstShow();
     }
 
     private void showAllCarts() {
-        CusCartMenu cusCartMenu = new CusCartMenu(ccusControl);
+        CusCartMenu cusCartMenu = new CusCartMenu(cusControl);
         cusCartMenu.showAllCarts();
     }
 
     private void searchOptions() {
-        CusSearchMenu customerSearchMenu = new CusSearchMenu(ccusControl);
+        CusSearchMenu customerSearchMenu = new CusSearchMenu(cusControl);
         customerSearchMenu.firstPage();
     }
 
     private void orders() {
-        // Show purchased carts in a loop if needed
         PrintHelper.miniUpperBorder("Choose a purchased cart");
-        //Show orders
-        PrintHelper.miniLowerBorder("Purchased carts");
+        cusControl.showPurchCart();
     }
 
     private void setting() {
-        // User can update info
-        //implement setting update
-        PrintHelper.printInfo("User settings page.");
+
+        PrintHelper.printInfo(cusControl.getCustomer().toString());
+        PrintHelper.ask("Do you want to change anything?");
+        PrintHelper.option(1, "yes, let's change some things ");
+        PrintHelper.option(2, "Nope, return");
+        PrintHelper.option(3, "exit");
+        int choice = ScannerWrapper.nextInt();
+
+        switch (choice) {
+            case 1 -> editSomething();
+            case 2 -> {
+            }
+            case 3 -> Exit.exit();
+            default -> PrintHelper.printError("Invalid command");
+        }
+    }
+
+    private void editSomething() {
+        boolean goOn = true;
+        do{
+            PrintHelper.ask("what to change?");
+            PrintHelper.option(1, "first name");
+            PrintHelper.option(2, "last name");
+            PrintHelper.option(3, "email");
+            PrintHelper.option(4, "password");
+            goOn=false;
+        }while (goOn);
     }
 
     private void support() {

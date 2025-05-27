@@ -6,6 +6,7 @@ import ir.ac.kntu.models.*;
 import ir.ac.kntu.services.CustomerService;
 import ir.ac.kntu.services.SearchProducts;
 import ir.ac.kntu.ui.ShowProductInfo;
+import ir.ac.kntu.util.Exit;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 import ir.ac.kntu.util.SplitDisplay;
@@ -34,7 +35,7 @@ public class CusControl {
 
     public void setServices() {//add necessary services
         this.searchProducts = new SearchProducts(productDB);
-        this.customerServ = new CustomerService(customer);
+        this.customerServ = new CustomerService(customer, sellerDB);
     }
 
     public List<Product> searchByName(String name) {
@@ -137,6 +138,15 @@ public class CusControl {
     }
 
     public boolean chargeBalance(double amount) {
-        boolean success = customer.getWallet().deposit(amount);
+        return customer.getWallet().deposit(amount);
     }
+
+    public void showPurchCart() {
+        List<Cart> purchased = customer.getCarts().stream().filter(Cart::isPurchased).toList();
+        int choice = SplitDisplay.show(purchased);
+        if(choice>0 && choice<purchased.size()){
+            SplitDisplay.show(purchased.get(choice).getOrders());
+        }
+    }
+
 }

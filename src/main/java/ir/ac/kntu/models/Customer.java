@@ -16,8 +16,8 @@ public class Customer extends User {
         setWallet(new Wallet(true));
         this.email = email;
         this.phoneNumber = phoneNumber;
-        addresses=new ArrayList<>();
-        carts=new ArrayList<>();
+        addresses = new ArrayList<>();
+        carts = new ArrayList<>();
     }
 
     public String getEmail() {
@@ -44,7 +44,7 @@ public class Customer extends User {
         this.addresses = address;
     }
 
-    public Address getAddress(int index){
+    public Address getAddress(int index) {
         return addresses.get(index);
     }
 
@@ -75,5 +75,14 @@ public class Customer extends User {
 
     public void addCart(Cart cart) {
         carts.add(cart);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                ", name='" + getfName() + " " + getlName() + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

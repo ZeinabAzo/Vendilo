@@ -1,21 +1,21 @@
 package ir.ac.kntu.services;
 
 import ir.ac.kntu.data.CustomerDB;
-import ir.ac.kntu.models.Cart;
-import ir.ac.kntu.models.Customer;
-import ir.ac.kntu.models.Order;
-import ir.ac.kntu.models.Address;
+import ir.ac.kntu.data.SellerDB;
+import ir.ac.kntu.models.*;
 
 import static ir.ac.kntu.util.PrintHelper.printError;
 
 public class CustomerService {
 
     private Customer customer;
+    private SellerDB sellerDB;
     public static double shippingFee = 50;
 
 
-    public CustomerService(Customer customer) {
-        this.customer=customer;
+    public CustomerService(Customer customer, SellerDB sellerDB) {
+        this.customer = customer;
+        this.sellerDB = sellerDB;
     }
 
     public boolean purchaseCart(Cart cart, Customer customer, Address address) {
@@ -43,13 +43,14 @@ public class CustomerService {
         return true;
     }
 
-    private static double getTotalPrice(Cart cart, Address address) {
+    private double getTotalPrice(Cart cart, Address address) {
         boolean shippingCost = true;
         double totalPrice = 0;
 
         for (Order order : cart.getOrders()) {
             if (order != null && order.getProduct() != null) {
-                if (!(order.getSeller().getShopLocation().getState().equals(address.getState()))) {
+                Seller seller = sellerDB.findSeller(order.getShopID());
+                if (!(seller.getShopLocation().getState().equals(address.getState()))) {
                     shippingCost = false;
                 }
                 totalPrice += order.getProduct().getPrice();
