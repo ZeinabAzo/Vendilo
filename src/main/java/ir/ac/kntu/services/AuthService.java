@@ -4,11 +4,8 @@ import static ir.ac.kntu.util.PrintHelper.printError;
 
 public class AuthService {
 
-    public String[] attachNames(String fName, String lName) {
-        return new String[]{fName, lName};
-    }
 
-    public boolean isValidName(String name) {
+    public static boolean isValidName(String name) {
         if (name.matches("([a-zA-Z]+\\s*)*")) {
             return true;
         } else {
@@ -17,7 +14,7 @@ public class AuthService {
         }
     }
 
-    public boolean isValidPassword(String password) {
+    public static boolean isValidPassword(String password) {
         if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#_\\-]).{8,15}$")) {
             return true;
         } else {
@@ -32,7 +29,7 @@ public class AuthService {
         }
     }
 
-    public boolean isValidEmail(String email) {
+    public static boolean isValidEmail(String email) {
         if (email.matches("^[\\w._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             return true;
         } else {
@@ -41,7 +38,7 @@ public class AuthService {
         }
     }
 
-    public boolean isValidPhoneNumber(String phoneNumber) {
+    public static boolean isValidPhoneNumber(String phoneNumber) {
         if (phoneNumber.matches("[0-9]{10,11}")) {
             return true;
         } else {
@@ -50,7 +47,7 @@ public class AuthService {
         }
     }
 
-    public boolean isValidID(String nationId) {
+    public static boolean isValidID(String nationId) {
         if (nationId.matches("[0-9]{10}")) {
             return true;
         } else {
@@ -59,12 +56,7 @@ public class AuthService {
         }
     }
 
-    public boolean isValidCustomerAddress(String title, String state, String city) {
-        return title.matches("([a-zA-Z]+\\s*)*") && state.matches("([a-zA-Z]+\\s*)*") &&
-                city.matches("([a-zA-Z]+\\s*)*");
-    }
-
-    public boolean isValidSellerAddress(String state) {
+    public static boolean isValidSellerAddress(String state) {
         return state.matches("([a-zA-Z]+\\s*)*");
     }
 

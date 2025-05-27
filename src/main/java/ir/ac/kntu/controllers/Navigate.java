@@ -82,7 +82,7 @@ public class Navigate {
     public void decideForUser(User user) {
 
         if (user instanceof Customer) {
-            CusControl cusControl = new CusControl((Customer) user, sellerDB,  productDB);
+            CusControl cusControl = new CusControl((Customer) user,customerDB, sellerDB,  productDB);
             cusControl.setServices();
             CusMainMenu customerMainMenu = new CusMainMenu(cusControl);
             customerMainMenu.showPage();

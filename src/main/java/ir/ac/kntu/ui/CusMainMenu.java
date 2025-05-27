@@ -96,7 +96,19 @@ public class CusMainMenu {
             PrintHelper.option(2, "last name");
             PrintHelper.option(3, "email");
             PrintHelper.option(4, "password");
-            goOn=false;
+            PrintHelper.option(5, "return");
+            PrintHelper.option(6, "exit");
+            int choice = ScannerWrapper.nextInt();
+
+            switch (choice){
+                case 1 -> cusControl.editfName();
+                case 2 -> cusControl.editlName();
+                case 3 -> cusControl.editEmail();
+                case 4 -> cusControl.editPassword();
+                case 5 -> goOn=false;
+                case 6 -> Exit.exit();
+                default -> PrintHelper.printError("Invalid command ");
+            }
         }while (goOn);
     }
 

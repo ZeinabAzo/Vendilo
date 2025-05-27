@@ -3,25 +3,26 @@ package ir.ac.kntu.services;
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.*;
+import ir.ac.kntu.util.PrintHelper;
 
 import static ir.ac.kntu.util.PrintHelper.printError;
 
 public class CustomerService {
 
-    private Customer customer;
     private SellerDB sellerDB;
     public static double shippingFee = 50;
+    private CustomerDB customerDB;
 
 
-    public CustomerService(Customer customer, SellerDB sellerDB) {
-        this.customer = customer;
+    public CustomerService(CustomerDB customerDB, SellerDB sellerDB) {
+        this.customerDB = customerDB;
         this.sellerDB = sellerDB;
     }
 
-    public boolean purchaseCart(Cart cart, Customer customer, Address address) {
+    public void purchaseCart(Cart cart, Customer customer, Address address) {
         if (cart == null || customer == null) {
             printError("Cart or customer not recognized.");
-            return false;
+            return;
         }
 
         double totalPrice = getTotalPrice(cart, address);
@@ -30,17 +31,16 @@ public class CustomerService {
 
         if (!success) {
             printError("Insufficient balance in wallet.");
-            return false;
+            return;
         }
 
         Cart customerCart = customer.getCart(cart);
         if (customerCart == null) {
             printError("The cart was not found in customer's profile.");
-            return false;
+            return;
         }
 
         customerCart.setPurchased(true);
-        return true;
     }
 
     private double getTotalPrice(Cart cart, Address address) {
@@ -64,4 +64,61 @@ public class CustomerService {
         }
         return totalPrice;
     }
+
+    public void setEmail(Customer customer, String email) {
+        if(isCorrectEmail(email)){
+            customer.setEmail(email);
+        }
+    }
+
+    private boolean isCorrectEmail(String email){
+        if(AuthService.isValidEmail(email)){
+            if (hasDupEmail(email)){
+                PrintHelper.printError("Such an evil, using someone else's email!!");
+                return false;
+            }
+            return true;
+        }else{
+            PrintHelper.printError("Invalid email");
+            return false;
+        }
+    }
+
+    private boolean hasDupEmail(String email){
+        String foundEmail = customerDB.getCustomers().stream()
+                .map(Customer::getEmail)
+                .filter(email::equals)
+                .findFirst()
+                .orElse(null);
+        return foundEmail != null;
+    }
+
+    public void setPassword(Customer customer, String password) {
+        if (isCorrectPassword(password)) {
+            customer.setPassword(password);
+        }
+    }
+
+    private boolean isCorrectPassword(String password) {
+        if (AuthService.isValidPassword(password)) {
+            if (hasDupPassword(password)) {
+                PrintHelper.printError("Password already in use by another user! Be original!");
+                return false;
+            }
+            return true;
+        } else {
+            PrintHelper.printError("Invalid password");
+            return false;
+        }
+    }
+
+    private boolean hasDupPassword(String password) {
+        String foundPassword = customerDB.getCustomers().stream()
+                .map(Customer::getPassword)
+                .filter(password::equals)
+                .findFirst()
+                .orElse(null);
+        return foundPassword != null;
+    }
+
 }

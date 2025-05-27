@@ -1,31 +1,34 @@
 package ir.ac.kntu.controllers;
 
+import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.*;
+import ir.ac.kntu.services.AuthService;
+import ir.ac.kntu.services.CustAuthSer;
 import ir.ac.kntu.services.CustomerService;
 import ir.ac.kntu.services.SearchProducts;
-import ir.ac.kntu.ui.ShowProductInfo;
-import ir.ac.kntu.util.Exit;
+
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 import ir.ac.kntu.util.SplitDisplay;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public class CusControl {
 
     private ProductDB productDB;
+    private CustomerDB customerDB;
     private SellerDB sellerDB;
     private Customer customer;
     private SearchProducts searchProducts;
     private CustomerService customerServ;
 
-    public CusControl(Customer customer, SellerDB sellerDB, ProductDB productDB) {
+    public CusControl(Customer customer,CustomerDB customerDB, SellerDB sellerDB, ProductDB productDB) {
         this.customer = customer;
         this.productDB = productDB;
+        this.customerDB=customerDB;
         this.sellerDB = sellerDB;
     }
 
@@ -35,7 +38,7 @@ public class CusControl {
 
     public void setServices() {//add necessary services
         this.searchProducts = new SearchProducts(productDB);
-        this.customerServ = new CustomerService(customer, sellerDB);
+        this.customerServ = new CustomerService(customerDB, sellerDB);
     }
 
     public List<Product> searchByName(String name) {
@@ -144,9 +147,32 @@ public class CusControl {
     public void showPurchCart() {
         List<Cart> purchased = customer.getCarts().stream().filter(Cart::isPurchased).toList();
         int choice = SplitDisplay.show(purchased);
-        if(choice>0 && choice<purchased.size()){
+        if (choice > 0 && choice < purchased.size()) {
             SplitDisplay.show(purchased.get(choice).getOrders());
         }
     }
 
+    public void editfName() {
+        PrintHelper.ask("Enter new name: ");
+        String name = ScannerWrapper.nextLine().trim();
+        customer.setfName(name);
+    }
+
+    public void editlName() {
+        PrintHelper.ask("Enter new family name: ");
+        String name = ScannerWrapper.nextLine().trim();
+        customer.setfName(name);
+    }
+
+    public void editEmail() {
+        PrintHelper.ask("Enter your new email: ");
+        String email = ScannerWrapper.nextLine().trim();
+        customerServ.setEmail(customer, email);
+    }
+
+    public void editPassword() {
+        PrintHelper.ask("Enter your new password: ");
+        String pass = ScannerWrapper.nextLine().trim();
+        customerServ.setPassword(customer, pass);
+    }
 }
