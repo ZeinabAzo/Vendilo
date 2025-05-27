@@ -10,12 +10,12 @@ import static ir.ac.kntu.util.PrintHelper.printError;
 
 public class CustomerService {
 
-    private CustomerDB customerDB;
+    private Customer customer;
     public static double shippingFee = 50;
 
 
-    public CustomerService(CustomerDB customerDB) {
-        this.customerDB = customerDB;
+    public CustomerService(Customer customer) {
+        this.customer=customer;
     }
 
     public boolean purchaseCart(Cart cart, Customer customer, Address address) {

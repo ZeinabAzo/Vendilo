@@ -2,31 +2,56 @@ package ir.ac.kntu.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import ir.ac.kntu.models.Product;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import ir.ac.kntu.models.*;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDatabase {
-    private static final String FILE_PATH = "database/products.json";
+    private static final String FILE_PATH = "database/product.json";
 
     private static final Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .create();
 
     public static List<Product> load() {
+        List<Product> products = new ArrayList<>();
+
         try (FileReader reader = new FileReader(FILE_PATH)) {
-            Type listType = new TypeToken<ArrayList<Product>>() {
-            }.getType();
-            return gson.fromJson(reader, listType);
+            JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
+
+            for (JsonElement element : jsonArray) {
+                String type = element.getAsJsonObject().get("type").getAsString();
+
+                switch (type) {
+                    case "book" -> {
+                        Book book = gson.fromJson(element, Book.class);
+                        products.add(book);
+                    }
+                    case "laptop" -> {
+                        Laptop laptop = gson.fromJson(element, Laptop.class);
+                        products.add(laptop);
+                    }
+                    case "mobile" -> {
+                        Mobile mobile = gson.fromJson(element, Mobile.class);
+                        products.add(mobile);
+                    }
+                    default -> {
+                        System.out.println("⚠️ Unknown product type: " + type);
+                    }
+                }
+            }
         } catch (IOException e) {
-            return new ArrayList<>();
+            e.printStackTrace();
         }
+
+        return products;
     }
 
     public static void save(List<Product> products) {

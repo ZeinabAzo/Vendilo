@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDatabase {
-    private static final String FILE_PATH = "database/admins.json";
+    private static final String FILE_PATH = "database/admin.json";
 
     private static final Gson gson = new GsonBuilder()
             .setPrettyPrinting()

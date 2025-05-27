@@ -6,9 +6,9 @@ public class Digital extends Product {
     private double internalStorage;
     private String ram;
 
-    public Digital(String name, double price, Seller seller, int inventory, String brand,
+    public Digital(String name, double price, Seller seller,String type, int inventory, String brand,
                    double internalStorage, String ram) {
-        super(name, price, inventory, seller);
+        super(name, price, inventory, seller, type);
         this.brand = brand;
         this.internalStorage = internalStorage;
         this.ram = ram;

@@ -12,6 +12,8 @@ import ir.ac.kntu.services.AdminAuthSer;
 import ir.ac.kntu.services.CustAuthSer;
 import ir.ac.kntu.services.SellerAuthSer;
 import ir.ac.kntu.ui.CusMainMenu;
+import ir.ac.kntu.ui.SellerMainMenu;
+import ir.ac.kntu.util.PrintHelper;
 
 import java.util.Map;
 
@@ -41,7 +43,10 @@ public class Navigate {
     public User leadToSignUP(Map<String, String> info, String user) {
         switch (user.toLowerCase()) {
             case "seller" -> {
-                return sellerAuthSer.signUp(info);
+                Seller seller = sellerAuthSer.signUp(info);
+                String shopId = seller.getShopID();
+                PrintHelper.printInfo(" Your shop-ID is : " + shopId + ". ");
+                return seller;
             }
             case "customer" -> {
                 return custAuthSer.signUp(info);
@@ -77,14 +82,17 @@ public class Navigate {
     public void decideForUser(User user) {
 
         if (user instanceof Customer) {
-            CusControl cusControl = new CusControl((Customer) user, productDB);
+            CusControl cusControl = new CusControl((Customer) user, sellerDB,  productDB);
             cusControl.setServices();
             CusMainMenu customerMainMenu = new CusMainMenu(cusControl);
             customerMainMenu.showPage();
         } else if (user instanceof Seller) {
-            SellControl sellControl = new SellControl(sellerDB, productDB, (Seller) user);
+            SellControl sellControl = new SellControl(productDB, (Seller) user);
+            sellControl.setServices();
+            SellerMainMenu sellerMainMenu= new SellerMainMenu(sellControl);
+            sellerMainMenu.showPage();
         } else {
-            AdmControl admControl = new AdmControl(adminDB, productDB, (Admin) user);
+            AdmControl admControl = new AdmControl(adminDB, productDB, sellerDB, (Admin) user);
         }
     }
 

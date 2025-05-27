@@ -2,6 +2,7 @@ package ir.ac.kntu.services;
 
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.models.Customer;
+import ir.ac.kntu.util.PrintHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,18 @@ public class CustAuthSer extends AuthService {
 
     public boolean isValidInput(String firstName, String lastName, String password, String email, String phoneNumber) {
         return isValidName(firstName) && isValidName(lastName) && isValidPassword(password) &&
-                isValidEmail(email) && isValidPhoneNumber(phoneNumber);
+                isValidEmail(email) && isValidPhoneNumber(phoneNumber) && isUnique(password, email , phoneNumber);
+    }
+
+    private boolean isUnique(String password, String email, String phoneNum){
+        Customer customer =customerDB.getCustomers().stream().filter(c -> password.equals(c.getPassword())
+                || email.equals(c.getEmail()) || phoneNum.equals(c.getPhoneNumber())).findFirst().orElse(null);
+        if(customer==null){
+            return true;
+        }else{
+            PrintHelper.printError("Found duplicates for your email, phone number or password");
+            return false;
+        }
     }
 
     public Customer loginByEmail(Map<String, String> info) {

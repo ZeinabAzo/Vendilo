@@ -1,0 +1,73 @@
+[
+  {
+    "nationalId": "0987654321",
+    "phoneNumber": "12345678900",
+    "shopLocation": {
+      "state": "tehran"
+    },
+    "shopID": "EM6977",
+    "productsForSale": [
+      {
+        "authorName": "Stephen Hawking",
+        "pageCount": 212.0,
+        "bookGenre": "HORROR",
+        "ageGroup": "CHILDREN",
+        "isbn": "9780553380163",
+        "name": "A Brief History of Time",
+        "price": 18.0,
+        "inventory": 15,
+        "seller": "EM6977",
+        "type": "book"
+      },
+      {
+        "authorName": "Dr. Seuss",
+        "pageCount": 61.0,
+        "bookGenre": "HORROR",
+        "ageGroup": "CHILDREN",
+        "isbn": "9780394800011",
+        "name": "The Cat in the Hat",
+        "price": 6.99,
+        "inventory": 100,
+        "seller": "EM6977",
+        "type": "book"
+      }
+    ],
+    "fName": "negar",
+    "lName": "abbasi",
+    "password": "asAS123@ggh",
+    "wallet": {
+      "balance": 0.0,
+      "canCharge": false
+    }
+  },
+  {
+    "nationalId": "3456789012",
+    "phoneNumber": "67890123455",
+    "shopLocation": {
+      "state": "tehran"
+    },
+    "shopID": "ML4417",
+    "productsForSale": [
+      {
+        "gpuModel": "NVIDIA_GTX_1660",
+        "btSupport": true,
+        "webcamStatus": "WITH",
+        "brand": "mine",
+        "internalStorage": 7.0,
+        "ram": "5",
+        "name": "GORBA",
+        "price": 99.9,
+        "inventory": 6,
+        "seller": "ML4417",
+        "type": "laptop"
+      }
+    ],
+    "fName": "ali",
+    "lName": "alavi",
+    "password": "rfrfR45@-",
+    "wallet": {
+      "balance": 0.0,
+      "canCharge": false
+    }
+  }
+]

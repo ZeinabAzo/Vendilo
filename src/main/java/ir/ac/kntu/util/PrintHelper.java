@@ -1,9 +1,12 @@
 package ir.ac.kntu.util;
 
+import ir.ac.kntu.models.Address;
 import ir.ac.kntu.models.Cart;
 import ir.ac.kntu.models.Order;
 
 import java.util.*;
+
+import static ir.ac.kntu.util.ProductPrinter.centerText;
 
 public class PrintHelper {
 
@@ -73,7 +76,7 @@ public class PrintHelper {
 
     public static void lowerBorder(String massage) {
         int spaces = massage.length();
-        System.out.print(ConsoleColors.CYAN + "◺—————");
+        System.out.print(ConsoleColors.CYAN + "◺——————");
         for (int i = 0; i < spaces + 10; i++) {
             System.out.print("—");
         }
@@ -128,80 +131,44 @@ public class PrintHelper {
         System.out.println("\n");
     }
 
-    public static void printFancyTable(Map<String, String> productInfo) {
-
-//        Set<String> keySet = productInfo.g;// just get the first row to get our fields
-//        List<String> headers = new ArrayList<>(keySet);// for fieldnames at the top
-//
-//        // measure column max-widths to have same lenght for each column
-//        Map<String, Integer> colWidths = new HashMap<>();
-//        for (String key : headers) {
-//            int maxWidth = key.length();
-//            for (int i = 0; i <= insertedJsons; i++) {
-//                Object value = jsonData.get(i).get(key);
-//                maxWidth = Math.max(maxWidth, String.valueOf(value).length());
-//
-//            }
-//            colWidths.put(key, maxWidth + 2); // adding 2: space on both sides
-//        }
-//
-//        // fancy borders
-//        String top = "╔";
-//        String mid = "╠";
-//        String bottom = "╚";
-//        for (int i = 0; i < headers.size(); i++) {
-//            String key = headers.get(i);
-//            int width = colWidths.get(key);
-//            top += "═".repeat(width) + (i == headers.size() - 1 ? "╗" : "╦");
-//            mid += "═".repeat(width) + (i == headers.size() - 1 ? "╣" : "╬");
-//            bottom += "═".repeat(width) + (i == headers.size() - 1 ? "╝" : "╩");
-//        }
-//
-//        // first row -> header
-//        System.out.println(top);
-//        StringBuilder headerRow = new StringBuilder("║");
-//        for (String key : headers) {
-//            int width = colWidths.get(key);
-//            String cell = centerText(key, width);
-//            String colored = consoleColors.BRIGHT_BLUE + cell + consoleColors.RESET;
-//            headerRow.append(colored).append("║");
-//        }
-//
-//        System.out.println(headerRow);
-//        System.out.println(mid);
-//
-//        for (int i = 0; i < jsonData.size(); i++) {
-//            if (productInfo.contains(i)) {
-//                Map<String, Object> row = jsonData.get(i);
-//                boolean isEvenRow = i % 2 == 0;
-//
-//                // zebra background
-//                String bgColor = isEvenRow ? consoleColors.BG_DARK_GRAY
-//                        : consoleColors.DIM + consoleColors.BG_LIGHT_GRAY;
-//                String textColor = consoleColors.BLACK;
-//
-//                // the last border of the row
-//                System.out.print(consoleColors.RESET + "║");
-//
-//                for (String key : headers) {
-//                    String value = String.valueOf(row.getOrDefault(key, ""));
-//
-//                    String padded = centerText(value, colWidths.get(key));
-//                    System.out.print(bgColor + textColor + padded + consoleColors.RESET + "║");
-//                }
-//
-//                System.out.println();
-//            }
-//        }
-//        System.out.println(bottom);
-//    }
-
+    public static void option(int num){
+        System.out.println( "\n\n         ▻ " + num + ". ");
     }
 
-    public static void showCart(Cart cart) {
-        ArrayList<Order> orders = (ArrayList<Order>) cart.getOrders();
-        SplitDisplay.show(orders);
+    public static void printFancyTable(Map<String, String> info) {
+        if (info == null || info.isEmpty()) {
+            printError("No info to display.");
+            return;
+        }
+
+        int keyWidth = "Field".length();
+        int valWidth = "Value".length();
+        for (var entry : info.entrySet()) {
+            keyWidth = Math.max(keyWidth, entry.getKey().length());
+            valWidth = Math.max(valWidth, entry.getValue().length());
+        }
+        keyWidth += 2;
+        valWidth += 2;
+
+        String top = "╔" + "═".repeat(keyWidth) + "╦" + "═".repeat(valWidth) + "╗";
+        String mid = "╠" + "═".repeat(keyWidth) + "╬" + "═".repeat(valWidth) + "╣";
+        String bot = "╚" + "═".repeat(keyWidth) + "╩" + "═".repeat(valWidth) + "╝";
+
+        System.out.println(top);
+        System.out.printf("║%s║%s║\n",
+                ConsoleColors.BRIGHT_BLUE + centerText("Field", keyWidth) + ConsoleColors.RESET,
+                ConsoleColors.BRIGHT_BLUE + centerText("Value", valWidth) + ConsoleColors.RESET);
+        System.out.println(mid);
+
+        for (var entry : info.entrySet()) {
+            System.out.printf("║%s║%s║\n",
+                    centerText(entry.getKey(), keyWidth),
+                    centerText(entry.getValue(), valWidth));
+        }
+
+        System.out.println(bot);
     }
+
 
 }
 

@@ -16,6 +16,11 @@ public class SellerDB {
         this.sellers =new ArrayList<>(sellers) ;
     }
 
+    public Seller findSeller(String shopId){
+        return sellers.stream().filter(s -> shopId.equals(s.getShopID())).findFirst()
+                .orElse(null);
+    }
+
     public List<Seller> getSellers() {
         return sellers;
     }

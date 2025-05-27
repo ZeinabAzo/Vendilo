@@ -33,8 +33,14 @@ public class Seller extends User {
         return productsForSale;
     }
 
-    public void addProduct(Product product) {
-        productsForSale.add(product);
+    public void addMobile(Mobile mobile) {
+        productsForSale.add(mobile);
+    }
+    public void addLaptop(Laptop laptop) {
+        productsForSale.add(laptop);
+    }
+    public void addBook(Book book) {
+        productsForSale.add(book);
     }
 
     public Address getShopLocation() {
@@ -45,4 +51,11 @@ public class Seller extends User {
         return shopID;
     }
 
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 }

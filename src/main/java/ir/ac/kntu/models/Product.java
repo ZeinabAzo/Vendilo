@@ -5,16 +5,18 @@ public class Product {
     private String name;
     private double price;
     private int inventory;
-    private Seller seller;
+    private String seller;
+    private String type;
 
     public Product() {
     }
 
-    public Product(String name, double price, int inventory, Seller seller) {
+    public Product(String name, double price, int inventory, Seller seller, String type) {
         this.name = name;
         this.price = price;
         this.inventory = inventory;
-        this.seller = seller;
+        this.seller = seller.getShopID();
+        this.type=type;
     }
 
 
@@ -54,7 +56,11 @@ public class Product {
         return inventory;
     }
 
-    public Seller getSeller() {
+    public String getSellerId() {
         return seller;
+    }
+
+    public String getType() {
+        return type;
     }
 }

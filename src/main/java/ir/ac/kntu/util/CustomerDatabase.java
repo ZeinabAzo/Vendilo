@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDatabase {
-    private static final String FILE_PATH = "database/customers.json";
+    private static final String FILE_PATH = "database/customer.json";
 
     private static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())

@@ -8,22 +8,24 @@ import ir.ac.kntu.util.ScannerWrapper;
 
 import java.util.HashMap;
 
+import static ir.ac.kntu.util.Exit.exit;
+
 public class EntryMenu {
 
-    private Navigate navigator;
+    private final Navigate navigator;
 
     public EntryMenu(Navigate navigator) {
         this.navigator = navigator;
     }
 
     public void entry() {
-
-        while (true) {
+        int choice;
+        do {
 
             firstMassage();
 
             User user;
-            int choice = ScannerWrapper.nextInt();
+            choice = ScannerWrapper.nextInt();
 
             switch (choice) {
                 case 1 -> {
@@ -35,22 +37,12 @@ public class EntryMenu {
                     decide(user);
                 }
                 case 3 -> {
-                    return;
                 }
-                case 4 -> exit();
                 default -> PrintHelper.printError("Invalid command!");
             }
 
-
-        }
-    }
-
-    private static void exit() {
-        PrintHelper.ask("Are you sure you want to exit? (yes/hell no)");
-        String confirm = ScannerWrapper.nextLine().toLowerCase();
-        if (confirm.equals("yes") || confirm.equals("y")) {
-            System.exit(0);
-        }
+        } while (choice != 3);
+        exit();
     }
 
     private void decide(User user) {
@@ -184,8 +176,7 @@ public class EntryMenu {
         PrintHelper.option(3, "return");
         PrintHelper.option(4, "exit");
         PrintHelper.miniLowerBorder("Choose your way to login");
-        int chosen = ScannerWrapper.nextInt();
-        return chosen;
+        return ScannerWrapper.nextInt();
     }
 
     public User handleSellerLogin() {

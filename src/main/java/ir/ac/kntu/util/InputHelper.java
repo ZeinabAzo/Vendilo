@@ -1,10 +1,14 @@
 package ir.ac.kntu.util;
 
+import ir.ac.kntu.models.Address;
+
 import java.util.Arrays;
+
+import static ir.ac.kntu.util.PrintHelper.ask;
 
 public class InputHelper {
     public static <E extends Enum<E>> E inputEnum(String prompt, Class<E> enumClass) {
-        PrintHelper.ask(prompt + " " + Arrays.toString(enumClass.getEnumConstants()));
+        ask(prompt + " " + Arrays.toString(enumClass.getEnumConstants()));
         try {
             return Enum.valueOf(enumClass, ScannerWrapper.nextLine().trim().toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -14,24 +18,37 @@ public class InputHelper {
     }
 
     public static boolean inputYesNo(String prompt) {
-        PrintHelper.ask(prompt + " (yes/no)");
+        ask(prompt + " (yes/no)");
         String answer = ScannerWrapper.nextLine().trim().toLowerCase();
         return answer.equals("yes");
     }
 
     public static String inputString(String prompt) {
-        PrintHelper.ask(prompt);
+        ask(prompt);
         return ScannerWrapper.nextLine();
     }
 
     public static int inputInt(String prompt) {
-        PrintHelper.ask(prompt);
+        ask(prompt);
         return ScannerWrapper.nextInt();
     }
 
     public static double inputDouble(String prompt) {
-        PrintHelper.ask(prompt);
+        ask(prompt);
         return ScannerWrapper.nextDouble();
+    }
+
+    public static Address newAddress(){
+        ask("Enter title:");
+        String title=ScannerWrapper.nextLine();
+        ask("Enter state:");
+        String state=ScannerWrapper.nextLine();
+        ask("Enter city:");
+        String city=ScannerWrapper.nextLine();
+        ask("Enter description (if needed) :");
+        String description=ScannerWrapper.nextLine();
+
+        return new Address(title, state, city, description);
     }
 
 }

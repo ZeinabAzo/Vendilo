@@ -1,7 +1,9 @@
 package ir.ac.kntu.ui;
 
 import ir.ac.kntu.controllers.CusControl;
+import ir.ac.kntu.models.Address;
 import ir.ac.kntu.models.Cart;
+import ir.ac.kntu.util.InputHelper;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 import ir.ac.kntu.util.SplitDisplay;
@@ -10,8 +12,8 @@ public class CusCartMenu {
 
     CusControl cusControl;
 
-    public CusCartMenu(CusControl ccusControl) {
-        this.cusControl = ccusControl;
+    public CusCartMenu(CusControl cusControl) {
+        this.cusControl = cusControl;
     }
 
     public void showAllCarts() {
@@ -49,8 +51,8 @@ public class CusCartMenu {
             int choice = ScannerWrapper.nextInt();
 
             switch (choice) {
-                case 1 -> showCart();
-                case 2 -> purchaseCart();
+                case 1 -> showCart(cart);
+                case 2 -> purchaseCart(cart);
                 case 3 -> {
                     return;
                 }
@@ -59,39 +61,59 @@ public class CusCartMenu {
         }
     }
 
-    private void showCart() {
-        // TODO: implement cart display
+    private void showCart(Cart cart) {
+        SplitDisplay.show(cart.getOrders());
         PrintHelper.printSuccess("Cart shown here.");
+        PrintHelper.ask("What would you want to do with this cart?");
+        PrintHelper.option(1, "purchase it");
+        PrintHelper.option(2, "delete it");
+        PrintHelper.option(3, "nothing, I was just visiting");
+        int choice=ScannerWrapper.nextInt();
+        switch (choice){
+            case 1 -> purchaseCart(cart);
+            case 2 -> cusControl.deleteCart(cart);
+            case 3 -> {
+            }
+            default -> PrintHelper.printError("Invalid choice");
+        }
     }
 
 
-    private void purchaseCart() {
+    private void purchaseCart(Cart cart) {
         while (true) {
             PrintHelper.option(1, "Choose an existing address");
             PrintHelper.option(2, "Insert an address");
             PrintHelper.option(3, "Return");
 
             int choice = ScannerWrapper.nextInt();
+            Address address = null;
 
             switch (choice) {
-                case 1 -> chooseExistingAddress(); // implement this
-                case 2 -> insertAddress(); // implement this
+                case 1 -> address= chooseExistingAddress();
+                case 2 -> address=insertAddress();
                 case 3 -> {
                     return;
                 }
                 default -> PrintHelper.printError("Invalid option!");
             }
+
+            cusControl.purchaseCart(address, cart);
         }
     }
 
-    private void chooseExistingAddress() {
-        // TODO
-        PrintHelper.printInfo("Choosing address...");
+    private Address chooseExistingAddress() {
+        int choice= SplitDisplay.show(cusControl.getCustomer().getAddresses());
+        if(choice==-1){
+            PrintHelper.printError("something went wrong sorry");
+        } else if (choice <0 || choice>=cusControl.getCustomer().getAddresses().size()) {
+            PrintHelper.printError("Your choice is imaginary(i) (❁´◡`❁)");
+            return null;
+        }
+        return cusControl.getCustomer().getAddresses().get(choice);
     }
 
-    private void insertAddress() {
-        // TODO
-        PrintHelper.printInfo("Inserting address...");
+    private Address insertAddress() {
+        return InputHelper.newAddress();
     }
 
 }

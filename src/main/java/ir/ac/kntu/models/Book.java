@@ -11,9 +11,9 @@ public class Book extends Product {
     private AgeGroup ageGroup;
     private String isbn;
 
-    public Book(String name, double price, int inventory, Seller seller, String authorName, double pageCount,
+    public Book(String name, double price, int inventory, Seller seller,String type, String authorName, double pageCount,
                 BookGenre bookGenre, AgeGroup ageGroup, String isbn) {
-        super(name, price, inventory, seller);
+        super(name, price, inventory, seller, "book");
         this.authorName = authorName;
         this.pageCount = pageCount;
         this.bookGenre = bookGenre;
@@ -61,5 +61,12 @@ public class Book extends Product {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
+    public String bookToString() {
+        return String.format("Book name: %s | price: %.2f | inventory: %d | seller: %s  | author: %s | pages: %.0f | " +
+                "genre: %s | age: %s | ISBN: %s", getName(),getPrice(), getInventory(), getSellerId(),
+                authorName, pageCount, bookGenre, ageGroup, isbn);
+    }
+
 
 }

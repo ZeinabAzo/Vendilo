@@ -22,7 +22,7 @@ public class ShowProductInfo {
         info.put("name", mobile.getName());
         info.put("price", String.valueOf(mobile.getPrice()));
         info.put("inventory", String.valueOf(mobile.getInventory()));
-        info.put("seller", mobile.getSeller().getfName() + " " + mobile.getSeller().getlName());
+        info.put("seller", mobile.getSellerId());
         info.put("brand", mobile.getBrand());
         info.put("internal storage", String.valueOf(mobile.getInternalStorage()));
         info.put("ram", mobile.getRam());
@@ -39,7 +39,7 @@ public class ShowProductInfo {
         info.put("name", laptop.getName());
         info.put("price", String.valueOf(laptop.getPrice()));
         info.put("inventory", String.valueOf(laptop.getInventory()));
-        info.put("seller", laptop.getSeller().getfName() + " " + laptop.getSeller().getlName());
+        info.put("seller", laptop.getSellerId());
         info.put("brand", laptop.getBrand());
         info.put("internal storage", String.valueOf(laptop.getInternalStorage()));
         info.put("ram", laptop.getRam());
@@ -56,7 +56,7 @@ public class ShowProductInfo {
         info.put("name", book.getName());
         info.put("price", String.valueOf(book.getPrice()));
         info.put("inventory", String.valueOf(book.getInventory()));
-        info.put("seller", book.getSeller().getfName() + " " + book.getSeller().getlName());
+        info.put("seller", book.getSellerId());
         info.put("author name", book.getAuthorName());
         info.put("page count", String.valueOf(book.getPageCount()));
         info.put("book genre", String.valueOf(book.getPageCount()));

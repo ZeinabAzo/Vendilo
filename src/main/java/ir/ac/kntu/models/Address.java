@@ -4,11 +4,21 @@ public class Address {
     private String title;
     private String state;
     private String city;
+    private String description;
 
-    public Address(String title, String state, String city) {
+    public Address(String title, String state, String city, String description) {
         this.title = title;
         this.state = state;
         this.city = city;
+        this.description=description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Address(String state) {

@@ -44,4 +44,29 @@ public class Cart {   //contains orders, whether purchased or not
     public void setPurchased(boolean purchased) {
         isPurchased = purchased;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Cart:\n");
+        builder.append("Purchased: ").append(isPurchased ? "Yes" : "No").append("\n");
+
+        if (shippingAddress != null) {
+            builder.append("Shipping Address: ").append(shippingAddress).append("\n");
+        } else {
+            builder.append("Shipping Address: Not set\n");
+        }
+
+        builder.append("Orders:\n");
+        if (orders.isEmpty()) {
+            builder.append("  (No orders in the cart)\n");
+        } else {
+            for (int i = 0; i < orders.size(); i++) {
+                builder.append("  ").append(i + 1).append(". ").append(orders.get(i)).append("\n");
+            }
+        }
+
+        return builder.toString();
+    }
+
 }

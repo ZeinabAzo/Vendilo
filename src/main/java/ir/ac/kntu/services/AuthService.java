@@ -54,7 +54,7 @@ public class AuthService {
         if (nationId.matches("[0-9]{10}")) {
             return true;
         } else {
-            printError("Invalid phone number. It must contain 10 digits.");
+            printError("Invalid id. It must contain 10 digits.");
             return false;
         }
     }

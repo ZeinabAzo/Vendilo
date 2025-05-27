@@ -19,7 +19,7 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public static Order createOrder(Product product, Customer customer, Address shippingAddress, Cart cart) {
+    public Order createOrder(Product product, Customer customer, Address shippingAddress, Cart cart) {
         if (product == null || customer == null || shippingAddress == null) {
             printError("The entered data was not recognized.");
             return null;
@@ -35,7 +35,7 @@ public class Order {
             return null;
         }
 
-        Order newOrder = new Order(product, customer, product.getSeller(), LocalDate.now());
+        Order newOrder = new Order(product, customer, seller , LocalDate.now());
         customer.getCart(cart).addToCart(newOrder);
         product.sellProduct();
 
@@ -74,5 +74,16 @@ public class Order {
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
+
+    @Override
+    public String toString() {
+        return "Order {" +
+                "\n  Product: " + (product != null ? product : "N/A") +
+                ",\n  Customer: " + (customer != null ? customer.getfName() : "N/A") +
+                ",\n  Seller: " + (seller != null ? seller.getfName() : "N/A") +
+                ",\n  Order Date: " + (orderDate != null ? orderDate : "N/A") +
+                "\n}";
+    }
+
 
 }

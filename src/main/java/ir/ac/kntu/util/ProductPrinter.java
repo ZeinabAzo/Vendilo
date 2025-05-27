@@ -1,8 +1,12 @@
 package ir.ac.kntu.util;
 
+import ir.ac.kntu.models.Book;
+import ir.ac.kntu.models.Laptop;
+import ir.ac.kntu.models.Mobile;
 import ir.ac.kntu.models.Product;
 
 import java.util.List;
+
 
 public class ProductPrinter {
 
@@ -19,7 +23,7 @@ public class ProductPrinter {
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
 
-            String[] lines = product.toString().split(" \\| ");
+            String[] lines = getStrings(product);
             int maxWidth = getMaxLineWidth(lines);
 
             String top = borderColor + "╔" + "═".repeat(maxWidth + 2) + "╗" + reset;
@@ -38,6 +42,22 @@ public class ProductPrinter {
         }
     }
 
+    private static String[] getStrings(Product product) {
+        String[] lines = new String[0];
+
+        if(product instanceof Mobile) {
+            lines = ((Mobile) product).mobileToString().split(" \\| ");
+        } else if(product instanceof Laptop){
+            lines = ((Laptop) product).lapToString().split(" \\| ");
+        } else if(product instanceof Book){
+            lines = ((Book) product).bookToString().split(" \\| ");
+        } else {
+            lines = new String[0];
+        }
+
+        return lines;
+    }
+
     private static int getMaxLineWidth(String[] lines) {
         int max = 0;
         for (String line : lines) {
@@ -46,7 +66,7 @@ public class ProductPrinter {
         return max;
     }
 
-    private static String centerText(String text, int width) {
+    static String centerText(String text, int width) {
         int padding = width - text.length();
         int left = padding / 2;
         int right = padding - left;

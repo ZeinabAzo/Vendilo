@@ -9,14 +9,15 @@ public class Laptop extends Digital {
     private boolean btSupport;
     private WebcamStatus webcamStatus;
 
-    public Laptop(String name, double price, Seller seller, int inventory, String brand,
+    public Laptop(String name, double price, Seller seller,String type, int inventory, String brand,
                   double internalStorage, String ram, GPUModel gpuModel,
                   boolean btSupport, WebcamStatus webcamStatus) {
-        super(name, price, seller, inventory, brand, internalStorage, ram);
+        super(name, price, seller, "laptop",inventory, brand, internalStorage, ram);
         this.gpuModel = gpuModel;
         this.btSupport = btSupport;
         this.webcamStatus = webcamStatus;
     }
+
 
     // Optional: add getters/setters if needed
 
@@ -43,4 +44,11 @@ public class Laptop extends Digital {
     public void setWebcamStatus(WebcamStatus webcamStatus) {
         this.webcamStatus = webcamStatus;
     }
+
+    public String lapToString() {
+        return String.format("Laptop name: %s | price: %.2f | inventory: %d | seller: %s | GPU: %s | BT: %s | " +
+                "Webcam: %s", getName(),getPrice(), getInventory(), getSellerId(), gpuModel, btSupport ? "Yes" : "No",
+                webcamStatus);
+    }
+
 }

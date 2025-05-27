@@ -9,7 +9,7 @@ import ir.ac.kntu.util.ScannerWrapper;
 
 public class SellProdMenu {
 
-    private SellControl sellerController;
+    private final SellControl sellerController;
 
     public SellProdMenu(SellControl sellerController) {
         this.sellerController = sellerController;
@@ -48,9 +48,7 @@ public class SellProdMenu {
             int choice = getChoice();
 
             switch (choice){
-                case 1, 2 ->{
-                    extracted(choice, product);
-                }
+                case 1, 2 -> extracted(choice, product);
                 case 3 -> {
                     return;
                 }
@@ -72,14 +70,6 @@ public class SellProdMenu {
         } else {
             PrintHelper.printError("Operation failed. Please try again.");
         }
-
-        PrintHelper.ask("Would you like to perform another action on a product?");
-        PrintHelper.option(1, "Yes");
-        PrintHelper.option(2, "No, return to previous menu");
-        int again = ScannerWrapper.nextInt();
-        if (again != 1) {
-            return;
-        }
     }
 
     private static int getChoice() {
@@ -87,8 +77,7 @@ public class SellProdMenu {
         PrintHelper.option(1, "Add Item to Inventory");
         PrintHelper.option(2, "Remove Item from Inventory");
         PrintHelper.option(3, "Return to Previous Menu");
-        int choice = ScannerWrapper.nextInt();
-        return choice;
+        return ScannerWrapper.nextInt();
     }
 
     public void addProduct() {
@@ -100,7 +89,7 @@ public class SellProdMenu {
             PrintHelper.option(4, "return");
 
             int choice = ScannerWrapper.nextInt();
-            Product product = new Product();
+            Product product;
 
             switch (choice) {
                 case 1 -> product = createMobile(sellerController.getSeller());
@@ -137,6 +126,7 @@ public class SellProdMenu {
             frontCam = InputHelper.inputEnum("Choose front camera resolution:", CameraResolution.class);
             if (frontCam == null) {
                 PrintHelper.printError("Invalid front camera resolution. Please try again.");
+                return null;
             }
         }
 
@@ -145,6 +135,7 @@ public class SellProdMenu {
             backCam = InputHelper.inputEnum("Choose back camera resolution:", CameraResolution.class);
             if (backCam == null) {
                 PrintHelper.printError("Invalid back camera resolution. Please try again.");
+                return null;
             }
         }
 
@@ -153,10 +144,11 @@ public class SellProdMenu {
             networkType = InputHelper.inputEnum("Choose mobile network type:", MobileNetworkType.class);
             if (networkType == null) {
                 PrintHelper.printError("Invalid mobile network type. Please try again.");
+                return null;
             }
         }
 
-        return new Mobile(name, price, inventory, seller, brand, internalStorage, ram, frontCam, backCam, networkType);
+        return new Mobile(name, price, inventory, seller, "mobile",brand, internalStorage, ram, frontCam, backCam, networkType);
     }
 
 
@@ -172,6 +164,7 @@ public class SellProdMenu {
             bookGenre = InputHelper.inputEnum("Choose book genre:", BookGenre.class);
             if (bookGenre == null) {
                 PrintHelper.printError("Invalid book genre. Please try again.");
+                return null;
             }
         }
 
@@ -180,12 +173,13 @@ public class SellProdMenu {
             ageGroup = InputHelper.inputEnum("Choose target age group:", AgeGroup.class);
             if (ageGroup == null) {
                 PrintHelper.printError("Invalid age group. Please try again.");
+                return null;
             }
         }
 
         String isbn = InputHelper.inputString("Enter isbn:");
 
-        return new Book(name, price, inventory, seller, authorName, pageCount, bookGenre, ageGroup, isbn);
+        return new Book(name, price, inventory, seller,"book", authorName, pageCount, bookGenre, ageGroup, isbn);
     }
 
 
@@ -202,6 +196,7 @@ public class SellProdMenu {
             gpuModel = InputHelper.inputEnum("Choose GPU model:", GPUModel.class);
             if (gpuModel == null) {
                 PrintHelper.printError("Invalid GPU model. Please try again.");
+                return null;
             }
         }
 
@@ -212,10 +207,11 @@ public class SellProdMenu {
             webcamStatus = InputHelper.inputEnum("Choose webcam status:", WebcamStatus.class);
             if (webcamStatus == null) {
                 PrintHelper.printError("Invalid webcam status. Please try again.");
+                return null;
             }
         }
 
-        return new Laptop(name, price, seller, inventory, brand, internalStorage, ram, gpuModel, btSupport, webcamStatus);
+        return new Laptop(name, price, seller,"laptop", inventory, brand, internalStorage, ram, gpuModel, btSupport, webcamStatus);
     }
 
 
