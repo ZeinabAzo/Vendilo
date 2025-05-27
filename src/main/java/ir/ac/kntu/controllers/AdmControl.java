@@ -21,7 +21,7 @@ public class AdmControl {
     }
 
     public void setServices() {//add necessary services
-        searchProducts = new SearchProducts(productDB , sellerDB);
+        searchProducts = new SearchProducts(productDB );
     }
 
 

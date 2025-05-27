@@ -10,13 +10,7 @@ import java.util.HashMap;
 
 public class ShowProductInfo {
 
-    private ProductDB productDB;
-
-    public ShowProductInfo(ProductDB productDB) {
-        this.productDB = productDB;
-    }
-
-    public void showMobile(Mobile mobile) {
+    public static void showMobile(Mobile mobile) {
 
         HashMap<String, String> info = new HashMap<>();
         info.put("name", mobile.getName());
@@ -33,7 +27,7 @@ public class ShowProductInfo {
         PrintHelper.printFancyTable(info);
     }
 
-    public void showLaptop(Laptop laptop) {
+    public static void showLaptop(Laptop laptop) {
 
         HashMap<String, String> info = new HashMap<>();
         info.put("name", laptop.getName());
@@ -50,7 +44,7 @@ public class ShowProductInfo {
         PrintHelper.printFancyTable(info);
     }
 
-    public void showBook(Book book) {
+    public static void showBook(Book book) {
 
         HashMap<String, String> info = new HashMap<>();
         info.put("name", book.getName());

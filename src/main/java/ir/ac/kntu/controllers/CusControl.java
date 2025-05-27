@@ -10,6 +10,7 @@ import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.SplitDisplay;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 public class CusControl {
@@ -23,7 +24,7 @@ public class CusControl {
     public CusControl(Customer customer, SellerDB sellerDB, ProductDB productDB) {
         this.customer = customer;
         this.productDB = productDB;
-        this.sellerDB=sellerDB;
+        this.sellerDB = sellerDB;
     }
 
     public Customer getCustomer() {
@@ -31,61 +32,68 @@ public class CusControl {
     }
 
     public void setServices() {//add necessary services
-        this.searchProducts = new SearchProducts(productDB, sellerDB);
+        this.searchProducts = new SearchProducts(productDB);
         this.customerServ = new CustomerService(customer);
     }
 
-    public Map<Seller, Product> searchByName(String name) {
+    public List<Product> searchByName(String name) {
         return searchProducts.searchProductByName(name);
     }
 
-    public Map<Seller, Product> searchByNameAndPrice(String name, double[] priceRange) {
+    public List<Product> searchByNameAndPrice(String name, double[] priceRange) {
         return searchProducts.searchByNameAndPrice(name, priceRange);
     }
 
-    public Map<Seller, Product> searchByTypeAndPrice(String type, double[] priceRange) {
+    public List<Product> searchByTypeAndPrice(String type, double[] priceRange) {
         return searchProducts.searchByTypeAndPrice(type, priceRange);
 
     }
 
-    public Map<Seller, Product> searchByAllFilters(String type, String name, double[] priceRange) {
+    public List<Product> searchByAllFilters(String type, String name, double[] priceRange) {
         return searchProducts.allFilteredSearch(priceRange, name, type);
 
     }
 
     public void orderProduct(Product product) {
         Cart cart = findCart();
-        Seller seller= sellerDB.findSeller(product.getSellerId());
-        Order order = new Order(product, customer, seller , LocalDate.now());
+        Seller seller = sellerDB.findSeller(product.getSellerId());
+        Order order = new Order(product, seller, LocalDate.now());
         cart.addToCart(order);
     }
 
     private Cart findCart() {
         int chosen = SplitDisplay.show(customer.getCarts());
+        if (chosen == -1) {
+            PrintHelper.printInfo("Darling you've got no cart, let's create one:");
+            Cart cart = new Cart();
+            customer.setCarts(cart);
+            PrintHelper.printSuccess("We have created a new cart just for you. ♡❤ ");
+            return cart;
+        }
         return customer.getCart(chosen);
     }
 
-    public void deleteCart(Cart c){
-        Cart cart= customer.getCart(c);
-        if(cart!=null){
+    public void deleteCart(Cart c) {
+        Cart cart = customer.getCart(c);
+        if (cart != null) {
             customer.getCarts().remove(c);
-        }else{
+        } else {
             PrintHelper.printError("cart is null: cusControl-deleteCart");
         }
     }
 
-    public Map<Seller, Product> searchByType(String type) {
-            return searchProducts.searchByType(type);
+    public List<Product> searchByType(String type) {
+        return searchProducts.searchByType(type);
     }
 
-    public void showProductInfo() {
-        ShowProductInfo showProductInfo = new ShowProductInfo(productDB);
+    public void showProductInfo(Product product) {
+        // TODO
     }
 
-    public void purchaseCart(Address address, Cart cart){
-        if(!customer.getCart(cart).isPurchased()){
+    public void purchaseCart(Address address, Cart cart) {
+        if (!customer.getCart(cart).isPurchased()) {
             customerServ.purchaseCart(cart, customer, address);
-        }else{
+        } else {
             PrintHelper.printError("this cart is already purchased sorry");
             return;
         }

@@ -1,38 +1,34 @@
 package ir.ac.kntu.services;
 
 import ir.ac.kntu.data.ProductDB;
-import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.Product;
-import ir.ac.kntu.models.Seller;
 import ir.ac.kntu.util.PrintHelper;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchProducts {
 
     private ProductDB productDB;
-    private SellerDB sellerDB;
 
-    public SearchProducts(ProductDB productDB, SellerDB sellerDB) {
+    public SearchProducts(ProductDB productDB) {
         this.productDB = productDB;
-        this.sellerDB = sellerDB;
     }
 
-    public Map<Seller, Product> searchProductByName(String name) {
-        HashMap<Seller, Product> filteredProducts = new HashMap<>();
+    public List<Product> searchProductByName(String name) {
+        List<Product> filteredProducts = new ArrayList<>();
 
         for (Product product : productDB.getProducts()) {
             if (product.getName().equalsIgnoreCase(name)) {
-                filteredProducts.put(sellerDB.findSeller(product.getSellerId()), product);
+                filteredProducts.add(product);
             }
         }
 
         return filteredProducts;
     }
 
-    public Map<Seller, Product> searchByType(String typeName) {
-        HashMap<Seller, Product> filteredProducts = new HashMap<>();
+    public List<Product> searchByType(String typeName) {
+        List<Product> filteredProducts = new ArrayList<>();
         Class<?> matchedClass = findProductType(typeName);
 
         if (matchedClass == null) {
@@ -42,15 +38,15 @@ public class SearchProducts {
 
         for (Product product : productDB.getProducts()) {
             if (matchedClass.isInstance(product)) {
-                filteredProducts.put(sellerDB.findSeller(product.getSellerId()), product);
+                filteredProducts.add(product);
             }
         }
 
         return filteredProducts;
     }
 
-    public Map<Seller, Product> allFilteredSearch(double[] priceRange, String name, String typeName) {
-        HashMap<Seller, Product> filtered = new HashMap<>();
+    public List<Product> allFilteredSearch(double[] priceRange, String name, String typeName) {
+        List<Product> filtered = new ArrayList<>();
         Class<?> matchedClass = findProductType(typeName);
 
         if (matchedClass == null) {
@@ -64,15 +60,15 @@ public class SearchProducts {
             boolean matchesPrice = product.getPrice() >= priceRange[0] && product.getPrice() <= priceRange[1];
 
             if (matchesType && matchesName && matchesPrice) {
-                filtered.put(sellerDB.findSeller(product.getSellerId()), product);
+                filtered.add(product);
             }
         }
 
         return filtered;
     }
 
-    public Map<Seller, Product> searchByTypeAndPrice(String typeName, double[] priceRange) {
-        HashMap<Seller, Product> filtered = new HashMap<>();
+    public List<Product> searchByTypeAndPrice(String typeName, double[] priceRange) {
+        List<Product> filtered = new ArrayList<>();
         Class<?> matchedClass = findProductType(typeName);
 
         if (matchedClass == null) {
@@ -85,22 +81,22 @@ public class SearchProducts {
             boolean matchesPrice = product.getPrice() >= priceRange[0] && product.getPrice() <= priceRange[1];
 
             if (matchesType && matchesPrice) {
-                filtered.put(sellerDB.findSeller(product.getSellerId()), product);
+                filtered.add(product);
             }
         }
 
         return filtered;
     }
 
-    public Map<Seller, Product> searchByNameAndPrice(String name, double[] priceRange) {
-        HashMap<Seller, Product> filtered = new HashMap<>();
+    public List<Product> searchByNameAndPrice(String name, double[] priceRange) {
+        List<Product> filtered = new ArrayList<>();
 
         for (Product product : productDB.getProducts()) {
             boolean matchesName = product.getName().equalsIgnoreCase(name);
             boolean matchesPrice = product.getPrice() >= priceRange[0] && product.getPrice() <= priceRange[1];
 
             if (matchesName && matchesPrice) {
-                filtered.put(sellerDB.findSeller(product.getSellerId()), product);
+                filtered.add(product);
             }
         }
 

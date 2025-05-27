@@ -9,6 +9,9 @@ public class Cart {   //contains orders, whether purchased or not
     private Address shippingAddress;
     private boolean isPurchased = false;
 
+    public Cart(){
+    }
+
     public Cart(List<Order> orders) {
         this.orders = orders;
     }
@@ -27,6 +30,10 @@ public class Cart {   //contains orders, whether purchased or not
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public void addOrders(Order order){
+        orders.add(order);
     }
 
     public void addToCart(Order order) {

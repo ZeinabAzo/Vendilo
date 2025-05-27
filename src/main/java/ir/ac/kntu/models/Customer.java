@@ -62,6 +62,10 @@ public class Customer extends User {
         return carts.get(index);
     }
 
+    public void setCarts(Cart cart) {
+        carts.add(cart);
+    }
+
     public Cart getCart(Cart cart) {
         return carts.stream().filter(c -> c.equals(cart)).findFirst().orElse(null);
     }

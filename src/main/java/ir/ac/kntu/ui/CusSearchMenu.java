@@ -6,9 +6,9 @@ import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 import ir.ac.kntu.util.SplitDisplay;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
+import static ir.ac.kntu.util.Exit.exit;
 
 public class CusSearchMenu {
 
@@ -25,6 +25,7 @@ public class CusSearchMenu {
             PrintHelper.option(2, "Product type");
             PrintHelper.option(3, "Price range");
             PrintHelper.option(4, "Return");
+            PrintHelper.option(5, "exit");
             PrintHelper.miniLowerBorder("Set needed filters:");
 
             int choice = ScannerWrapper.nextInt();
@@ -34,8 +35,9 @@ public class CusSearchMenu {
                 case 2 -> searchByType();
                 case 3 -> priceRangeOptions();
                 case 4 -> {
-                    return; // exit menu
+                    return;
                 }
+                case 5 -> exit();
                 default -> PrintHelper.printError("Invalid command!");
             }
         }
@@ -44,29 +46,27 @@ public class CusSearchMenu {
     private void searchByName() {
         PrintHelper.ask("Enter the product name:");
         String name = ScannerWrapper.nextLine();
-        HashMap<Seller, Product> filtered = (HashMap<Seller, Product>) cusControl.searchByName(name);
+        List<Product> filtered =  cusControl.searchByName(name);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
             return;
         }
 
-        List<Product> productList = new ArrayList<>(filtered.values());
-        showProducts(productList);
+        showProducts(filtered);
     }
 
     private void searchByType() {
         PrintHelper.ask("Enter the product type:");
         String type = ScannerWrapper.nextLine();
-        HashMap<Seller, Product> filtered = (HashMap<Seller, Product>) cusControl.searchByType(type);
+        List<Product> filtered = cusControl.searchByType(type);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
             return;
         }
 
-        List<Product> productList = new ArrayList<>(filtered.values());
-        showProducts(productList);
+        showProducts(filtered);
     }
 
     private void priceRangeOptions() {
@@ -95,15 +95,14 @@ public class CusSearchMenu {
         String name = ScannerWrapper.nextLine();
         double[] range = askPriceRange();
 
-        HashMap<Seller, Product> filtered = (HashMap<Seller, Product>) cusControl.searchByNameAndPrice(name, range);
+        List<Product> filtered =  cusControl.searchByNameAndPrice(name, range);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
             return;
         }
 
-        List<Product> productList = new ArrayList<>(filtered.values());
-        showProducts(productList);
+        showProducts(filtered);
     }
 
     private void typePrice() {
@@ -111,15 +110,14 @@ public class CusSearchMenu {
         String type = ScannerWrapper.nextLine();
         double[] range = askPriceRange();
 
-        HashMap<Seller, Product> filtered = (HashMap<Seller, Product>) cusControl.searchByTypeAndPrice(type, range);
+        List<Product> filtered = cusControl.searchByTypeAndPrice(type, range);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
             return;
         }
 
-        List<Product> productList = new ArrayList<>(filtered.values());
-        showProducts(productList);
+        showProducts(filtered);
     }
 
     private void allFiltered() {
@@ -131,15 +129,14 @@ public class CusSearchMenu {
 
         double[] range = askPriceRange();
 
-        HashMap<Seller, Product> filtered = (HashMap<Seller, Product>) cusControl.searchByAllFilters(type, name, range);
+        List<Product> filtered =  cusControl.searchByAllFilters(type, name, range);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
             return;
         }
 
-        List<Product> productList = new ArrayList<>(filtered.values());
-        showProducts(productList);
+        showProducts(filtered);
     }
 
     private double[] askPriceRange() {
@@ -178,6 +175,14 @@ public class CusSearchMenu {
     }
 
     private void showProduct(Product product) {
-        cusControl.showProductInfo();
+        if(product instanceof  Mobile){
+            ShowProductInfo.showMobile((Mobile) product);
+        }else if(product instanceof  Laptop){
+            ShowProductInfo.showLaptop((Laptop) product);
+        }else if(product instanceof Book){
+            ShowProductInfo.showBook((Book) product);
+        }else {
+            PrintHelper.printError("couldn't find class in showProduct of cusSearchMenu");
+        }
     }
 }

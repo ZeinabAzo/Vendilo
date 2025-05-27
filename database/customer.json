@@ -1,28 +1,123 @@
 [
   {
-    "email": "khan@gmail.com",
-    "phoneNumber": "09876543211",
-    "addresses": [],
-    "carts": [],
-    "fName": "fatemeh",
-    "lName": "khan",
-    "password": "123@sSrt_",
+    "email": "ali.rezaei@example.com",
+    "phoneNumber": "09123456789",
+    "addresses": [
+      {
+        "city": "Tehran",
+        "description": "Home"
+      }
+    ],
+    "carts": [
+      {
+        "orders": [
+          {
+            "product": {
+              "authorName": "Dr. Seuss",
+              "pageCount": 61.0,
+              "bookGenre": "HORROR",
+              "ageGroup": "CHILDREN",
+              "isbn": "9780394800011",
+              "name": "The Cat in the Hat",
+              "price": 6.99,
+              "inventory": 100,
+              "seller": "EM6977",
+              "type": "book"
+            },
+            "seller": {
+              "nationalId": "0987654321",
+              "phoneNumber": "12345678900",
+              "shopLocation": {
+                "state": "tehran"
+              },
+              "shopID": "EM6977",
+              "productsForSale": [
+                {
+                  "authorName": "Stephen Hawking",
+                  "pageCount": 212.0,
+                  "bookGenre": "HORROR",
+                  "ageGroup": "CHILDREN",
+                  "isbn": "9780553380163",
+                  "name": "A Brief History of Time",
+                  "price": 18.0,
+                  "inventory": 15,
+                  "seller": "EM6977",
+                  "type": "book"
+                },
+                {
+                  "authorName": "Dr. Seuss",
+                  "pageCount": 61.0,
+                  "bookGenre": "HORROR",
+                  "ageGroup": "CHILDREN",
+                  "isbn": "9780394800011",
+                  "name": "The Cat in the Hat",
+                  "price": 6.99,
+                  "inventory": 100,
+                  "seller": "EM6977",
+                  "type": "book"
+                }
+              ],
+              "fName": "negar",
+              "lName": "abbasi",
+              "password": "asAS123@ggh",
+              "wallet": {
+                "balance": 0.0,
+                "canCharge": false
+              }
+            },
+            "orderDate": "2025-05-27"
+          }
+        ],
+        "isPurchased": false
+      }
+    ],
+    "password": "Ali@1234",
     "wallet": {
       "balance": 0.0,
-      "canCharge": true
+      "canCharge": false
     }
   },
   {
-    "email": "hamed@gmail.com",
-    "phoneNumber": "12345678900",
+    "email": "sara.mohammadi@example.com",
+    "phoneNumber": "09121112233",
+    "addresses": [
+      {
+        "city": "Shiraz",
+        "description": "Office"
+      }
+    ],
+    "carts": [],
+    "password": "SaRa#2024",
+    "wallet": {
+      "balance": 50000.0,
+      "canCharge": false
+    }
+  },
+  {
+    "email": "reza.jafari@example.com",
+    "phoneNumber": "09354433221",
     "addresses": [],
     "carts": [],
-    "fName": "hamed",
-    "lName": "nabipour",
-    "password": "1234Ha@@",
+    "password": "Reza_2025",
     "wallet": {
-      "balance": 0.0,
-      "canCharge": true
+      "balance": 250000.0,
+      "canCharge": false
+    }
+  },
+  {
+    "email": "lila.gh@example.com",
+    "phoneNumber": "09221234567",
+    "addresses": [
+      {
+        "city": "Mashhad",
+        "description": "Apartment"
+      }
+    ],
+    "carts": [],
+    "password": "Lila-4567",
+    "wallet": {
+      "balance": 80000.0,
+      "canCharge": false
     }
   }
 ]

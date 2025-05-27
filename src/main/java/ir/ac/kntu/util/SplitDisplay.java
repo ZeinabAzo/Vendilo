@@ -37,7 +37,8 @@ public class SplitDisplay {
 
             fancyPrint(tempList, currentState, page + 1, totalPages);
 
-            PrintHelper.ask("Enter choice (number to select, 'n' for next, 'p' for previous, 'r' to return, 'e' to exit):");
+            PrintHelper.ask("Enter choice (number to select, 'n' for next, 'p' for previous, 'r' to return, " +
+                    "'e' to exit):");
             String choice = ScannerWrapper.nextLine().trim();
 
             if (choice.matches("\\d+")) {

@@ -44,14 +44,13 @@ public class SellControl {
             return null;
         } else if (chosen == -1) {
             return null;
-        }
-        ShowProductInfo showProductInfo = new ShowProductInfo(productDB);
+        };
         if (products.get(chosen) instanceof Mobile) {
-            showProductInfo.showMobile((Mobile) products.get(chosen));
+            ShowProductInfo.showMobile((Mobile) products.get(chosen));
         } else if (products.get(chosen) instanceof Laptop) {
-            showProductInfo.showLaptop((Laptop) products.get(chosen));
+            ShowProductInfo.showLaptop((Laptop) products.get(chosen));
         } else if (products.get(chosen) instanceof Book) {
-            showProductInfo.showBook((Book) products.get(chosen));
+            ShowProductInfo.showBook((Book) products.get(chosen));
         }
         return products.get(chosen);
     }
