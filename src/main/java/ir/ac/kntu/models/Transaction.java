@@ -40,4 +40,13 @@ public class Transaction {
     public void setTrackingID(double trackingID) {
         this.trackingID = trackingID;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "date=" + date +
+                ", amount=" + amount +
+                ", trackingID=" + trackingID +
+                '}';
+    }
 }

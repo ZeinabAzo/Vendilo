@@ -1,8 +1,13 @@
 package ir.ac.kntu.ui;
 
 import ir.ac.kntu.controllers.CusControl;
+import ir.ac.kntu.models.Transaction;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
+import ir.ac.kntu.util.SplitDisplay;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class CusWalletM {
 
@@ -34,11 +39,50 @@ public class CusWalletM {
     }
 
     private void showTransactions() {
+        PrintHelper.ask("Do you wanna filter anything? ");
+        PrintHelper.option(1, "yup I need a time filter");
+        PrintHelper.option(2, "no I want to see everything ... ");
+        PrintHelper.option(3, "shut the fuck up and return");
+        int choice = ScannerWrapper.nextInt();
+
+        switch (choice) {
+            case 1 -> transFilter();
+            case 2 -> cusControl.showTransactions();
+            case 3 -> {
+            }
+            default -> PrintHelper.printError("Invalid command");
+        }
+
+    }
+
+    private void transFilter() {//change for calendar later
+        PrintHelper.ask("Enter primary date(yyyy-MM-dd): ");
+        String primDate = ScannerWrapper.nextLine();
+        PrintHelper.ask("Enter secondary date(yyyy-MM-dd): ");
+        String secDate = ScannerWrapper.nextLine();
+        LocalDate primaryDate = null, secondaryDate = null;
+
+        try {
+            primaryDate = LocalDate.parse(primDate);
+            secondaryDate = LocalDate.parse(secDate);
+            if (!primaryDate.isBefore(secondaryDate)) {
+                throw new RuntimeException();
+            }
+        } catch (Exception e) {
+            PrintHelper.printError("Something went wrong! WE ARE SORRY ");
+        }
+
+        List<Transaction> filtered = cusControl.getFiltered(primaryDate, secondaryDate);
+        SplitDisplay.show(filtered);
 
     }
 
     private void chargeBalance() {
-
-        PrintHelper.printInfo("Charging wallet...");
+        boolean success = true;
+        do {
+            PrintHelper.ask("How much do you want to charge? ");
+            double amount = ScannerWrapper.nextDouble();
+            success = cusControl.chargeBalance(amount);
+        } while (success);
     }
 }

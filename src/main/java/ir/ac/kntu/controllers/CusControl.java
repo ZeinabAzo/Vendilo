@@ -126,4 +126,17 @@ public class CusControl {
         String title = ScannerWrapper.nextLine();
         customer.getAddress(index).setTitle(title);
     }
+
+    public void showTransactions() {
+        SplitDisplay.show(customer.getWallet().getTransactions());
+    }
+
+    public List<Transaction> getFiltered(LocalDate pDate, LocalDate sDate) {
+        return customer.getWallet().getTransactions().stream().filter(t -> t.getDate().isBefore(sDate) &&
+                t.getDate().isAfter(pDate)).toList();
+    }
+
+    public boolean chargeBalance(double amount) {
+        boolean success = customer.getWallet().deposit(amount);
+    }
 }
