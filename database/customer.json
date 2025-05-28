@@ -13,11 +13,6 @@
         "orders": [
           {
             "product": {
-              "authorName": "Dr. Seuss",
-              "pageCount": 61.0,
-              "bookGenre": "HORROR",
-              "ageGroup": "CHILDREN",
-              "isbn": "9780394800011",
               "name": "The Cat in the Hat",
               "price": 6.99,
               "inventory": 100,
@@ -78,6 +73,58 @@
     "wallet": {
       "balance": 80000.0,
       "canCharge": false
+    }
+  },
+  {
+    "email": "aramesh@gmail.com",
+    "phoneNumber": "09678452378",
+    "addresses": [],
+    "carts": [
+      {
+        "orders": [
+          {
+            "product": {
+              "authorName": "Harper Lee",
+              "pageCount": 281.0,
+              "bookGenre": "HORROR",
+              "ageGroup": "CHILDREN",
+              "isbn": "9780061120084",
+              "name": "To Kill a Mockingbird",
+              "price": 14.99,
+              "inventory": 25,
+              "seller": "EM6977",
+              "type": "book"
+            },
+            "shopID": "EM6977",
+            "orderDate": "2025-05-28"
+          },
+          {
+            "product": {
+              "authorName": "George Orwell",
+              "pageCount": 328.0,
+              "bookGenre": "HORROR",
+              "ageGroup": "CHILDREN",
+              "isbn": "9780451524935",
+              "name": "1984",
+              "price": 11.25,
+              "inventory": 30,
+              "seller": "EM6977",
+              "type": "book"
+            },
+            "shopID": "EM6977",
+            "orderDate": "2025-05-28"
+          }
+        ],
+        "isPurchased": false
+      }
+    ],
+    "fName": "aramesh",
+    "lName": "aghajani",
+    "password": "FGfg@1234_",
+    "wallet": {
+      "balance": 0.0,
+      "canCharge": true,
+      "transactions": []
     }
   }
 ]

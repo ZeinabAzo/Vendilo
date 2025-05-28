@@ -66,7 +66,7 @@ public class CusControl {
         cart.addToCart(order);
     }
 
-    private Cart findCart() {
+    private Cart findCart() {// this doesn't work
         int chosen = SplitDisplay.show(customer.getCarts());
         if (chosen == -1) {
             PrintHelper.printInfo("Darling you've got no cart, let's create one:");
@@ -174,5 +174,9 @@ public class CusControl {
         PrintHelper.ask("Enter your new password: ");
         String pass = ScannerWrapper.nextLine().trim();
         customerServ.setPassword(customer, pass);
+    }
+
+    public void sendComplaint(String complaint) {
+
     }
 }

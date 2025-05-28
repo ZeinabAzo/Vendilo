@@ -1,11 +1,8 @@
 package ir.ac.kntu;
 
 import ir.ac.kntu.controllers.Navigate;
-import ir.ac.kntu.data.AdminDB;
+import ir.ac.kntu.data.*;
 import ir.ac.kntu.models.*;
-import ir.ac.kntu.data.CustomerDB;
-import ir.ac.kntu.data.ProductDB;
-import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.ui.EntryMenu;
 import ir.ac.kntu.util.*;
 import ir.ac.kntu.util.loaddb.AdminDatabase;
@@ -19,21 +16,25 @@ public class Vendilo {
 
     public void run() {
 
-        List<Admin> admins = AdminDatabase.load();
+        AdminWrapper adminWrapper = AdminDatabase.load(); // ← load full wrapper
         List<Customer> customers = CustomerDatabase.load();
         List<Seller> sellers = SellerDatabase.load();
         List<Product> products = ProductDatabase.load();
 
         CustomerDB customerDB = new CustomerDB(customers);
         SellerDB sellerDB = new SellerDB(sellers);
-        AdminDB adminDB = new AdminDB(admins);
+        AdminDB adminDB = new AdminDB(adminWrapper); // ← use full data
         ProductDB productDB = new ProductDB();
 
         addProducts(products, productDB);
 
-
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            AdminDatabase.save(adminDB.getAdmins());
+            AdminDatabase.save(new AdminWrapper(
+                    adminDB.getAdmins(),
+                    adminDB.getCusComplaint(),
+                    adminDB.getSellerCompliant(),
+                    adminDB.getAuthRequest()
+            ));
             CustomerDatabase.save(customerDB.getCustomers());
             SellerDatabase.save(sellerDB.getSellers());
             ProductDatabase.save(productDB.getProducts());

@@ -4,7 +4,6 @@ import ir.ac.kntu.controllers.CusControl;
 import ir.ac.kntu.util.Exit;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
-import ir.ac.kntu.util.SplitDisplay;
 
 public class CusMainMenu {
 
@@ -13,6 +12,7 @@ public class CusMainMenu {
     public CusMainMenu(CusControl cusControl) {
         this.cusControl = cusControl;
     }
+
 
     public void showPage() {
         while (true) {
@@ -113,7 +113,8 @@ public class CusMainMenu {
     }
 
     private void support() {
-        //implement support UI
-        PrintHelper.printInfo("Support page.");
+        PrintHelper.ask("Whats wrong bro? ");
+        String complaint = ScannerWrapper.nextLine();
+        cusControl.sendComplaint(complaint);
     }
 }

@@ -2,36 +2,32 @@ package ir.ac.kntu.util.loaddb;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import ir.ac.kntu.models.Admin;
+import ir.ac.kntu.data.AdminWrapper;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 public class AdminDatabase {
     private static final String FILE_PATH = "database/admin.json";
 
-    private static final Gson gson = new GsonBuilder()
+    static Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
             .setPrettyPrinting()
             .create();
 
-    public static List<Admin> load() {
+    public static AdminWrapper load() {
         try (FileReader reader = new FileReader(FILE_PATH)) {
-            Type listType = new TypeToken<ArrayList<Admin>>() {
-            }.getType();
-            return gson.fromJson(reader, listType);
+            return gson.fromJson(reader, AdminWrapper.class);
         } catch (IOException e) {
-            return new ArrayList<>();
+            return new AdminWrapper(); // returns empty object
         }
     }
 
-    public static void save(List<Admin> admins) {
+    public static void save(AdminWrapper wrapper) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            gson.toJson(admins, writer);
+            gson.toJson(wrapper, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -2,11 +2,9 @@ package ir.ac.kntu.services;
 
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.Address;
-import ir.ac.kntu.models.Customer;
 import ir.ac.kntu.models.Seller;
 import ir.ac.kntu.util.PrintHelper;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class SellerAuthSer extends AuthService {
@@ -63,7 +61,7 @@ public class SellerAuthSer extends AuthService {
         String state = info.get("state");
         String phoneNumber = info.get("phone number");
 
-        Address shopLocation = new Address(state);
+        Address shopLocation = addressDetector(state);
 
         if (isValidInput(firstName, lastName, password, nationalId, phoneNumber, state)) {
             Seller seller = new Seller(firstName, lastName, nationalId, phoneNumber, shopLocation, password);

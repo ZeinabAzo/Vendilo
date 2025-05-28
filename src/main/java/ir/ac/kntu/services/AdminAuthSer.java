@@ -3,7 +3,6 @@ package ir.ac.kntu.services;
 import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.models.Admin;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class AdminAuthSer extends AuthService {

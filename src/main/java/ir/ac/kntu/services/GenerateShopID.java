@@ -14,7 +14,7 @@ public class GenerateShopID {
 
     public String generateID() {
         Random random = new Random();
-        String shopID = "";
+        String shopID;
 
         char char1 = (char) (random.nextInt(26) + 'A');
         char char2 = (char) (random.nextInt(26) + 'A');

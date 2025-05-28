@@ -4,7 +4,6 @@ import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.models.Customer;
 import ir.ac.kntu.util.PrintHelper;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class CustAuthSer extends AuthService {
