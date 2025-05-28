@@ -121,4 +121,7 @@ public class CustomerService {
         return foundPassword != null;
     }
 
+    public void deleteUnavailable(Cart cart) {
+        cart.getOrders().removeIf(o -> o.getProduct().getInventory() <= 0);
+    }
 }

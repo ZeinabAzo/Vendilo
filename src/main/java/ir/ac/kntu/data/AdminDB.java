@@ -28,6 +28,10 @@ public class AdminDB {
         return cusComplaint;
     }
 
+    public List<Complaint> addCusComplaint(Complaint complaint){
+        cusComplaint.add(complaint);
+    }
+
     public List<Complaint> getSellerCompliant() {
         return sellerCompliant;
     }

@@ -1,5 +1,6 @@
 package ir.ac.kntu.controllers;
 
+import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.data.SellerDB;
@@ -9,6 +10,7 @@ import ir.ac.kntu.services.CustAuthSer;
 import ir.ac.kntu.services.CustomerService;
 import ir.ac.kntu.services.SearchProducts;
 
+import ir.ac.kntu.util.Exit;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 import ir.ac.kntu.util.SplitDisplay;
@@ -22,14 +24,16 @@ public class CusControl {
     private CustomerDB customerDB;
     private SellerDB sellerDB;
     private Customer customer;
+    private AdminDB adminDB;
     private SearchProducts searchProducts;
     private CustomerService customerServ;
 
-    public CusControl(Customer customer,CustomerDB customerDB, SellerDB sellerDB, ProductDB productDB) {
+    public CusControl(Customer customer,CustomerDB customerDB, SellerDB sellerDB,AdminDB adminDB, ProductDB productDB) {
         this.customer = customer;
         this.productDB = productDB;
         this.customerDB=customerDB;
         this.sellerDB = sellerDB;
+        this.adminDB=adminDB;
     }
 
     public Customer getCustomer() {
@@ -91,16 +95,47 @@ public class CusControl {
         return searchProducts.searchByType(type);
     }
 
-    public void showProductInfo(Product product) {
-        // TODO
-    }
-
     public void purchaseCart(Address address, Cart cart) {
         if (!customer.getCart(cart).isPurchased()) {
-            customerServ.purchaseCart(cart, customer, address);
+            if(isAvailable(cart)) {
+                customerServ.purchaseCart(cart, customer, address);
+            }else{
+                handleUnav(cart);
+            }
         } else {
             PrintHelper.printError("This cart is already purchased, hooray! ᓚᘏᗢ ");
         }
+    }
+
+    private void handleUnav(Cart cart) {
+        PrintHelper.ask("What will you do now?");
+        PrintHelper.option(1, "forget it, let's return!");
+        PrintHelper.option(2, "delete all unavailable orders in the cart");
+        PrintHelper.option(3, "exit");
+        int choice = ScannerWrapper.nextInt();
+
+        switch (choice){
+            case 1 -> {
+            }
+            case 2 -> deleteUnavailable(cart);
+            case 3 -> Exit.exit();
+            default -> PrintHelper.printError("Invalid command");
+        }
+    }
+
+    private void deleteUnavailable(Cart cart) {
+        customerServ.deleteUnavailable(cart);
+    }
+
+    private boolean isAvailable(Cart cart){
+            boolean available=true;
+            for (Order o : cart.getOrders()){
+            if (o.getProduct().getInventory() <= 0) {
+                available = false;
+                break;
+            }
+        }
+        return available;
     }
 
     public void deleteAddress(int index) {
@@ -176,7 +211,8 @@ public class CusControl {
         customerServ.setPassword(customer, pass);
     }
 
-    public void sendComplaint(String complaint) {
-
+    public void sendComplaint(String context) {
+        Complaint complaint = new Complaint(context, customer.getEmail());
+        adminDB.addCusComplaint(complaint);
     }
 }

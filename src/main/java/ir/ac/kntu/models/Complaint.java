@@ -9,7 +9,7 @@ public class Complaint {
     private String response;
     private boolean responseStatus;
 
-    public Complaint(String context, String userID, boolean responseStatus) {
+    public Complaint(String context, String userID) {
         this.context = context;
         this.userID = userID;
         this.responseStatus=false;
