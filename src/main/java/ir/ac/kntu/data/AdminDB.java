@@ -1,15 +1,17 @@
 package ir.ac.kntu.data;
 
 import ir.ac.kntu.models.Admin;
+import ir.ac.kntu.models.Complaint;
+import ir.ac.kntu.models.AuthRequest;
 
 import java.util.List;
 
 public class AdminDB {
 
     private List<Admin> admins;
-    private List<String> cusComplaint;
-    private List<String> sellerCompliant;
-    private List<String> authRequest;
+    private List<Complaint> cusComplaint;
+    private List<Complaint> sellerCompliant;
+    private List<AuthRequest> authRequest;
 
     public AdminDB(AdminWrapper wrapper) {
         this.admins = wrapper.getAdmins();
@@ -22,34 +24,22 @@ public class AdminDB {
         return admins;
     }
 
-    public void setAdmins(List<Admin> admins) {
-        this.admins = admins;
-    }
-
-    public List<String> getCusComplaint() {
+    public List<Complaint> getCusComplaint() {
         return cusComplaint;
     }
 
-    public void setCusComplaint(List<String> cusComplaint) {
-        this.cusComplaint = cusComplaint;
-    }
-
-    public List<String> getSellerCompliant() {
+    public List<Complaint> getSellerCompliant() {
         return sellerCompliant;
     }
 
-    public void setSellerCompliant(List<String> sellerCompliant) {
-        this.sellerCompliant = sellerCompliant;
-    }
-
-    public List<String> getAuthRequest() {
+    public List<AuthRequest> getAuthRequest() {
         return authRequest;
     }
 
-    public void setAuthRequest(List<String> authRequest) {
-        this.authRequest = authRequest;
+    public Admin findAdminByUserName(String userName) {
+        return admins.stream()
+                .filter(a -> a.getlName().equals(userName))
+                .findFirst()
+                .orElse(null);
     }
-
-
-    // other methods...
 }

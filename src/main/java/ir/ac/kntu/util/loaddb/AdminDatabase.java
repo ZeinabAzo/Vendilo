@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class AdminDatabase {
     private static final String FILE_PATH = "database/admin.json";
 
-    static Gson gson = new GsonBuilder()
+    private static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
             .setPrettyPrinting()
             .create();
@@ -21,7 +21,7 @@ public class AdminDatabase {
         try (FileReader reader = new FileReader(FILE_PATH)) {
             return gson.fromJson(reader, AdminWrapper.class);
         } catch (IOException e) {
-            return new AdminWrapper(); // returns empty object
+            return new AdminWrapper(); // fallback empty wrapper
         }
     }
 
