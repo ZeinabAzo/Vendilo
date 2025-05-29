@@ -1,5 +1,6 @@
 package ir.ac.kntu.controllers;
 
+import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.ui.ShowProductInfo;
@@ -12,15 +13,33 @@ import java.util.List;
 import static ir.ac.kntu.Vendilo.addProducts;
 
 public class SellControl {
+
+    private AdminDB adminDB;
     private ProductDB productDB;
     private Seller seller;
 
-    public SellControl( ProductDB productDB, Seller seller) {
+    public SellControl( ProductDB productDB, AdminDB adminDB, Seller seller) {
         this.seller = seller;
         this.productDB = productDB;
+        this.adminDB=adminDB;
     }
 
     public void setServices() {//add necessary services
+    }
+
+
+
+    public void sendRequest() {
+        adminDB.getAuthRequest().add(new AuthRequest(seller, null));
+    }
+
+
+    public boolean response() {
+        return adminDB.getAuthRequest(seller).isAccepted();
+    }
+
+    public String getResponse(){
+        return adminDB.getAuthRequest(seller).getResponse();
     }
 
     public Seller getSeller() {
@@ -68,5 +87,13 @@ public class SellControl {
         }else if(newProduct instanceof Laptop){
             seller.addLaptop((Laptop) newProduct);
         }
+    }
+
+    public void withdraw(double value) {
+        seller.getWallet().withdraw(value);
+    }
+
+    public void showOrders() {
+        SplitDisplay.show(seller.getOrders());
     }
 }

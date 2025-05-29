@@ -3,6 +3,7 @@ package ir.ac.kntu.data;
 import ir.ac.kntu.models.Admin;
 import ir.ac.kntu.models.Complaint;
 import ir.ac.kntu.models.AuthRequest;
+import ir.ac.kntu.models.Seller;
 
 import java.util.List;
 
@@ -24,6 +25,10 @@ public class AdminDB {
         return admins;
     }
 
+    public Complaint findSellComp(int index){
+        return sellerCompliant.get(index);
+    }
+
     public List<Complaint> getCusComplaint() {
         return cusComplaint;
     }
@@ -40,10 +45,18 @@ public class AdminDB {
         return authRequest;
     }
 
+    public AuthRequest getAuthRequest(Seller seller){
+        return authRequest.stream().filter(r -> r.getSeller().equals(seller)).findFirst().orElse(null);
+    }
+
     public Admin findAdminByUserName(String userName) {
         return admins.stream()
                 .filter(a -> a.getlName().equals(userName))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public Complaint findCusComp(int index) {
+        return cusComplaint.get(index);
     }
 }

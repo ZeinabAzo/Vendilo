@@ -77,6 +77,14 @@ public class Customer extends User {
         carts.add(cart);
     }
 
+    public List<Order> getPurchOrders() {
+        List<Order> orders = new ArrayList<>();
+        for (Cart cart : carts) {
+            orders.addAll(cart.getOrders());
+        }
+        return orders;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +

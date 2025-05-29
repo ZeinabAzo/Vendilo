@@ -42,7 +42,7 @@ public class CustomerService {
 
         for(Order order: cart.getOrders()){
             Seller seller= sellerDB.findSeller(order.getShopID());
-            seller.getWallet().deposit(order.getProduct().getPrice());
+            seller.getWallet().receivePaymentFromSale(order.getProduct().getPrice());
         }
 
         customerCart.setPurchased(true);

@@ -65,9 +65,11 @@ public class CusControl {
 
     public void orderProduct(Product product) {
         Cart cart = findCart();
-        String shopID = sellerDB.findSeller(product.getSellerId()).getShopID();
+        Seller seller = sellerDB.findSeller(product.getSellerId());
+        String shopID = seller.getShopID();
         Order order = new Order(product, shopID, LocalDate.now());
         cart.addToCart(order);
+        seller.addOrder(order);
     }
 
     private Cart findCart() {// this doesn't work

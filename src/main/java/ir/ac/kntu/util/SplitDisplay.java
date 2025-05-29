@@ -112,6 +112,9 @@ public class SplitDisplay {
         }else if(item instanceof Transaction transaction){
             String massage = transaction.toString();
             System.out.println(massage);
+        }else if(item instanceof AuthRequest authRequest){
+            String massage = authRequest.toString();
+            System.out.println(massage);
         }
     }
 }

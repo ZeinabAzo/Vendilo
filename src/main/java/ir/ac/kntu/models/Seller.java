@@ -10,7 +10,7 @@ public class Seller extends User {
     private Address shopLocation;
     private String shopID;
     private List<Product> productsForSale;
-
+    private List<Order> orders;
     //after the seller gets verified by an admin, we generate a shopID for him/her
     //then the seller can access menu and things related to it.
 
@@ -23,6 +23,15 @@ public class Seller extends User {
         this.shopLocation = shopLocation;
         this.shopID = null;//generate later
         productsForSale = new ArrayList<>();
+        orders=new ArrayList<>();
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order);
     }
 
     public void setShopID(String shopID) {

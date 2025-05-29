@@ -87,12 +87,12 @@ public class Navigate {
             CusMainMenu customerMainMenu = new CusMainMenu(cusControl);
             customerMainMenu.showPage();
         } else if (user instanceof Seller) {
-            SellControl sellControl = new SellControl(productDB, (Seller) user);
+            SellControl sellControl = new SellControl(productDB, adminDB, (Seller) user);
             sellControl.setServices();
             SellerMainMenu sellerMainMenu= new SellerMainMenu(sellControl);
             sellerMainMenu.showPage();
         } else {
-            AdmControl admControl = new AdmControl(adminDB, productDB, sellerDB, (Admin) user);
+            AdmControl admControl = new AdmControl(adminDB, productDB,  customerDB, sellerDB, (Admin) user);
         }
     }
 
