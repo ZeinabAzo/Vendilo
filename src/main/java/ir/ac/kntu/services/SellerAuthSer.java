@@ -16,19 +16,18 @@ public class SellerAuthSer extends AuthService {
         this.sellerDB = sellerDB;
     }
 
-    public boolean isValidInput(String firstName, String lastName, String password, String thisId, String phoneNumber,
-                                String state) {
-        return isValidName(firstName) && isValidName(lastName) && isValidPassword(password)
-                && isValidID(thisId) && isValidPhoneNumber(phoneNumber)
-                && isValidSellerAddress(state) && isUnique(password, thisId, phoneNumber);
+    public boolean isValidInput(String[] name, String[] stuff, String state) {
+        return isValidName(name) && isValidPassword(stuff[0])
+                && isValidID(stuff[1]) && isValidPhoneNumber(stuff[2])
+                && isValidSellerAddress(state) && isUnique(stuff[0], stuff[1], stuff[2]);
     }
 
-    private boolean isUnique(String password, String thisID, String phoneNum){
-        Seller seller =sellerDB.getSellers().stream().filter(c -> password.equals(c.getPassword())
+    private boolean isUnique(String password, String thisID, String phoneNum) {
+        Seller seller = sellerDB.getSellers().stream().filter(c -> password.equals(c.getPassword())
                 || thisID.equals(c.getNationalId()) || phoneNum.equals(c.getPhoneNumber())).findFirst().orElse(null);
-        if(seller==null){
+        if (seller == null) {
             return true;
-        }else{
+        } else {
             PrintHelper.printError("Found duplicates for your email, phone number or password");
             return false;
         }
@@ -45,11 +44,11 @@ public class SellerAuthSer extends AuthService {
         String shopID = info.get("shopID");
         String password = info.get("password");
 
-            return sellerDB.getSellers().stream()
-                    .filter(s -> s != null && s.getShopID().equals(shopID)
-                            && s.getPassword().equals(password))
-                    .findFirst()
-                    .orElse(null);
+        return sellerDB.getSellers().stream()
+                .filter(s -> s != null && s.getShopID().equals(shopID)
+                        && s.getPassword().equals(password))
+                .findFirst()
+                .orElse(null);
 
     }
 
@@ -63,11 +62,11 @@ public class SellerAuthSer extends AuthService {
 
         Address shopLocation = addressDetector(state);
 
-        if (isValidInput(firstName, lastName, password, nationalId, phoneNumber, state)) {
+        if (isValidInput(new String[]{firstName, lastName}, new String[]{password, nationalId, phoneNumber}, state)) {
             Seller seller = new Seller(firstName, lastName, nationalId, phoneNumber, shopLocation, password);
             GenerateShopID generateShopID = new GenerateShopID(sellerDB);
-            String id = generateShopID.generateID();
-            seller.setShopID(id);
+            String thisId = generateShopID.generateID();
+            seller.setShopID(thisId);
             sellerDB.addSeller(seller);
             return seller;
         }

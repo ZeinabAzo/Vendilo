@@ -21,7 +21,7 @@ public class CustomerDatabase {
             .setPrettyPrinting()
             .create();
 
-    public static ArrayList<Customer> load() {
+    public static List<Customer> load() {
         try (FileReader reader = new FileReader(FILE_PATH)) {
             Type listType = new TypeToken<ArrayList<Customer>>() {
             }.getType();

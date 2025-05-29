@@ -20,7 +20,7 @@ public class AdminAuthSer extends AuthService {
         String userName = info.get("username");
         String password = info.get("password");
 
-        if (isValidName(fNAme) && isValidPassword(password) && isValidName(userName)) {
+        if (isValidName(attachNames(fNAme, userName)) && isValidPassword(password) ) {
             Admin admin = adminDB.findAdminByUserName(userName);
             if (admin != null && admin.getPassword().equals(password)) {
                 return admin;

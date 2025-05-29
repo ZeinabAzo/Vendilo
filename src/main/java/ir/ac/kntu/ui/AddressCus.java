@@ -8,7 +8,7 @@ import ir.ac.kntu.util.SplitDisplay;
 
 public class AddressCus {
 
-    CusControl cusControl;
+    private CusControl cusControl;
 
     public AddressCus(CusControl cusControl) {
         this.cusControl = cusControl;
@@ -51,8 +51,8 @@ public class AddressCus {
             int option = ScannerWrapper.nextInt();
 
             switch (option){
-                case 1 -> deleteAddress(option);
-                case 2 -> editAddress(option);
+                case 1 -> deleteAddress(choice);
+                case 2 -> editAddress(choice);
                 case 3 -> {
                 }
                 case 4 -> Exit.exit();

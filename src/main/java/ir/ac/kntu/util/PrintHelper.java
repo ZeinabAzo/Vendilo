@@ -1,9 +1,5 @@
 package ir.ac.kntu.util;
 
-import ir.ac.kntu.models.Address;
-import ir.ac.kntu.models.Cart;
-import ir.ac.kntu.models.Order;
-
 import java.util.*;
 
 import static ir.ac.kntu.util.ProductPrinter.centerText;

@@ -121,24 +121,25 @@ public class SellProdMenu {
         double internalStorage = InputHelper.inputDouble("Enter internal storage (GB):");
         String ram = InputHelper.inputString("Enter RAM (e.g., 4GB):");
 
-        CameraResolution frontCam = null;
-        while (frontCam == null) {
-            frontCam = InputHelper.inputEnum("Choose front camera resolution:", CameraResolution.class);
-            if (frontCam == null) {
-                PrintHelper.printError("Invalid front camera resolution. Please try again.");
-                return null;
-            }
+        CameraResolution frontCam = getCameraResolution();
+        if (frontCam == null) {
+            return null;
         }
 
-        CameraResolution backCam = null;
-        while (backCam == null) {
-            backCam = InputHelper.inputEnum("Choose back camera resolution:", CameraResolution.class);
-            if (backCam == null) {
-                PrintHelper.printError("Invalid back camera resolution. Please try again.");
-                return null;
-            }
+        CameraResolution backCam = getResolution();
+        if (backCam == null) {
+            return null;
         }
 
+        MobileNetworkType networkType = getMobileNetworkType();
+        if (networkType == null) {
+            return null;
+        }
+
+        return new Mobile(name, price, inventory, seller,brand, internalStorage, ram, frontCam, backCam, networkType);
+    }
+
+    private static MobileNetworkType getMobileNetworkType() {
         MobileNetworkType networkType = null;
         while (networkType == null) {
             networkType = InputHelper.inputEnum("Choose mobile network type:", MobileNetworkType.class);
@@ -147,8 +148,31 @@ public class SellProdMenu {
                 return null;
             }
         }
+        return networkType;
+    }
 
-        return new Mobile(name, price, inventory, seller, "mobile",brand, internalStorage, ram, frontCam, backCam, networkType);
+    private static CameraResolution getResolution() {
+        CameraResolution backCam = null;
+        while (backCam == null) {
+            backCam = InputHelper.inputEnum("Choose back camera resolution:", CameraResolution.class);
+            if (backCam == null) {
+                PrintHelper.printError("Invalid back camera resolution. Please try again.");
+                return null;
+            }
+        }
+        return backCam;
+    }
+
+    private static CameraResolution getCameraResolution() {
+        CameraResolution frontCam = null;
+        while (frontCam == null) {
+            frontCam = InputHelper.inputEnum("Choose front camera resolution:", CameraResolution.class);
+            if (frontCam == null) {
+                PrintHelper.printError("Invalid front camera resolution. Please try again.");
+                return null;
+            }
+        }
+        return frontCam;
     }
 
 
@@ -179,7 +203,7 @@ public class SellProdMenu {
 
         String isbn = InputHelper.inputString("Enter isbn:");
 
-        return new Book(name, price, inventory, seller,"book", authorName, pageCount, bookGenre, ageGroup, isbn);
+        return new Book(name, price, inventory, seller, authorName, pageCount, bookGenre, ageGroup, isbn);
     }
 
 
@@ -211,7 +235,7 @@ public class SellProdMenu {
             }
         }
 
-        return new Laptop(name, price, seller,"laptop", inventory, brand, internalStorage, ram, gpuModel, btSupport, webcamStatus);
+        return new Laptop(name, price, seller, inventory, brand, internalStorage, ram, gpuModel, btSupport, webcamStatus);
     }
 
 

@@ -11,7 +11,7 @@ public class Book extends Product {
     private AgeGroup ageGroup;
     private String isbn;
 
-    public Book(String name, double price, int inventory, Seller seller,String type, String authorName, double pageCount,
+    public Book(String name, double price, int inventory, Seller seller, String authorName, double pageCount,
                 BookGenre bookGenre, AgeGroup ageGroup, String isbn) {
         super(name, price, inventory, seller, "book");
         this.authorName = authorName;

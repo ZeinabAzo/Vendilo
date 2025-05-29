@@ -5,8 +5,6 @@ import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.*;
-import ir.ac.kntu.services.AuthService;
-import ir.ac.kntu.services.CustAuthSer;
 import ir.ac.kntu.services.CustomerService;
 import ir.ac.kntu.services.SearchProducts;
 
@@ -28,12 +26,12 @@ public class CusControl {
     private SearchProducts searchProducts;
     private CustomerService customerServ;
 
-    public CusControl(Customer customer,CustomerDB customerDB, SellerDB sellerDB,AdminDB adminDB, ProductDB productDB) {
+    public CusControl(Customer customer, CustomerDB customerDB, SellerDB sellerDB, AdminDB adminDB, ProductDB productDB) {
         this.customer = customer;
         this.productDB = productDB;
-        this.customerDB=customerDB;
+        this.customerDB = customerDB;
         this.sellerDB = sellerDB;
-        this.adminDB=adminDB;
+        this.adminDB = adminDB;
     }
 
     public Customer getCustomer() {
@@ -84,10 +82,10 @@ public class CusControl {
         return customer.getCart(chosen);
     }
 
-    public void deleteCart(Cart c) {
-        Cart cart = customer.getCart(c);
-        if (cart != null) {
-            customer.getCarts().remove(c);
+    public void deleteCart(Cart cart) {
+        Cart cart1 = customer.getCart(cart);
+        if (cart1 != null) {
+            customer.getCarts().remove(cart1);
         } else {
             PrintHelper.printError("cart is null: cusControl-deleteCart");
         }
@@ -99,9 +97,9 @@ public class CusControl {
 
     public void purchaseCart(Address address, Cart cart) {
         if (!customer.getCart(cart).isPurchased()) {
-            if(isAvailable(cart)) {
+            if (isAvailable(cart)) {
                 customerServ.purchaseCart(cart, customer, address);
-            }else{
+            } else {
                 handleUnav(cart);
             }
         } else {
@@ -116,7 +114,7 @@ public class CusControl {
         PrintHelper.option(3, "exit");
         int choice = ScannerWrapper.nextInt();
 
-        switch (choice){
+        switch (choice) {
             case 1 -> {
             }
             case 2 -> deleteUnavailable(cart);
@@ -129,9 +127,9 @@ public class CusControl {
         customerServ.deleteUnavailable(cart);
     }
 
-    private boolean isAvailable(Cart cart){
-            boolean available=true;
-            for (Order o : cart.getOrders()){
+    private boolean isAvailable(Cart cart) {
+        boolean available = true;
+        for (Order o : cart.getOrders()) {
             if (o.getProduct().getInventory() <= 0) {
                 available = false;
                 break;

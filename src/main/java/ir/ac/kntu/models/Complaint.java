@@ -1,7 +1,5 @@
 package ir.ac.kntu.models;
 
-import java.time.LocalDate;
-
 public class Complaint {
 
     private String userID;

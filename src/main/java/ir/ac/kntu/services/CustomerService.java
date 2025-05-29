@@ -3,14 +3,13 @@ package ir.ac.kntu.services;
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.*;
-import ir.ac.kntu.util.PrintHelper;
 
 import static ir.ac.kntu.util.PrintHelper.printError;
 
 public class CustomerService {
 
     private SellerDB sellerDB;
-    public static double shippingFee = 50;
+    private double shippingFee = 50;
     private CustomerDB customerDB;
 
 
@@ -79,12 +78,12 @@ public class CustomerService {
     private boolean isCorrectEmail(String email){
         if(AuthService.isValidEmail(email)){
             if (hasDupEmail(email)){
-                PrintHelper.printError("Such an evil, using someone else's email!!");
+                printError("Such an evil, using someone else's email!!");
                 return false;
             }
             return true;
         }else{
-            PrintHelper.printError("Invalid email");
+            printError("Invalid email");
             return false;
         }
     }
@@ -107,12 +106,12 @@ public class CustomerService {
     private boolean isCorrectPassword(String password) {
         if (AuthService.isValidPassword(password)) {
             if (hasDupPassword(password)) {
-                PrintHelper.printError("Password already in use by another user! Be original!");
+                printError("Password already in use by another user! Be original!");
                 return false;
             }
             return true;
         } else {
-            PrintHelper.printError("Invalid password");
+            printError("Invalid password");
             return false;
         }
     }

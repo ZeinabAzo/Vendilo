@@ -9,7 +9,7 @@ public class Mobile extends Digital {
     private CameraResolution backCame;
     private MobileNetworkType mobileNetType;
 
-    public Mobile(String name, double price, int inventory, Seller seller,String type1,  String brand,
+    public Mobile(String name, double price, int inventory, Seller seller,  String brand,
                   double internalStorage, String ram, CameraResolution frontCam,
                   CameraResolution backCam, MobileNetworkType type) {
         super(name, price, seller, "mobile", inventory, brand, internalStorage, ram);

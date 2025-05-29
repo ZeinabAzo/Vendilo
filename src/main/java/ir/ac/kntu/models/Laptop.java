@@ -9,7 +9,7 @@ public class Laptop extends Digital {
     private boolean btSupport;
     private WebcamStatus webcamStatus;
 
-    public Laptop(String name, double price, Seller seller,String type, int inventory, String brand,
+    public Laptop(String name, double price, Seller seller, int inventory, String brand,
                   double internalStorage, String ram, GPUModel gpuModel,
                   boolean btSupport, WebcamStatus webcamStatus) {
         super(name, price, seller, "laptop",inventory, brand, internalStorage, ram);

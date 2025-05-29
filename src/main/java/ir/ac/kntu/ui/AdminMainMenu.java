@@ -1,6 +1,5 @@
 package ir.ac.kntu.ui;
 
-import ir.ac.kntu.Main;
 import ir.ac.kntu.controllers.AdmControl;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.util.Exit;

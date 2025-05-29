@@ -7,6 +7,7 @@ import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static ir.ac.kntu.util.Exit.exit;
 
@@ -69,14 +70,12 @@ public class EntryMenu {
         while (true) {
             int choice = getChoice();
 
-            HashMap<String, String> info = new HashMap<>();
-
             switch (choice) {
                 case 1 -> {
-                    return getUser(info, "customer");
+                    return getUser( "customer");
                 }
                 case 2 -> {
-                    return getUser(info, "seller");
+                    return getUser("seller");
                 }
                 case 3 -> {
                     return null;
@@ -88,9 +87,9 @@ public class EntryMenu {
         }
     }
 
-    private User getUser(HashMap<String, String> info, String customer) {
-        info = (HashMap<String, String>) PrintHelper.askForInformation(customer);
-        return navigator.leadToSignUP(info, customer);
+    private User getUser(String user) {
+        Map<String, String> info = PrintHelper.askForInformation(user);
+        return navigator.leadToSignUP(info, user);
     }
 
     private static int getChoice() {
@@ -157,7 +156,7 @@ public class EntryMenu {
         return null;
     }
 
-    private User getUser(String massage, HashMap<String, String> info, String chosenPath) {
+    private User getUser(String massage, Map<String, String> info, String chosenPath) {
         PrintHelper.newLine();
         PrintHelper.ask(massage);
         String information = ScannerWrapper.nextLine();

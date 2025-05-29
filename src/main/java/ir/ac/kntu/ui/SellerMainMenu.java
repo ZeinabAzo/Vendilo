@@ -24,7 +24,9 @@ public class SellerMainMenu {
 
     public void showPage() {
 
-        if (authentication()) return;
+        if (authentication()) {
+            return;
+        }
 
         while (true) {
             PrintHelper.upperBorder("Seller profile");

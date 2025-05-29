@@ -10,7 +10,7 @@ import ir.ac.kntu.util.SplitDisplay;
 
 public class CusCartMenu {
 
-    CusControl cusControl;
+    private CusControl cusControl;
 
     public CusCartMenu(CusControl cusControl) {
         this.cusControl = cusControl;

@@ -61,8 +61,8 @@ public class CusMainMenu {
     }
 
     private void searchOptions() {
-        CusSearchMenu customerSearchMenu = new CusSearchMenu(cusControl);
-        customerSearchMenu.firstPage();
+        CusSearchMenu cusSearchMenu = new CusSearchMenu(cusControl);
+        cusSearchMenu.firstPage();
     }
 
     private void orders() {

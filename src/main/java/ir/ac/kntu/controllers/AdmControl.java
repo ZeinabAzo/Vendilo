@@ -2,12 +2,9 @@ package ir.ac.kntu.controllers;
 
 import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.data.CustomerDB;
-import ir.ac.kntu.data.ProductDB;
-import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.Admin;
 import ir.ac.kntu.models.Customer;
 import ir.ac.kntu.models.Order;
-import ir.ac.kntu.services.SearchProducts;
 import ir.ac.kntu.util.Exit;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
@@ -22,24 +19,15 @@ public class AdmControl {
     private AdminDB adminDB;
     private Admin admin;
     private CustomerDB customerDB;
-    private SellerDB sellerDB;
-    private ProductDB productDB;
-    private SearchProducts searchProducts;
 
-    public AdmControl(AdminDB adminDB, ProductDB productDB,CustomerDB customerDB, SellerDB sellerDB, Admin admin) {
+    public AdmControl(AdminDB adminDB,CustomerDB customerDB, Admin admin) {
         this.adminDB = adminDB;
-        this.productDB = productDB;
         this.customerDB=customerDB;
-        this.sellerDB=sellerDB;
         this.admin = admin;
     }
 
     public AdminDB getAdminDB() {
         return adminDB;
-    }
-
-    public void setServices() {//add necessary services
-        searchProducts = new SearchProducts(productDB);
     }
 
 

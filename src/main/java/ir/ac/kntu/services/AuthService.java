@@ -4,9 +4,13 @@ import static ir.ac.kntu.util.PrintHelper.printError;
 
 public class AuthService {
 
+    public String[] attachNames(String fName, String lName) {
+        return new String[]{fName, lName};
+    }
 
-    public static boolean isValidName(String name) {
-        if (name.matches("([a-zA-Z]+\\s*)*")) {
+
+    public static boolean isValidName(String[] name) {
+        if (name[0].matches("([a-zA-Z]+\\s*)*") && name[1].matches("([a-zA-Z]+\\s*)*")) {
             return true;
         } else {
             printError("Invalid name format");

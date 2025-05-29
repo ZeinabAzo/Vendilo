@@ -1,8 +1,6 @@
 package ir.ac.kntu.models;
 
 
-import ir.ac.kntu.util.PrintHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,11 +35,11 @@ public class Wallet {
 
     public boolean deposit(double amount) {
         if (!canCharge) {
-            PrintHelper.printError("Deposit not allowed for this wallet.");
+            printError("Deposit not allowed for this wallet.");
             return false;
         }
         if (amount <= 0) {
-            PrintHelper.printError("Amount must be positive.");
+            printError("Amount must be positive.");
             return false;
         }
         balance += amount;

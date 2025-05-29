@@ -1,6 +1,7 @@
 package ir.ac.kntu.data;
 
 import ir.ac.kntu.models.Seller;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +14,10 @@ public class SellerDB {
     }
 
     public SellerDB(List<Seller> sellers) {
-        this.sellers =new ArrayList<>(sellers) ;
+        this.sellers = new ArrayList<>(sellers);
     }
 
-    public Seller findSeller(String shopId){
+    public Seller findSeller(String shopId) {
         return sellers.stream().filter(s -> shopId.equals(s.getShopID())).findFirst()
                 .orElse(null);
     }

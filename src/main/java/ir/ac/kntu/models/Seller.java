@@ -23,7 +23,7 @@ public class Seller extends User {
         this.shopLocation = shopLocation;
         this.shopID = null;//generate later
         productsForSale = new ArrayList<>();
-        orders=new ArrayList<>();
+        orders = new ArrayList<>();
     }
 
     public List<Order> getOrders() {
@@ -45,9 +45,11 @@ public class Seller extends User {
     public void addMobile(Mobile mobile) {
         productsForSale.add(mobile);
     }
+
     public void addLaptop(Laptop laptop) {
         productsForSale.add(laptop);
     }
+
     public void addBook(Book book) {
         productsForSale.add(book);
     }

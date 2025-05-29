@@ -27,16 +27,14 @@ public class ProductPrinter {
             int maxWidth = getMaxLineWidth(lines);
 
             String top = borderColor + "╔" + "═".repeat(maxWidth + 2) + "╗" + reset;
-            String mid = borderColor + "╠" + "═".repeat(maxWidth + 2) + "╣" + reset;
             String bottom = borderColor + "╚" + "═".repeat(maxWidth + 2) + "╝" + reset;
 
-            // Zebra effect
-            String bg = i % 2 == 0 ? "" : PrintHelper.ConsoleColors.BG_LIGHT_GRAY;
+            String background = i % 2 == 0 ? "" : PrintHelper.ConsoleColors.BG_LIGHT_GRAY;
 
             System.out.println(top);
             for (String line : lines) {
                 String centered = centerText(line, maxWidth);
-                System.out.println(borderColor + "║ " + bg + textColor + centered + reset + borderColor + " ║" + reset);
+                System.out.println(borderColor + "║ " + background + textColor + centered + reset + borderColor + " ║" + reset);
             }
             System.out.println(bottom);
         }

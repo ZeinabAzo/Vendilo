@@ -23,7 +23,7 @@ public class SellerDatabase {
             .setPrettyPrinting()
             .create();
 
-    public static ArrayList<Seller> load() {
+    public static List<Seller> load() {
         try (FileReader reader = new FileReader(FILE_PATH)) {
             Type listType = new TypeToken<ArrayList<Seller>>() {}.getType();
             return gson.fromJson(reader, listType);

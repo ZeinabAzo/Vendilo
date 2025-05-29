@@ -4,7 +4,7 @@ public class User {
 
     private String fName;
     private String lName;
-    protected String password;
+    private String password;
     private Wallet wallet;
 
     public User(String fName, String lName, String password) {

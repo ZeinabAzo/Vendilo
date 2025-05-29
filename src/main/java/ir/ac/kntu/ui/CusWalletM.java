@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CusWalletM {
 
-    CusControl cusControl;
+    private CusControl cusControl;
 
     public CusWalletM(CusControl cusControl) {
         this.cusControl = cusControl;

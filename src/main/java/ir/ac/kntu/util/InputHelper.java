@@ -20,7 +20,7 @@ public class InputHelper {
     public static boolean inputYesNo(String prompt) {
         ask(prompt + " (yes/no)");
         String answer = ScannerWrapper.nextLine().trim().toLowerCase();
-        return answer.equals("yes");
+        return "yes".equals(answer);
     }
 
     public static String inputString(String prompt) {

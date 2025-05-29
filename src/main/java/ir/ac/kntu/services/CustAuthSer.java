@@ -15,17 +15,17 @@ public class CustAuthSer extends AuthService {
         this.customerDB = customerDB;
     }
 
-    public boolean isValidInput(String firstName, String lastName, String password, String email, String phoneNumber) {
-        return isValidName(firstName) && isValidName(lastName) && isValidPassword(password) &&
-                isValidEmail(email) && isValidPhoneNumber(phoneNumber) && isUnique(password, email , phoneNumber);
+    public boolean isValidInput(String[] name, String password, String email, String phoneNumber) {
+        return isValidName(name) && isValidPassword(password) &&
+                isValidEmail(email) && isValidPhoneNumber(phoneNumber) && isUnique(password, email, phoneNumber);
     }
 
-    private boolean isUnique(String password, String email, String phoneNum){
-        Customer customer =customerDB.getCustomers().stream().filter(c -> password.equals(c.getPassword())
+    private boolean isUnique(String password, String email, String phoneNum) {
+        Customer customer = customerDB.getCustomers().stream().filter(c -> password.equals(c.getPassword())
                 || email.equals(c.getEmail()) || phoneNum.equals(c.getPhoneNumber())).findFirst().orElse(null);
-        if(customer==null){
+        if (customer == null) {
             return true;
-        }else{
+        } else {
             PrintHelper.printError("Found duplicates for your email, phone number or password");
             return false;
         }
@@ -65,7 +65,7 @@ public class CustAuthSer extends AuthService {
         String email = info.get("email");
         String phoneNumber = info.get("phone number");
 
-        if (isValidInput(firstName, lastName, password, email, phoneNumber)) {
+        if (isValidInput(new String[]{firstName, lastName}, password, email, phoneNumber)) {
             Customer customer = new Customer(firstName, lastName, email, phoneNumber, password);
             customerDB.addCustomer(customer);
             return customer;

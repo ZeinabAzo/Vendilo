@@ -11,6 +11,7 @@ import ir.ac.kntu.models.User;
 import ir.ac.kntu.services.AdminAuthSer;
 import ir.ac.kntu.services.CustAuthSer;
 import ir.ac.kntu.services.SellerAuthSer;
+import ir.ac.kntu.ui.AdminMainMenu;
 import ir.ac.kntu.ui.CusMainMenu;
 import ir.ac.kntu.ui.SellerMainMenu;
 import ir.ac.kntu.util.PrintHelper;
@@ -60,9 +61,9 @@ public class Navigate {
     public User login(String user, Map<String, String> info, String chosenPath) {
         switch (user) {
             case "customer" -> {
-                if (chosenPath.equals("email")) {
+                if ("email".equals(chosenPath)) {
                     return custAuthSer.loginByEmail(info);
-                } else if (chosenPath.equals("phoneNumber")) {
+                } else if ("phoneNumber".equals(chosenPath)) {
                     return custAuthSer.loginByPhoneNumber(info);
                 }
             }
@@ -87,12 +88,13 @@ public class Navigate {
             CusMainMenu customerMainMenu = new CusMainMenu(cusControl);
             customerMainMenu.showPage();
         } else if (user instanceof Seller) {
-            SellControl sellControl = new SellControl(productDB, adminDB, (Seller) user);
-            sellControl.setServices();
+            SellControl sellControl = new SellControl(adminDB, (Seller) user);
             SellerMainMenu sellerMainMenu= new SellerMainMenu(sellControl);
             sellerMainMenu.showPage();
         } else {
-            AdmControl admControl = new AdmControl(adminDB, productDB,  customerDB, sellerDB, (Admin) user);
+            AdmControl admControl = new AdmControl(adminDB, customerDB, (Admin) user);
+            AdminMainMenu adminMainMenu = new AdminMainMenu(admControl);
+            adminMainMenu.showPage();
         }
     }
 

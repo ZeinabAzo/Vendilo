@@ -13,12 +13,12 @@ public class Order {
 
     public Order(Product product, String shopID, LocalDate orderDate) {
         this.product = product;
-        this.shopID=shopID;
+        this.shopID = shopID;
         this.orderDate = orderDate;
     }
 
     public Order createOrder(Product product, Address shippingAddress, Cart cart) {
-        if (product == null ||  shippingAddress == null) {
+        if (product == null || shippingAddress == null) {
             printError("The entered data was not recognized.");
             return null;
         }
@@ -28,7 +28,7 @@ public class Order {
             return null;
         }
 
-        Order newOrder = new Order(product, shopID , LocalDate.now());
+        Order newOrder = new Order(product, shopID, LocalDate.now());
         product.sellProduct();
 
         return newOrder;
