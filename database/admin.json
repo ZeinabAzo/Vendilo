@@ -3,10 +3,16 @@
     {
       "fName": "John",
       "lName": "Doe",
-      "password": "admin1"
+      "password": "admin1@E123"
     }
   ],
-  "cusComplaint": [],
+  "cusComplaint": [
+    {
+      "userID": "aramesh@gmail.com",
+      "context": "I do not like your name, what the hell is vendilo?",
+      "responseStatus": false
+    }
+  ],
   "sellerCompliant": [],
   "authRequest": []
 }

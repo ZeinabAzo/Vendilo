@@ -45,7 +45,7 @@ public class CustAuthSer extends AuthService {
     }
 
     public Customer loginByPhoneNumber(Map<String, String> info) {
-        String phoneNumber = info.get("phone number");
+        String phoneNumber = info.get("phoneNumber");
         String password = info.get("password");
 
         if (isValidPhoneNumber(phoneNumber) && isValidPassword(password)) {

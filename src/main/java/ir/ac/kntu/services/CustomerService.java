@@ -40,6 +40,11 @@ public class CustomerService {
             return;
         }
 
+        for(Order order: cart.getOrders()){
+            Seller seller= sellerDB.findSeller(order.getShopID());
+            seller.getWallet().deposit(order.getProduct().getPrice());
+        }
+
         customerCart.setPurchased(true);
     }
 

@@ -84,11 +84,6 @@
         "orders": [
           {
             "product": {
-              "authorName": "Harper Lee",
-              "pageCount": 281.0,
-              "bookGenre": "HORROR",
-              "ageGroup": "CHILDREN",
-              "isbn": "9780061120084",
               "name": "To Kill a Mockingbird",
               "price": 14.99,
               "inventory": 25,
@@ -100,11 +95,6 @@
           },
           {
             "product": {
-              "authorName": "George Orwell",
-              "pageCount": 328.0,
-              "bookGenre": "HORROR",
-              "ageGroup": "CHILDREN",
-              "isbn": "9780451524935",
               "name": "1984",
               "price": 11.25,
               "inventory": 30,
@@ -118,7 +108,7 @@
         "isPurchased": false
       }
     ],
-    "fName": "aramesh",
+    "fName": "Aramesh",
     "lName": "aghajani",
     "password": "FGfg@1234_",
     "wallet": {

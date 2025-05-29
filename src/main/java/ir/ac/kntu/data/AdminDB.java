@@ -28,7 +28,7 @@ public class AdminDB {
         return cusComplaint;
     }
 
-    public List<Complaint> addCusComplaint(Complaint complaint){
+    public void addCusComplaint(Complaint complaint){
         cusComplaint.add(complaint);
     }
 
