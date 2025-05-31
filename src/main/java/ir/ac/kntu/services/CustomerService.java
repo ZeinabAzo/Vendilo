@@ -3,6 +3,8 @@ package ir.ac.kntu.services;
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.*;
+import ir.ac.kntu.util.PrintHelper;
+import ir.ac.kntu.util.ScannerWrapper;
 
 import static ir.ac.kntu.util.PrintHelper.printError;
 
@@ -39,8 +41,8 @@ public class CustomerService {
             return;
         }
 
-        for(Order order: cart.getOrders()){
-            Seller seller= sellerDB.findSeller(order.getShopID());
+        for (Order order : cart.getOrders()) {
+            Seller seller = sellerDB.findSeller(order.getShopID());
             seller.getWallet().receivePaymentFromSale(order.getProduct().getPrice());
         }
 
@@ -70,25 +72,25 @@ public class CustomerService {
     }
 
     public void setEmail(Customer customer, String email) {
-        if(isCorrectEmail(email)){
+        if (isCorrectEmail(email)) {
             customer.setEmail(email);
         }
     }
 
-    private boolean isCorrectEmail(String email){
-        if(AuthService.isValidEmail(email)){
-            if (hasDupEmail(email)){
+    private boolean isCorrectEmail(String email) {
+        if (AuthService.isValidEmail(email)) {
+            if (hasDupEmail(email)) {
                 printError("Such an evil, using someone else's email!!");
                 return false;
             }
             return true;
-        }else{
+        } else {
             printError("Invalid email");
             return false;
         }
     }
 
-    private boolean hasDupEmail(String email){
+    private boolean hasDupEmail(String email) {
         String foundEmail = customerDB.getCustomers().stream()
                 .map(Customer::getEmail)
                 .filter(email::equals)
@@ -127,5 +129,19 @@ public class CustomerService {
 
     public void deleteUnavailable(Cart cart) {
         cart.getOrders().removeIf(o -> o.getProduct().getInventory() <= 0);
+    }
+
+
+    public void rateProduct(Order order) {
+
+        PrintHelper.ask("Please rate this product-be careful bro you only get to do it once!(-1 to return");
+        int rate = ScannerWrapper.nextInt();
+        if (rate == -1) {
+            return;
+        }
+        boolean success = false;
+        while (!success) {
+            success = order.getProduct().rateProduct(rate);
+        }
     }
 }

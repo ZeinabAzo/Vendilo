@@ -1,5 +1,7 @@
 package ir.ac.kntu.models;
 
+import ir.ac.kntu.util.PrintHelper;
+
 public class Product {
 
     private String name;
@@ -7,6 +9,7 @@ public class Product {
     private int inventory;
     private String seller;
     private String type;
+    private Integer rate;
 
     public Product() {
     }
@@ -16,7 +19,18 @@ public class Product {
         this.price = price;
         this.inventory = inventory;
         this.seller = seller.getShopID();
-        this.type=type;
+        this.type = type;
+        rate = null;
+    }
+
+    public boolean rateProduct(int rate) {
+        if (rate >= 0 && rate <= 5 && this.rate == null) {
+            this.rate = rate;
+            return true;
+        } else {
+            PrintHelper.printError("Invalid rate range, please try again.");
+            return false;
+        }
     }
 
 

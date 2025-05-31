@@ -116,5 +116,19 @@
       "canCharge": true,
       "transactions": []
     }
+  },
+  {
+    "email": "asdfg@gmail.com",
+    "phoneNumber": "23456789011",
+    "addresses": [],
+    "carts": [],
+    "fName": "asdfg",
+    "lName": "asdfgh",
+    "password": "sdfgAS@_123",
+    "wallet": {
+      "balance": 0.0,
+      "canCharge": true,
+      "transactions": []
+    }
   }
 ]

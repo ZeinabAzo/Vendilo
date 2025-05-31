@@ -183,7 +183,8 @@ public class CusControl {
         List<Cart> purchased = customer.getCarts().stream().filter(Cart::isPurchased).toList();
         int choice = SplitDisplay.show(purchased);
         if (choice > 0 && choice < purchased.size()) {
-            SplitDisplay.show(purchased.get(choice).getOrders());
+            int chosen = SplitDisplay.show(purchased.get(choice).getOrders());
+            customerServ.rateProduct(purchased.get(choice).getOrders().get(chosen));
         }
     }
 

@@ -11,8 +11,83 @@
       "userID": "aramesh@gmail.com",
       "context": "I do not like your name, what the hell is vendilo?",
       "responseStatus": false
+    },
+    {
+      "userID": "asdfg@gmail.com",
+      "context": "asdfghjwertyu sdfghjk",
+      "responseStatus": false
     }
   ],
   "sellerCompliant": [],
-  "authRequest": []
+  "authRequest": [
+    {
+      "seller": {
+        "nationalId": "0987654321",
+        "phoneNumber": "12345678900",
+        "shopLocation": {
+          "state": "tehran"
+        },
+        "shopID": "EM6977",
+        "productsForSale": [
+          {
+            "name": "A Brief History of Time",
+            "price": 18.0,
+            "inventory": 15,
+            "seller": "EM6977",
+            "type": "book"
+          },
+          {
+            "name": "The Cat in the Hat",
+            "price": 6.99,
+            "inventory": 100,
+            "seller": "EM6977",
+            "type": "book"
+          }
+        ],
+        "fName": "negar",
+        "lName": "abbasi",
+        "password": "asAS123@ggh",
+        "wallet": {
+          "balance": 0.0,
+          "canCharge": false
+        }
+      },
+      "isAccepted": true,
+      "response": "your fine"
+    },
+    {
+      "seller": {
+        "nationalId": "0987654321",
+        "phoneNumber": "12345678900",
+        "shopLocation": {
+          "state": "tehran"
+        },
+        "shopID": "EM6977",
+        "productsForSale": [
+          {
+            "name": "A Brief History of Time",
+            "price": 18.0,
+            "inventory": 15,
+            "seller": "EM6977",
+            "type": "book"
+          },
+          {
+            "name": "The Cat in the Hat",
+            "price": 6.99,
+            "inventory": 100,
+            "seller": "EM6977",
+            "type": "book"
+          }
+        ],
+        "fName": "negar",
+        "lName": "abbasi",
+        "password": "asAS123@ggh",
+        "wallet": {
+          "balance": 0.0,
+          "canCharge": false
+        }
+      },
+      "isAccepted": false
+    }
+  ]
 }
