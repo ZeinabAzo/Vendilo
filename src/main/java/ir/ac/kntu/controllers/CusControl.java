@@ -216,4 +216,10 @@ public class CusControl {
         Complaint complaint = new Complaint(context, customer.getEmail());
         adminDB.addCusComplaint(complaint);
     }
+
+    public void editPhoneNum() {
+        PrintHelper.ask("Enter your new phone number: ");
+        String num = ScannerWrapper.nextLine().trim();
+        customerServ.setPhoneNum(customer, num);
+    }
 }

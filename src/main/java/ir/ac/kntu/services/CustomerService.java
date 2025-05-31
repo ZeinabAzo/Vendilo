@@ -144,4 +144,32 @@ public class CustomerService {
             success = order.getProduct().rateProduct(rate);
         }
     }
+
+    public void setPhoneNum(Customer customer, String num) {
+        if (isCorrectPhone(num)) {
+            customer.setPhoneNumber(num);
+        }
+    }
+
+    private boolean isCorrectPhone(String num) {
+        if (AuthService.isValidPhoneNumber(num)) {
+            if (hasDupPhone(num)) {
+                printError("Phone number already in use by another user! Be original!");
+                return false;
+            }
+            return true;
+        } else {
+            printError("Invalid number");
+            return false;
+        }
+    }
+
+    private boolean hasDupPhone(String num) {
+        String foundPNum = customerDB.getCustomers().stream()
+                .map(Customer::getPhoneNumber)
+                .filter(num::equals)
+                .findFirst()
+                .orElse(null);
+        return foundPNum != null;
+    }
 }
