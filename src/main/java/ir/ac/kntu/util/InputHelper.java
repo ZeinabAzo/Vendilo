@@ -51,4 +51,14 @@ public class InputHelper {
         return new Address(title, state, city, description);
     }
 
+    public static double calculateSimilarity(String str1, String str2) {
+        int commonChars = 0;
+        for (char c1 : str1.toCharArray()) {
+            if (str2.contains(String.valueOf(c1))) {
+                commonChars++;
+            }
+        }
+        return (double) commonChars / Math.max(str1.length(), str2.length());
+    }
+
 }

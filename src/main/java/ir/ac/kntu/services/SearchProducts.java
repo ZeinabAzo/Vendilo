@@ -2,6 +2,7 @@ package ir.ac.kntu.services;
 
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.models.Product;
+import ir.ac.kntu.util.InputHelper;
 import ir.ac.kntu.util.PrintHelper;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class SearchProducts {
 
         for (Product product : productDB.getProducts()) {
             if (product.getName().equalsIgnoreCase(name)) {
+                filteredProducts.add(product);
+            }else if(InputHelper.calculateSimilarity(product.getName(), name)>=0.75){
                 filteredProducts.add(product);
             }
         }
@@ -97,6 +100,11 @@ public class SearchProducts {
 
             if (matchesName && matchesPrice) {
                 filtered.add(product);
+            } else if (!matchesName) {
+                if(InputHelper.calculateSimilarity(product.getName(), name)>=0.75 && matchesPrice){
+                    filtered.add(product);
+                }
+
             }
         }
 
@@ -115,6 +123,8 @@ public class SearchProducts {
             String simpleName = productClass.getSimpleName().toLowerCase();
 
             if (simpleName.equals(target)) {
+                return productClass;
+            }else if(InputHelper.calculateSimilarity(simpleName, target)>=0.75){
                 return productClass;
             }
         }
