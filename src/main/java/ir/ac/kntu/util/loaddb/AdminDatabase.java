@@ -21,11 +21,17 @@ public class AdminDatabase {
         try (FileReader reader = new FileReader(FILE_PATH)) {
             return gson.fromJson(reader, AdminWrapper.class);
         } catch (IOException e) {
+            System.out.println("Failed to load admin data from file: " + e.getMessage());
             return new AdminWrapper(); // fallback empty wrapper
         }
     }
 
     public static void save(AdminWrapper wrapper) {
+        if (wrapper == null || wrapper.getAdmins() == null || wrapper.getAdmins().isEmpty()) {
+            System.out.println("Warning: Trying to save empty admin data. Skipping save.");
+            return;
+        }
+        System.out.println("Saving admins count: " + wrapper.getAdmins().size());
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             gson.toJson(wrapper, writer);
         } catch (IOException e) {

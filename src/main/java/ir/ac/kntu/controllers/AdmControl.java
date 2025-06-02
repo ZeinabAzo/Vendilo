@@ -3,6 +3,7 @@ package ir.ac.kntu.controllers;
 import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.models.Admin;
+import ir.ac.kntu.models.AuthRequest;
 import ir.ac.kntu.models.Customer;
 import ir.ac.kntu.models.Order;
 import ir.ac.kntu.util.Exit;
@@ -20,9 +21,9 @@ public class AdmControl {
     private Admin admin;
     private CustomerDB customerDB;
 
-    public AdmControl(AdminDB adminDB,CustomerDB customerDB, Admin admin) {
+    public AdmControl(AdminDB adminDB, CustomerDB customerDB, Admin admin) {
         this.adminDB = adminDB;
-        this.customerDB=customerDB;
+        this.customerDB = customerDB;
         this.admin = admin;
     }
 
@@ -32,8 +33,37 @@ public class AdmControl {
 
 
     public int showAuthREq() {
-        return SplitDisplay.show(adminDB.getAuthRequest());
+        boolean goOn = true;
+        List<AuthRequest> authRequests = new ArrayList<>();
+
+        while (goOn) {
+            PrintHelper.option(1, "show all auth requests");
+            PrintHelper.option(2, "show answered auth requests");
+            PrintHelper.option(3, "show unanswered auth requests");
+            PrintHelper.option(4, "return");
+            PrintHelper.option(5, "exit");
+
+            int choice = ScannerWrapper.nextInt();
+
+            switch (choice) {
+                case 1 -> authRequests = adminDB.getAuthRequest();
+                case 2 -> authRequests = adminDB.getAuthRequest().stream()
+                        .filter(a -> a.getResponse() == null).toList();
+                case 3 -> authRequests = adminDB.getAuthRequest().stream()
+                        .filter(a -> a.getResponse() != null).toList();
+                case 4 -> goOn = false;
+                case 5 -> Exit.exit();
+                default -> PrintHelper.printError("Invalid command");
+            }
+
+            if (choice >= 0 && choice <= authRequests.size()) {
+                return SplitDisplay.show(authRequests);
+            }
+        }
+        return 0;
     }
+
+
 
     public Admin getAdmin() {
         return admin;
@@ -71,14 +101,14 @@ public class AdmControl {
         PrintHelper.option(2, "customer's reports");
         PrintHelper.option(3, "return");
         PrintHelper.option(4, "exit");
-        boolean goOn=true;
+        boolean goOn = true;
         int choice = ScannerWrapper.nextInt();
 
-        while(goOn){
-            switch (choice){
-                case  1 -> showSellRep();
+        while (goOn) {
+            switch (choice) {
+                case 1 -> showSellRep();
                 case 2 -> showCusRep();
-                case 3 -> goOn=false;
+                case 3 -> goOn = false;
                 case 4 -> Exit.exit();
                 default -> PrintHelper.printError("Invalid command");
             }
@@ -132,7 +162,7 @@ public class AdmControl {
     public List<Order> getAllOrders() {
         List<Order> orders = new ArrayList<>();
 
-        for (Customer c : customerDB.getCustomers()){
+        for (Customer c : customerDB.getCustomers()) {
             orders.addAll(c.getPurchOrders());
         }
 
@@ -142,8 +172,8 @@ public class AdmControl {
     public List<Order> getByEmail(String email) {
         List<Order> orders = new ArrayList<>();
 
-        for (Customer c : customerDB.getCustomers()){
-            if(email.equals(c.getEmail())){
+        for (Customer c : customerDB.getCustomers()) {
+            if (email.equals(c.getEmail())) {
                 orders.addAll(c.getPurchOrders());
                 break;
             }

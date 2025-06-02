@@ -45,8 +45,10 @@ public class Navigate {
         switch (user.toLowerCase()) {
             case "seller" -> {
                 Seller seller = sellerAuthSer.signUp(info);
-                String shopId = seller.getShopID();
-                PrintHelper.printInfo(" Your shop-ID is : " + shopId + ". ");
+                if (seller != null) {
+                    String shopId = seller.getShopID();
+                    PrintHelper.printInfo(" Your shop-ID is : " + shopId + ". ");
+                }
                 return seller;
             }
             case "customer" -> {
@@ -83,13 +85,13 @@ public class Navigate {
     public void decideForUser(User user) {
 
         if (user instanceof Customer) {
-            CusControl cusControl = new CusControl((Customer) user,customerDB, sellerDB, adminDB, productDB);
+            CusControl cusControl = new CusControl((Customer) user, customerDB, sellerDB, adminDB, productDB);
             cusControl.setServices();
             CusMainMenu customerMainMenu = new CusMainMenu(cusControl);
             customerMainMenu.showPage();
         } else if (user instanceof Seller) {
             SellControl sellControl = new SellControl(adminDB, (Seller) user);
-            SellerMainMenu sellerMainMenu= new SellerMainMenu(sellControl);
+            SellerMainMenu sellerMainMenu = new SellerMainMenu(sellControl);
             sellerMainMenu.showPage();
         } else {
             AdmControl admControl = new AdmControl(adminDB, customerDB, (Admin) user);

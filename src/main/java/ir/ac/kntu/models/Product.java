@@ -2,7 +2,7 @@ package ir.ac.kntu.models;
 
 import ir.ac.kntu.util.PrintHelper;
 
-public class Product {
+public class Product implements Comparable<Product>{
 
     private String name;
     private double price;
@@ -32,7 +32,6 @@ public class Product {
             return false;
         }
     }
-
 
     public String getName() {
         return name;
@@ -76,5 +75,10 @@ public class Product {
 
     public String getType() {
         return type;
+    }
+
+    @Override
+    public int compareTo(Product other) {
+        return Double.compare(this.price, other.price);
     }
 }

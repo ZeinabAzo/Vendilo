@@ -6,6 +6,8 @@ import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 import ir.ac.kntu.util.SplitDisplay;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static ir.ac.kntu.util.Exit.exit;
@@ -43,17 +45,59 @@ public class CusSearchMenu {
         }
     }
 
+    private List<Product> sort(List<Product> filtered) {
+        PrintHelper.ask("Do you want to sort your output?");
+        PrintHelper.option(1, "yup, ascending price");
+        PrintHelper.option(2, "yup, descending price");
+        PrintHelper.option(3, "no, doesn't matter(I'm rich) $-$");
+        int choice = ScannerWrapper.nextInt();
+
+        switch (choice) {
+            case 1 -> {
+                return ascending(filtered);
+            }
+            case 2 -> {
+                return descending(filtered);
+            }
+            case 3 -> {
+                PrintHelper.printInfo("OK Mr.big pockets");
+                return filtered;
+            }
+            default -> {
+                PrintHelper.printError("Invalid command");
+                return filtered;
+            }
+        }
+    }
+
+    private List<Product> ascending(List<Product> filtered) {
+
+        List<Product> sorted = new ArrayList<>(filtered);
+
+        Collections.sort(sorted);
+
+        return sorted;
+    }
+
+    private List<Product> descending(List<Product> filtered) {
+
+        List<Product> sorted = new ArrayList<>(filtered);
+
+        sorted.sort(Collections.reverseOrder());
+
+        return sorted;
+    }
+
     private void searchByName() {
         PrintHelper.ask("Enter the product name:");
         String name = ScannerWrapper.nextLine();
-        List<Product> filtered =  cusControl.searchByName(name);
+        List<Product> filtered = cusControl.searchByName(name);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
             return;
         }
-
-        showProducts(filtered);
+        showProducts(sort(filtered));
     }
 
     private void searchByType() {
@@ -66,7 +110,7 @@ public class CusSearchMenu {
             return;
         }
 
-        showProducts(filtered);
+        showProducts(sort(filtered));
     }
 
     private void priceRangeOptions() {
@@ -95,14 +139,14 @@ public class CusSearchMenu {
         String name = ScannerWrapper.nextLine();
         double[] range = askPriceRange();
 
-        List<Product> filtered =  cusControl.searchByNameAndPrice(name, range);
+        List<Product> filtered = cusControl.searchByNameAndPrice(name, range);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
             return;
         }
 
-        showProducts(filtered);
+        showProducts(sort(filtered));
     }
 
     private void typePrice() {
@@ -117,7 +161,7 @@ public class CusSearchMenu {
             return;
         }
 
-        showProducts(filtered);
+        showProducts(sort(filtered));
     }
 
     private void allFiltered() {
@@ -129,14 +173,14 @@ public class CusSearchMenu {
 
         double[] range = askPriceRange();
 
-        List<Product> filtered =  cusControl.searchByAllFilters(type, name, range);
+        List<Product> filtered = cusControl.searchByAllFilters(type, name, range);
 
         if (filtered == null || filtered.isEmpty()) {
             PrintHelper.printError("No products found.");
             return;
         }
 
-        showProducts(filtered);
+        showProducts(sort(filtered));
     }
 
     private double[] askPriceRange() {
@@ -175,13 +219,13 @@ public class CusSearchMenu {
     }
 
     private void showProduct(Product product) {
-        if(product instanceof  Mobile){
+        if (product instanceof Mobile) {
             ShowProductInfo.showMobile((Mobile) product);
-        }else if(product instanceof  Laptop){
+        } else if (product instanceof Laptop) {
             ShowProductInfo.showLaptop((Laptop) product);
-        }else if(product instanceof Book){
+        } else if (product instanceof Book) {
             ShowProductInfo.showBook((Book) product);
-        }else {
+        } else {
             PrintHelper.printError("couldn't find class in showProduct of cusSearchMenu");
         }
     }
