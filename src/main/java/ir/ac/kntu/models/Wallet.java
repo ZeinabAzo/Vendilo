@@ -21,6 +21,15 @@ public class Wallet {
         return transactions;
     }
 
+    @Override
+    public String toString() {
+        return "Wallet{" +
+                "balance=" + balance +
+                ", canCharge=" + canCharge +
+                ", transactions=" + transactions +
+                '}';
+    }
+
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }

@@ -62,6 +62,15 @@ public class Seller extends User {
         return shopID;
     }
 
+    @Override
+    public String toString() {
+        return "Seller{" +
+                "shopID='" + shopID + '\'' +
+                ", shopLocation=" + shopLocation +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
+
     public String getNationalId() {
         return nationalId;
     }

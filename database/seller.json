@@ -69,5 +69,23 @@
       "balance": 0.0,
       "canCharge": false
     }
+  },
+  {
+    "nationalId": "4312035355",
+    "phoneNumber": "09234567432",
+    "shopLocation": {
+      "state": "qazvin"
+    },
+    "shopID": "WR6438",
+    "productsForSale": [],
+    "orders": [],
+    "fName": "saba",
+    "lName": "gorji",
+    "password": "qazQAZ123@",
+    "wallet": {
+      "balance": 0.0,
+      "canCharge": false,
+      "transactions": []
+    }
   }
 ]

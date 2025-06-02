@@ -21,23 +21,26 @@ public class AdminMainMenu {
     }
 
     public void showPage() {
-        PrintHelper.upperBorder("Welcome dear admin");
-        PrintHelper.option(1, "Authentication requests");
-        PrintHelper.option(2, "Reports");
-        PrintHelper.option(3, "Orders");
-        PrintHelper.option(4, "return");
-        PrintHelper.lowerBorder("Welcome dear admin");
-        int choice = ScannerWrapper.nextInt();
+        boolean goON = true;
+        while (goON){
+            PrintHelper.upperBorder("Welcome dear admin");
+            PrintHelper.option(1, "Authentication requests");
+            PrintHelper.option(2, "Reports");
+            PrintHelper.option(3, "Orders");
+            PrintHelper.option(4, "return");
+            PrintHelper.lowerBorder("Welcome dear admin");
+            int choice = ScannerWrapper.nextInt();
 
-        switch (choice) {
-            case 1 -> showAuthRequest();
-            case 2 -> showReports();
-            case 3 -> showOrders();
-            case 4 -> {
+            switch (choice) {
+                case 1 -> showAuthRequest();
+                case 2 -> showReports();
+                case 3 -> showOrders();
+                case 4 -> {
+                    goON = false;
+                }
+                default -> PrintHelper.printError("Invalid command");
             }
-            default -> PrintHelper.printError("Invalid command");
         }
-
     }
 
     private void showOrders() {
@@ -96,15 +99,15 @@ public class AdminMainMenu {
     private static void showProduct(List<Order> filtered) {
         int chosen = SplitDisplay.show(filtered);
 
-        if(chosen>0 && chosen< filtered.size()){
+        if (chosen > 0 && chosen < filtered.size()) {
             Product product = filtered.get(chosen).getProduct();
-            if(product instanceof Mobile){
+            if (product instanceof Mobile) {
                 ShowProductInfo.showMobile((Mobile) product);
-            }else if(product instanceof Laptop ){
+            } else if (product instanceof Laptop) {
                 ShowProductInfo.showLaptop((Laptop) product);
-            }else if(product instanceof Book){
+            } else if (product instanceof Book) {
                 ShowProductInfo.showBook((Book) product);
-            }else{
+            } else {
                 PrintHelper.printError("sth went wrong we are very sorry");
             }
         }
