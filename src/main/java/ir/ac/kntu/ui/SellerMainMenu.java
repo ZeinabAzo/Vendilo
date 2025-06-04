@@ -13,17 +13,12 @@ public class SellerMainMenu {
         this.sellerController = sellerController;
     }
 
-    public void authenticateReq(){
-        sellerController.sendRequest();
-    }
-
 
     private boolean response() {
         return sellerController.response();
     }
 
     public void showPage() {
-
         if (authentication()) {
             return;
         }
@@ -90,7 +85,6 @@ public class SellerMainMenu {
 
 
     private boolean authentication() {
-        authenticateReq();
         String answer= sellerController.getResponse();
         if(!response()){
             PrintHelper.printError("You have not been authenticated by an admin yet.");

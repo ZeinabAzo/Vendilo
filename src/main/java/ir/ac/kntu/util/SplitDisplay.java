@@ -59,8 +59,6 @@ public class SplitDisplay {
         int currentState = getCurrentState(totalPages, page);
         fancyPrint(tempList, currentState, page + 1, totalPages);
 
-        PrintHelper.ask("Enter choice (number to select, 'n' for next, 'p' for previous, 'r' to return, " +
-                "'e' to exit):");
         return ScannerWrapper.nextLine().trim();
     }
 
@@ -117,7 +115,8 @@ public class SplitDisplay {
 
         for (int index = 0; index < tempList.size(); index++) {
             Object item = tempList.get(index);
-            printIt(item, index);
+            PrintHelper.option(index);
+            printIt(item);
         }
         PrintHelper.newLine();
 
@@ -135,11 +134,10 @@ public class SplitDisplay {
         PrintHelper.lowerBorder("Navigation");
     }
 
-    private static void printIt(Object item, int index) {
+    private static void printIt(Object item) {
         if (item instanceof Product) {
             List<Product> product = new ArrayList<>();
             product.add((Product) item);
-            PrintHelper.option(index);
             ProductPrinter.printPretty(product);
         } else if (item instanceof Order order) {
             System.out.println(order);

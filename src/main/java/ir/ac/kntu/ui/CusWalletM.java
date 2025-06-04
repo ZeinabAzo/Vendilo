@@ -78,11 +78,12 @@ public class CusWalletM {
     }
 
     private void chargeBalance() {
-        boolean success = true;
-        do {
+
             PrintHelper.ask("How much do you want to charge? ");
             double amount = ScannerWrapper.nextDouble();
-            success = cusControl.chargeBalance(amount);
-        } while (success);
+            boolean success = cusControl.chargeBalance(amount);
+            if(!success){
+                PrintHelper.printError("Something went wrong.");
+            }
     }
 }

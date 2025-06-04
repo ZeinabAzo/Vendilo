@@ -105,14 +105,14 @@
             "orderDate": "2025-05-28"
           }
         ],
-        "isPurchased": false
+        "isPurchased": true
       }
     ],
     "fName": "Aramesh",
     "lName": "aghajani",
     "password": "FGfg@1234_",
     "wallet": {
-      "balance": 0.0,
+      "balance": 423.76,
       "canCharge": true,
       "transactions": []
     }
@@ -125,6 +125,75 @@
     "fName": "asdfg",
     "lName": "asdfgh",
     "password": "sdfgAS@_123",
+    "wallet": {
+      "balance": 0.0,
+      "canCharge": true,
+      "transactions": []
+    }
+  },
+  {
+    "email": "reyhan@gmai.com",
+    "phoneNumber": "0987623149",
+    "addresses": [
+      {
+        "title": "Home",
+        "state": "Tehran",
+        "city": "tehran",
+        "description": "nothing"
+      }
+    ],
+    "carts": [
+      {
+        "orders": [
+          {
+            "product": {
+              "name": "Mobile1",
+              "price": 560.0,
+              "inventory": 23,
+              "seller": "WR6438",
+              "type": "mobile"
+            },
+            "shopID": "WR6438",
+            "orderDate": "2025-06-03"
+          }
+        ],
+        "isPurchased": true
+      }
+    ],
+    "fName": "nemaati",
+    "lName": "nemati",
+    "password": "ijIK@_1234",
+    "wallet": {
+      "balance": 90.0,
+      "canCharge": true,
+      "transactions": []
+    }
+  },
+  {
+    "email": "Abolghasem@gmail.com",
+    "phoneNumber": "09123891678",
+    "addresses": [],
+    "carts": [
+      {
+        "orders": [
+          {
+            "product": {
+              "name": "1984",
+              "price": 11.25,
+              "inventory": 30,
+              "seller": "EM6977",
+              "type": "book"
+            },
+            "shopID": "EM6977",
+            "orderDate": "2025-06-04"
+          }
+        ],
+        "isPurchased": false
+      }
+    ],
+    "fName": "Abolghasem",
+    "lName": "Azodeh",
+    "password": "ABab@@_123456",
     "wallet": {
       "balance": 0.0,
       "canCharge": true,

@@ -5,6 +5,7 @@ import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.*;
+import ir.ac.kntu.services.AuthService;
 import ir.ac.kntu.services.CustomerService;
 import ir.ac.kntu.services.SearchProducts;
 
@@ -167,7 +168,11 @@ public class CusControl {
     }
 
     public void showTransactions() {
-        SplitDisplay.show(customer.getWallet().getTransactions());
+        if(customer.getWallet().getTransactions().isEmpty()){
+            PrintHelper.printError("No transactions");
+        }else {
+            SplitDisplay.show(customer.getWallet().getTransactions());
+        }
     }
 
     public List<Transaction> getFiltered(LocalDate pDate, LocalDate sDate) {
@@ -191,25 +196,45 @@ public class CusControl {
     public void editfName() {
         PrintHelper.ask("Enter new name: ");
         String name = ScannerWrapper.nextLine().trim();
-        customer.setfName(name);
+        if(name.matches("\\w+")){
+            customer.setfName(name);
+            PrintHelper.printSuccess("Data was updated successfully.");
+        }else{
+            PrintHelper.printError("Invalid name input, couldn't edit.");
+        }
     }
 
     public void editlName() {
         PrintHelper.ask("Enter new family name: ");
         String name = ScannerWrapper.nextLine().trim();
-        customer.setfName(name);
+        if(name.matches("\\w+")){
+            customer.setlName(name);
+            PrintHelper.printSuccess("Data was updated successfully.");
+        }else{
+            PrintHelper.printError("Invalid name input, couldn't edit.");
+        }
     }
 
     public void editEmail() {
         PrintHelper.ask("Enter your new email: ");
         String email = ScannerWrapper.nextLine().trim();
-        customerServ.setEmail(customer, email);
+        if(AuthService.isValidEmail(email)){
+            customerServ.setEmail(customer, email);
+            PrintHelper.printSuccess("Data was updated successfully.");
+        }else{
+            PrintHelper.printError("Invalid name input, couldn't edit.");
+        }
     }
 
     public void editPassword() {
         PrintHelper.ask("Enter your new password: ");
         String pass = ScannerWrapper.nextLine().trim();
-        customerServ.setPassword(customer, pass);
+        if(AuthService.isValidPassword(pass)){
+            customerServ.setPassword(customer, pass);
+            PrintHelper.printSuccess("Data was updated successfully.");
+        }else{
+            PrintHelper.printError("Invalid name input, couldn't edit.");
+        }
     }
 
     public void sendComplaint(String context) {
@@ -220,6 +245,15 @@ public class CusControl {
     public void editPhoneNum() {
         PrintHelper.ask("Enter your new phone number: ");
         String num = ScannerWrapper.nextLine().trim();
-        customerServ.setPhoneNum(customer, num);
+        if(AuthService.isValidPhoneNumber(num)){
+            customerServ.setPhoneNum(customer, num);
+            PrintHelper.printSuccess("Data was updated successfully.");
+        }else{
+            PrintHelper.printError("Invalid name input, couldn't edit.");
+        }
+    }
+
+    public void addAddress(Address address) {
+        customer.addAddress(address);
     }
 }

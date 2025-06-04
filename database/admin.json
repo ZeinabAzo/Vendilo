@@ -33,6 +33,57 @@
           "transactions": []
         }
       },
+      "isAccepted": true,
+      "response": "fine"
+    },
+    {
+      "seller": {
+        "nationalId": "4312035355",
+        "phoneNumber": "09234567432",
+        "shopLocation": {
+          "state": "qazvin"
+        },
+        "shopID": "WR6438",
+        "productsForSale": [
+          {
+            "name": "Mobile1",
+            "price": 560.0,
+            "inventory": 23,
+            "seller": "WR6438",
+            "type": "mobile"
+          }
+        ],
+        "orders": [],
+        "fName": "saba",
+        "lName": "gorji",
+        "password": "qazQAZ123@",
+        "wallet": {
+          "balance": 0.0,
+          "canCharge": false,
+          "transactions": []
+        }
+      },
+      "isAccepted": false
+    },
+    {
+      "seller": {
+        "nationalId": "7223456431",
+        "phoneNumber": "09125431786",
+        "shopLocation": {
+          "state": "shiraz"
+        },
+        "shopID": "OZ8622",
+        "productsForSale": [],
+        "orders": [],
+        "fName": "Sahar",
+        "lName": "sahari",
+        "password": "poPO@12__",
+        "wallet": {
+          "balance": 0.0,
+          "canCharge": false,
+          "transactions": []
+        }
+      },
       "isAccepted": false
     }
   ]

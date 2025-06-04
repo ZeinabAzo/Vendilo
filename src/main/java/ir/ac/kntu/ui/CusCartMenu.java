@@ -44,7 +44,6 @@ public class CusCartMenu {
         while (true) {
             PrintHelper.miniUpperBorder("Customer cart:");
             PrintHelper.option(1, "Show cart");
-            PrintHelper.option(2, "Purchase cart");
             PrintHelper.option(3, "Return");
             PrintHelper.miniLowerBorder("Customer cart:");
 
@@ -52,7 +51,6 @@ public class CusCartMenu {
 
             switch (choice) {
                 case 1 -> showCart(cart);
-                case 2 -> purchaseCart(cart);
                 case 3 -> {
                     return;
                 }
@@ -98,6 +96,7 @@ public class CusCartMenu {
             }
 
             cusControl.purchaseCart(address, cart);
+            return;
         }
     }
 

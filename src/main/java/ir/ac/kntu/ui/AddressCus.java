@@ -1,10 +1,8 @@
 package ir.ac.kntu.ui;
 
 import ir.ac.kntu.controllers.CusControl;
-import ir.ac.kntu.util.Exit;
-import ir.ac.kntu.util.PrintHelper;
-import ir.ac.kntu.util.ScannerWrapper;
-import ir.ac.kntu.util.SplitDisplay;
+import ir.ac.kntu.models.Address;
+import ir.ac.kntu.util.*;
 
 public class AddressCus {
 
@@ -36,14 +34,19 @@ public class AddressCus {
     }
 
     private void insertAddress() {
-        // TODO
-        PrintHelper.printInfo("Inserting address...");
+        try {
+            Address address = InputHelper.newAddress();
+            cusControl.addAddress(address);
+            PrintHelper.printInfo("Inserting address...");
+        } catch ( Exception e){
+            PrintHelper.printError("We couldn't add your address sorry");
+        }
     }
 
     private void showAddresses() {
         int choice = SplitDisplay.show(cusControl.getCustomer().getAddresses());
 
-        while (true){
+        if (choice>=0){
             PrintHelper.option(1, "Delete address");
             PrintHelper.option(2, "Edit address");
             PrintHelper.option(3, "return");

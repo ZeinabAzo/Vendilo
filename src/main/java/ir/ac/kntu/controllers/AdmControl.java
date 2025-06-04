@@ -48,21 +48,25 @@ public class AdmControl {
             switch (choice) {
                 case 1 -> authRequests = adminDB.getAuthRequest();
                 case 2 -> authRequests = adminDB.getAuthRequest().stream()
-                        .filter(a -> a.getResponse() == null).toList();
-                case 3 -> authRequests = adminDB.getAuthRequest().stream()
                         .filter(a -> a.getResponse() != null).toList();
+                case 3 -> authRequests = adminDB.getAuthRequest().stream()
+                        .filter(a -> a.getResponse() == null).toList();
                 case 4 -> goOn = false;
                 case 5 -> Exit.exit();
                 default -> PrintHelper.printError("Invalid command");
             }
 
-            if (choice >= 0 && choice <= authRequests.size()) {
-                return SplitDisplay.show(authRequests);
+            if (authRequests.isEmpty()) {
+                PrintHelper.printError("Nothing to show.");
+                return -1;
+            }
+            int chosen = SplitDisplay.show(authRequests);
+            if (chosen >= 0 && chosen <= authRequests.size()) {
+                return chosen;
             }
         }
         return 0;
     }
-
 
 
     public Admin getAdmin() {
@@ -106,8 +110,14 @@ public class AdmControl {
 
         while (goOn) {
             switch (choice) {
-                case 1 -> showSellRep();
-                case 2 -> showCusRep();
+                case 1 -> {
+                    showSellRep();
+                    goOn = false;
+                }
+                case 2 -> {
+                    showCusRep();
+                    goOn = false;
+                }
                 case 3 -> goOn = false;
                 case 4 -> Exit.exit();
                 default -> PrintHelper.printError("Invalid command");

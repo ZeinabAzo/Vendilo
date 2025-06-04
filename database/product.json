@@ -58,5 +58,18 @@
     "inventory": 30,
     "seller": "EM6977",
     "type": "book"
+  },
+  {
+    "frontCam": "HD_720P",
+    "backCame": "HD_720P",
+    "mobileNetType": "LTE",
+    "brand": "mine",
+    "internalStorage": 56.0,
+    "ram": "6",
+    "name": "Mobile1",
+    "price": 560.0,
+    "inventory": 23,
+    "seller": "WR6438",
+    "type": "mobile"
   }
 ]

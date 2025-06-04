@@ -81,4 +81,15 @@ public class Product implements Comparable<Product>{
     public int compareTo(Product other) {
         return Double.compare(this.price, other.price);
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", inventory=" + inventory +
+                ", type='" + type + '\'' +
+                ", rate=" + rate +
+                '}';
+    }
 }

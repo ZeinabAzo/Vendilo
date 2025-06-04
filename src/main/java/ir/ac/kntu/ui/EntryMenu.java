@@ -1,6 +1,7 @@
 package ir.ac.kntu.ui;
 
 import ir.ac.kntu.controllers.Navigate;
+import ir.ac.kntu.models.Seller;
 import ir.ac.kntu.models.User;
 import ir.ac.kntu.util.PrintHelper.ConsoleColors;
 import ir.ac.kntu.util.PrintHelper;
@@ -47,7 +48,7 @@ public class EntryMenu {
     }
 
     private void decide(User user) {
-        if (user != null) {
+        if (user != null ) {
             PrintHelper.printSuccess("Entering your profile successfully ...");
             navigator.decideForUser(user);
         } else {
