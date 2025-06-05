@@ -132,16 +132,16 @@ public class CustomerService {
     }
 
 
-    public void rateProduct(Order order) {
+    public void rateProduct(Customer customer, Order order) {
 
-        PrintHelper.ask("Please rate this product-be careful bro you only get to do it once!(-1 to return");
-        int rate = ScannerWrapper.nextInt();
-        if (rate == -1) {
-            return;
-        }
         boolean success = false;
         while (!success) {
-            success = order.getProduct().rateProduct(rate);
+            PrintHelper.ask("Please rate this product-be careful bro you only get to do it once!(-1 to return");
+            int rate = ScannerWrapper.nextInt();
+            if (rate == -1) {
+                return;
+            }
+            success = order.getProduct().rateProduct(customer.getEmail(), rate);
         }
     }
 

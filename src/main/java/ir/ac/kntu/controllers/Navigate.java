@@ -8,9 +8,9 @@ import ir.ac.kntu.models.*;
 import ir.ac.kntu.services.AdminAuthSer;
 import ir.ac.kntu.services.CustAuthSer;
 import ir.ac.kntu.services.SellerAuthSer;
-import ir.ac.kntu.ui.AdminMainMenu;
-import ir.ac.kntu.ui.CusMainMenu;
-import ir.ac.kntu.ui.SellerMainMenu;
+import ir.ac.kntu.ui.adminmenu.AdminMainMenu;
+import ir.ac.kntu.ui.cusmenu.CusMainMenu;
+import ir.ac.kntu.ui.sellermenu.SellerMainMenu;
 import ir.ac.kntu.util.PrintHelper;
 
 import java.util.Map;

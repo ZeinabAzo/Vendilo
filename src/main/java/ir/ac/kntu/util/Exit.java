@@ -5,6 +5,9 @@ public class Exit {
     public static void exit() {
         PrintHelper.ask("Are you sure you want to exit? (yes/hell no)");
         String confirm = ScannerWrapper.nextLine().toLowerCase();
+        if ("no".equals(confirm) || "hell no".equals(confirm)){
+            return;
+        }
         if ("yes".equals(confirm) || "y".equals(confirm)) {
             System.exit(0);
         }

@@ -1,4 +1,4 @@
-package ir.ac.kntu.ui;
+package ir.ac.kntu.ui.cusmenu;
 
 import ir.ac.kntu.controllers.CusControl;
 import ir.ac.kntu.util.Exit;
@@ -51,7 +51,7 @@ public class CusMainMenu {
     }
 
     private void addressOptions() {
-        AddressCus addressCus = new AddressCus(cusControl);
+        CusSearchMenu.AddressCus addressCus = new CusSearchMenu.AddressCus(cusControl);
         addressCus.firstShow();
     }
 

@@ -63,18 +63,39 @@ public class CusControl {
     }
 
     public void orderProduct(Product product) {
-        Cart cart = findCart();
+        PrintHelper.ask("What the hell do you want to do? 😭😭");
+        PrintHelper.option(1, "choose from an already existing cart");
+        PrintHelper.option(2, "create a new cart");
+        PrintHelper.option(3, "return");
+        int choice = ScannerWrapper.nextInt();
+        Cart cart = null;
+        switch (choice) {
+            case 1 -> {
+                cart = findCart();
+
+            }
+            case 2 ->{
+                cart = new Cart();
+                customer.setCarts(cart);
+                PrintHelper.printSuccess("new cart has been created");
+            }
+            case 3 -> {
+                return;
+            }
+            default -> {
+                PrintHelper.printError("you bore me.");
+                return;
+            }
+        }
         Seller seller = sellerDB.findSeller(product.getSellerId());
         String shopID = seller.getShopID();
-        System.out.println(shopID);
         Order order = new Order(product, shopID, LocalDate.now());
-        System.out.println(order);
         cart.addToCart(order);
         seller.addOrder(order);
     }
 
-    private Cart findCart() {// this doesn't work
-        int chosen = SplitDisplay.show(customer.getCarts());
+    private Cart findCart() {
+        int chosen = SplitDisplay.show(customer.getCarts().stream().filter(c -> !c.isPurchased()).toList());
         if (chosen == -1) {
             PrintHelper.printInfo("Darling you've got no cart, let's create one:");
             Cart cart = new Cart();
@@ -192,7 +213,7 @@ public class CusControl {
         if (choice >= 0 && choice <= purchased.size()) {
             PrintHelper.ask("choose one order: ");
             int chosen = SplitDisplay.show(purchased.get(choice).getOrders());
-            customerServ.rateProduct(purchased.get(choice).getOrders().get(chosen));
+            customerServ.rateProduct(customer, purchased.get(choice).getOrders().get(chosen));
         }
     }
 

@@ -1,4 +1,4 @@
-package ir.ac.kntu.ui;
+package ir.ac.kntu.ui.sellermenu;
 
 import ir.ac.kntu.controllers.SellControl;
 import ir.ac.kntu.enums.*;
@@ -41,7 +41,6 @@ public class SellProdMenu {
         while (true) {
             Product product = sellerController.showProducts();
             if (product == null) {
-                PrintHelper.printError("Invalid selection. Please try again.");
                 return;
             }
 

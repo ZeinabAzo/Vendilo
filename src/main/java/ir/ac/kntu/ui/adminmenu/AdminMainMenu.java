@@ -1,11 +1,8 @@
-package ir.ac.kntu.ui;
+package ir.ac.kntu.ui.adminmenu;
 
 import ir.ac.kntu.controllers.AdmControl;
 import ir.ac.kntu.models.*;
-import ir.ac.kntu.util.Exit;
-import ir.ac.kntu.util.PrintHelper;
-import ir.ac.kntu.util.ScannerWrapper;
-import ir.ac.kntu.util.SplitDisplay;
+import ir.ac.kntu.util.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

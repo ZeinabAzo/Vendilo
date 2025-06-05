@@ -1,4 +1,4 @@
-package ir.ac.kntu.ui;
+package ir.ac.kntu.ui.cusmenu;
 
 import ir.ac.kntu.controllers.CusControl;
 import ir.ac.kntu.models.Address;
@@ -25,7 +25,7 @@ public class CusCartMenu {
             switch (choice) {
                 case 1 -> {
                     int index = SplitDisplay.show(cusControl.getCustomer().getCarts());
-                    if (index == -1 || index >= cusControl.getCustomer().getCarts().size()) {
+                    if (index < 0 || index >= cusControl.getCustomer().getCarts().size()) {
                         PrintHelper.printError("Invalid cart selected or operation canceled.");
                         return;
                     }
@@ -39,25 +39,6 @@ public class CusCartMenu {
             }
         }
     }
-
-//    private void cartMenu(Cart cart) {
-//        while (true) {
-//            PrintHelper.miniUpperBorder("Customer cart:");
-//            PrintHelper.option(1, "Show cart");
-//            PrintHelper.option(3, "Return");
-//            PrintHelper.miniLowerBorder("Customer cart:");
-//
-//            int choice = ScannerWrapper.nextInt();
-//
-//            switch (choice) {
-//                case 1 -> showCart(cart);
-//                case 3 -> {
-//                    return;
-//                }
-//                default -> PrintHelper.printError("Invalid option!");
-//            }
-//        }
-//    }
 
     private void showCart(Cart cart) {
         SplitDisplay.show(cart.getOrders());

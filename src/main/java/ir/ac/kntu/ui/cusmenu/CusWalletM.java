@@ -1,4 +1,4 @@
-package ir.ac.kntu.ui;
+package ir.ac.kntu.ui.cusmenu;
 
 import ir.ac.kntu.controllers.CusControl;
 import ir.ac.kntu.models.Transaction;

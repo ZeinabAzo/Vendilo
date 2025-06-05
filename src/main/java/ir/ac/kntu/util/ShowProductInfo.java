@@ -1,9 +1,8 @@
-package ir.ac.kntu.ui;
+package ir.ac.kntu.util;
 
 import ir.ac.kntu.models.Book;
 import ir.ac.kntu.models.Laptop;
 import ir.ac.kntu.models.Mobile;
-import ir.ac.kntu.util.PrintHelper;
 
 import java.util.HashMap;
 

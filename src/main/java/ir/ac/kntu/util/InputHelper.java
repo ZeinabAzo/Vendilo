@@ -52,6 +52,9 @@ public class InputHelper {
     }
 
     public static double calculateSimilarity(String str1, String str2) {
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+
         int commonChars = 0;
         for (char c1 : str1.toCharArray()) {
             if (str2.contains(String.valueOf(c1))) {
@@ -60,5 +63,6 @@ public class InputHelper {
         }
         return (double) commonChars / Math.max(str1.length(), str2.length());
     }
+
 
 }

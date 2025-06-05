@@ -17,10 +17,88 @@
               "price": 6.99,
               "inventory": 100,
               "seller": "EM6977",
-              "type": "book"
+              "type": "book",
+              "rate": 4,
+              "ratedUserIds": [
+                "ali.rezaei@example.com"
+              ]
             },
             "shopID": "EM6977",
-            "orderDate": "2025-05-27"
+            "orderDate": "2025-06-05"
+          },
+          {
+            "product": {
+              "name": "1984",
+              "price": 11.25,
+              "inventory": 30,
+              "seller": "EM6977",
+              "type": "book",
+              "rate": -1,
+              "ratedUserIds": []
+            },
+            "shopID": "EM6977",
+            "orderDate": "2025-06-05"
+          },
+          {
+            "product": {
+              "name": "A Brief History of Time",
+              "price": 18.0,
+              "inventory": 15,
+              "seller": "EM6977",
+              "type": "book",
+              "rate": -1,
+              "ratedUserIds": []
+            },
+            "shopID": "EM6977",
+            "orderDate": "2025-06-05"
+          },
+          {
+            "product": {
+              "name": "The Hobbit",
+              "price": 12.5,
+              "inventory": 40,
+              "seller": "EM6977",
+              "type": "book",
+              "rate": 1,
+              "ratedUserIds": [
+                "ali.rezaei@example.com"
+              ]
+            },
+            "shopID": "EM6977",
+            "orderDate": "2025-06-05"
+          },
+          {
+            "product": {
+              "name": "To Kill a Mockingbird",
+              "price": 14.99,
+              "inventory": 25,
+              "seller": "EM6977",
+              "type": "book",
+              "rate": -1,
+              "ratedUserIds": []
+            },
+            "shopID": "EM6977",
+            "orderDate": "2025-06-05"
+          }
+        ],
+        "isPurchased": true
+      },
+      {
+        "orders": [
+          {
+            "product": {
+              "name": "The Cat in the Hat",
+              "price": 6.99,
+              "inventory": 100,
+              "seller": "EM6977",
+              "type": "book",
+              "rate": 4,
+              "ratedUserIds": [
+                "ali.rezaei@example.com"
+              ]
+            },
+            "shopID": "EM6977",
+            "orderDate": "2025-06-05"
           }
         ],
         "isPurchased": false
@@ -28,8 +106,9 @@
     ],
     "password": "Ali@1234",
     "wallet": {
-      "balance": 0.0,
-      "canCharge": false
+      "balance": 9918.28,
+      "canCharge": true,
+      "transactions": []
     }
   },
   {
@@ -45,7 +124,8 @@
     "password": "SaRa#2024",
     "wallet": {
       "balance": 50000.0,
-      "canCharge": false
+      "canCharge": true,
+      "transactions": []
     }
   },
   {
@@ -56,7 +136,8 @@
     "password": "Reza_2025",
     "wallet": {
       "balance": 250000.0,
-      "canCharge": false
+      "canCharge": true,
+      "transactions": []
     }
   },
   {
@@ -72,7 +153,8 @@
     "password": "Lila-4567",
     "wallet": {
       "balance": 80000.0,
-      "canCharge": false
+      "canCharge": true,
+      "transactions": []
     }
   },
   {
@@ -88,7 +170,11 @@
               "price": 14.99,
               "inventory": 25,
               "seller": "EM6977",
-              "type": "book"
+              "type": "book",
+              "rate": 2,
+              "ratedUserIds": [
+                "aramesh@gmail.com"
+              ]
             },
             "shopID": "EM6977",
             "orderDate": "2025-05-28"
@@ -99,7 +185,11 @@
               "price": 11.25,
               "inventory": 30,
               "seller": "EM6977",
-              "type": "book"
+              "type": "book",
+              "rate": 3,
+              "ratedUserIds": [
+                "aramesh@gmail.com"
+              ]
             },
             "shopID": "EM6977",
             "orderDate": "2025-05-28"
@@ -183,7 +273,8 @@
               "price": 11.25,
               "inventory": 30,
               "seller": "EM6977",
-              "type": "book"
+              "type": "book",
+              "rate": 0
             },
             "shopID": "EM6977",
             "orderDate": "2025-06-04"
@@ -214,7 +305,8 @@
               "price": 11.25,
               "inventory": 30,
               "seller": "EM6977",
-              "type": "book"
+              "type": "book",
+              "rate": 0
             },
             "shopID": "EM6977",
             "orderDate": "2025-06-05"

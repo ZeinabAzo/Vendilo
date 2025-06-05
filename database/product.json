@@ -9,7 +9,9 @@
     "price": 14.99,
     "inventory": 25,
     "seller": "EM6977",
-    "type": "book"
+    "type": "book",
+    "rate": -1,
+    "ratedUserIds": []
   },
   {
     "authorName": "J.R.R. Tolkien",
@@ -21,7 +23,9 @@
     "price": 12.5,
     "inventory": 40,
     "seller": "EM6977",
-    "type": "book"
+    "type": "book",
+    "rate": -1,
+    "ratedUserIds": []
   },
   {
     "authorName": "Stephen Hawking",
@@ -33,7 +37,9 @@
     "price": 18.0,
     "inventory": 15,
     "seller": "EM6977",
-    "type": "book"
+    "type": "book",
+    "rate": -1,
+    "ratedUserIds": []
   },
   {
     "authorName": "Dr. Seuss",
@@ -45,7 +51,11 @@
     "price": 6.99,
     "inventory": 100,
     "seller": "EM6977",
-    "type": "book"
+    "type": "book",
+    "rate": 4,
+    "ratedUserIds": [
+      "ali.rezaei@example.com"
+    ]
   },
   {
     "authorName": "George Orwell",
@@ -57,7 +67,9 @@
     "price": 11.25,
     "inventory": 30,
     "seller": "EM6977",
-    "type": "book"
+    "type": "book",
+    "rate": -1,
+    "ratedUserIds": []
   },
   {
     "frontCam": "HD_720P",
@@ -70,6 +82,38 @@
     "price": 560.0,
     "inventory": 23,
     "seller": "WR6438",
-    "type": "mobile"
+    "type": "mobile",
+    "rate": -1,
+    "ratedUserIds": []
+  },
+  {
+    "gpuModel": "NVIDIA_RTX_3070",
+    "btSupport": true,
+    "webcamStatus": "WITH",
+    "brand": "microsoft",
+    "internalStorage": 98.0,
+    "ram": "7",
+    "name": "surface5",
+    "price": 307.99,
+    "inventory": 22,
+    "seller": "OZ8622",
+    "type": "laptop",
+    "rate": -1,
+    "ratedUserIds": []
+  },
+  {
+    "frontCam": "UHD_8K",
+    "backCame": "VGA_480P",
+    "mobileNetType": "NO_NETWORK",
+    "brand": "sam song anway",
+    "internalStorage": 6.0,
+    "ram": "9",
+    "name": "a fantastic one",
+    "price": 985.0,
+    "inventory": 69,
+    "seller": "OZ8622",
+    "type": "mobile",
+    "rate": -1,
+    "ratedUserIds": []
   }
 ]

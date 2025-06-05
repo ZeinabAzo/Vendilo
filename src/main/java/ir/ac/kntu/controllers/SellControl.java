@@ -3,7 +3,7 @@ package ir.ac.kntu.controllers;
 import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.models.*;
-import ir.ac.kntu.ui.ShowProductInfo;
+import ir.ac.kntu.util.ShowProductInfo;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.SplitDisplay;
 
