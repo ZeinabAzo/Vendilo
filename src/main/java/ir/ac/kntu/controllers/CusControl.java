@@ -66,7 +66,9 @@ public class CusControl {
         Cart cart = findCart();
         Seller seller = sellerDB.findSeller(product.getSellerId());
         String shopID = seller.getShopID();
+        System.out.println(shopID);
         Order order = new Order(product, shopID, LocalDate.now());
+        System.out.println(order);
         cart.addToCart(order);
         seller.addOrder(order);
     }
@@ -187,7 +189,8 @@ public class CusControl {
     public void showPurchCart() {
         List<Cart> purchased = customer.getCarts().stream().filter(Cart::isPurchased).toList();
         int choice = SplitDisplay.show(purchased);
-        if (choice > 0 && choice < purchased.size()) {
+        if (choice >= 0 && choice <= purchased.size()) {
+            PrintHelper.ask("choose one order: ");
             int chosen = SplitDisplay.show(purchased.get(choice).getOrders());
             customerServ.rateProduct(purchased.get(choice).getOrders().get(chosen));
         }

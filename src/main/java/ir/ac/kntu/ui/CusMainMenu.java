@@ -68,7 +68,6 @@ public class CusMainMenu {
     private void orders() {
         PrintHelper.miniUpperBorder("Choose a purchased cart");
         cusControl.showPurchCart();
-
     }
 
     private void setting() {

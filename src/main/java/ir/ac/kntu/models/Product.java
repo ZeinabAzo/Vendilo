@@ -2,7 +2,7 @@ package ir.ac.kntu.models;
 
 import ir.ac.kntu.util.PrintHelper;
 
-public class Product implements Comparable<Product>{
+public class Product implements Comparable<Product> {
 
     private String name;
     private double price;
@@ -10,6 +10,7 @@ public class Product implements Comparable<Product>{
     private String seller;
     private String type;
     private Integer rate;
+    private int rateCount;
 
     public Product() {
     }
@@ -24,13 +25,22 @@ public class Product implements Comparable<Product>{
     }
 
     public boolean rateProduct(int rate) {
-        if (rate >= 0 && rate <= 5 && this.rate == null) {
+        if (rate >= 0 && rate <= 5 && this.rate != null) {
+            rateCount++;
+            this.rate = (this.rate * (rateCount - 1) + rate) / rateCount;
+            return true;
+        } else if (this.rate == null) {
             this.rate = rate;
+            rateCount++;
             return true;
         } else {
             PrintHelper.printError("Invalid rate range, please try again.");
             return false;
         }
+    }
+
+    public Integer getRate() {
+        return rate;
     }
 
     public String getName() {

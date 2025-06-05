@@ -47,8 +47,8 @@ public class Laptop extends Digital {
 
     public String lapToString() {
         return String.format("Laptop name: %s | price: %.2f | inventory: %d | seller: %s | GPU: %s | BT: %s | " +
-                "Webcam: %s", getName(),getPrice(), getInventory(), getSellerId(), gpuModel, btSupport ? "Yes" : "No",
-                webcamStatus);
+                "Webcam: %s | rate : %s ", getName(),getPrice(), getInventory(), getSellerId(), gpuModel, btSupport ? "Yes" : "No",
+                webcamStatus, this.getRate());
     }
 
 }

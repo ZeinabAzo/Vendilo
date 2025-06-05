@@ -1,7 +1,6 @@
 package ir.ac.kntu.ui;
 
 import ir.ac.kntu.controllers.Navigate;
-import ir.ac.kntu.models.Seller;
 import ir.ac.kntu.models.User;
 import ir.ac.kntu.util.PrintHelper.ConsoleColors;
 import ir.ac.kntu.util.PrintHelper;

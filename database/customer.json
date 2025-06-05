@@ -151,7 +151,8 @@
               "price": 560.0,
               "inventory": 23,
               "seller": "WR6438",
-              "type": "mobile"
+              "type": "mobile",
+              "rate": 3
             },
             "shopID": "WR6438",
             "orderDate": "2025-06-03"
@@ -194,6 +195,37 @@
     "fName": "Abolghasem",
     "lName": "Azodeh",
     "password": "ABab@@_123456",
+    "wallet": {
+      "balance": 0.0,
+      "canCharge": true,
+      "transactions": []
+    }
+  },
+  {
+    "email": "parmida@gmail.com",
+    "phoneNumber": "09345783476",
+    "addresses": [],
+    "carts": [
+      {
+        "orders": [
+          {
+            "product": {
+              "name": "1984",
+              "price": 11.25,
+              "inventory": 30,
+              "seller": "EM6977",
+              "type": "book"
+            },
+            "shopID": "EM6977",
+            "orderDate": "2025-06-05"
+          }
+        ],
+        "isPurchased": false
+      }
+    ],
+    "fName": "Parmida",
+    "lName": "ajir",
+    "password": "pAAA1234567@@@",
     "wallet": {
       "balance": 0.0,
       "canCharge": true,

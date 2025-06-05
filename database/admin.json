@@ -11,7 +11,13 @@
       "password": "alicePass234__"
     }
   ],
-  "cusComplaint": [],
+  "cusComplaint": [
+    {
+      "userID": "parmida@gmail.com",
+      "context": "i don\u0027t like your app",
+      "responseStatus": false
+    }
+  ],
   "sellerCompliant": [],
   "authRequest": [
     {
@@ -63,7 +69,8 @@
           "transactions": []
         }
       },
-      "isAccepted": false
+      "isAccepted": true,
+      "response": "ok i do"
     },
     {
       "seller": {
@@ -78,6 +85,28 @@
         "fName": "Sahar",
         "lName": "sahari",
         "password": "poPO@12__",
+        "wallet": {
+          "balance": 0.0,
+          "canCharge": false,
+          "transactions": []
+        }
+      },
+      "isAccepted": true,
+      "response": "he is fine"
+    },
+    {
+      "seller": {
+        "nationalId": "8776543212",
+        "phoneNumber": "00155425562",
+        "shopLocation": {
+          "state": "la"
+        },
+        "shopID": "PX4919",
+        "productsForSale": [],
+        "orders": [],
+        "fName": "mh",
+        "lName": "azordeh",
+        "password": "OLLAla123@@",
         "wallet": {
           "balance": 0.0,
           "canCharge": false,
