@@ -41,7 +41,7 @@ public class VendiloPlusMen {
     private void subscribe() {
         PrintHelper.miniUpperBorder("EXCELLENT CHOICE!!! ;) now come on- Choose your plan :");
         PrintHelper.option(1, "one month plan: 99.9$");
-        PrintHelper.option(2, "three month plan: 259.9$");
+        PrintHelper.option(2, "three months plan: 259.9$");
         PrintHelper.option(3, "yearly subscription: 999.9$");
         PrintHelper.option(4, "return");
         PrintHelper.option(5 , "exit");
