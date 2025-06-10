@@ -1,8 +1,9 @@
 package ir.ac.kntu.controllers;
 
 import ir.ac.kntu.data.AdminDB;
+import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.models.*;
-import ir.ac.kntu.ui.ShowProductInfo;
+import ir.ac.kntu.util.ShowProductInfo;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.SplitDisplay;
 
@@ -13,15 +14,12 @@ public class SellControl {
 
     private AdminDB adminDB;
     private Seller seller;
+    private ProductDB productDB;
 
-    public SellControl(AdminDB adminDB, Seller seller) {
+    public SellControl(AdminDB adminDB,ProductDB productDB, Seller seller) {
+        this.productDB=productDB;
         this.seller = seller;
         this.adminDB = adminDB;
-    }
-
-
-    public void sendRequest() {
-        adminDB.getAuthRequest().add(new AuthRequest(seller, null));
     }
 
 
@@ -85,12 +83,15 @@ public class SellControl {
 
     public void addProduct(Product newProduct) {
 
-        if (newProduct instanceof Mobile) {
-            seller.addMobile((Mobile) newProduct);
-        } else if (newProduct instanceof Book) {
-            seller.addBook((Book) newProduct);
-        } else if (newProduct instanceof Laptop) {
-            seller.addLaptop((Laptop) newProduct);
+        if (newProduct instanceof Mobile mobile) {
+            seller.addMobile(mobile);
+            productDB.addMobile(mobile);
+        } else if (newProduct instanceof Book book) {
+            seller.addBook(book);
+            productDB.addBook(book);
+        } else if (newProduct instanceof Laptop laptop) {
+            seller.addLaptop(laptop);
+            productDB.addLaptop(laptop);
         }
     }
 

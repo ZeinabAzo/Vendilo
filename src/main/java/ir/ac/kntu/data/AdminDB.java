@@ -6,6 +6,7 @@ import ir.ac.kntu.models.AuthRequest;
 import ir.ac.kntu.models.Seller;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AdminDB {
 
@@ -46,7 +47,8 @@ public class AdminDB {
     }
 
     public AuthRequest getAuthRequest(Seller seller){
-        return authRequest.stream().filter(r -> r.getSeller().equals(seller)).findFirst().orElse(null);
+        return authRequest.stream().filter(r -> (Objects.equals(r.getSeller().getShopID(),
+                seller.getShopID()))).findAny().orElse(null);
     }
 
     public Admin findAdminByUserName(String userName) {

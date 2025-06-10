@@ -6,9 +6,9 @@ public class Transaction {
 
     private LocalDate date;
     private double amount;
-    private double trackingID;
+    private String trackingID;
 
-    public Transaction(double trackingID, double amount, LocalDate date) {
+    public Transaction(String trackingID, double amount, LocalDate date) {
         this.trackingID = trackingID;
         this.amount = amount;
         this.date = date;
@@ -33,11 +33,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public double getTrackingID() {
+    public String getTrackingID() {
         return trackingID;
     }
 
-    public void setTrackingID(double trackingID) {
+    public void setTrackingID(String trackingID) {
         this.trackingID = trackingID;
     }
 

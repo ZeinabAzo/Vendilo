@@ -64,9 +64,8 @@ public class Book extends Product {
 
     public String bookToString() {
         return String.format("Book name: %s | price: %.2f | inventory: %d | seller: %s  | author: %s | pages: %.0f | " +
-                "genre: %s | age: %s | ISBN: %s", getName(),getPrice(), getInventory(), getSellerId(),
-                authorName, pageCount, bookGenre, ageGroup, isbn);
+                "genre: %s | age: %s | ISBN: %s | rate: %s ", getName(),getPrice(), getInventory(), getSellerId(),
+                authorName, pageCount, bookGenre, ageGroup, isbn, this.getRate());
     }
-
 
 }

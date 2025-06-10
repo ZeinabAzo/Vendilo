@@ -5,6 +5,7 @@ import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.*;
+import ir.ac.kntu.services.authentication.AuthService;
 import ir.ac.kntu.services.CustomerService;
 import ir.ac.kntu.services.SearchProducts;
 
@@ -62,7 +63,29 @@ public class CusControl {
     }
 
     public void orderProduct(Product product) {
-        Cart cart = findCart();
+        PrintHelper.ask("What the hell do you want to do? 😭😭");
+        PrintHelper.option(1, "choose from an already existing cart");
+        PrintHelper.option(2, "create a new cart");
+        PrintHelper.option(3, "return");
+        int choice = ScannerWrapper.nextInt();
+        Cart cart = null;
+        switch (choice) {
+            case 1 -> {
+                cart = findCart();
+            }
+            case 2 ->{
+                cart = new Cart();
+                customer.setCarts(cart);
+                PrintHelper.printSuccess("new cart has been created");
+            }
+            case 3 -> {
+                return;
+            }
+            default -> {
+                PrintHelper.printError("you bore me.");
+                return;
+            }
+        }
         Seller seller = sellerDB.findSeller(product.getSellerId());
         String shopID = seller.getShopID();
         Order order = new Order(product, shopID, LocalDate.now());
@@ -70,8 +93,12 @@ public class CusControl {
         seller.addOrder(order);
     }
 
-    private Cart findCart() {// this doesn't work
+    private Cart findCart() {
         int chosen = SplitDisplay.show(customer.getCarts());
+        while (customer.getCart(chosen).isPurchased()){
+            PrintHelper.printError("this cart is purchased choose another one");
+            chosen = SplitDisplay.show(customer.getCarts());
+        }
         if (chosen == -1) {
             PrintHelper.printInfo("Darling you've got no cart, let's create one:");
             Cart cart = new Cart();
@@ -167,7 +194,11 @@ public class CusControl {
     }
 
     public void showTransactions() {
-        SplitDisplay.show(customer.getWallet().getTransactions());
+        if(customer.getWallet().getTransactions().isEmpty()){
+            PrintHelper.printError("No transactions");
+        }else {
+            SplitDisplay.show(customer.getWallet().getTransactions());
+        }
     }
 
     public List<Transaction> getFiltered(LocalDate pDate, LocalDate sDate) {
@@ -176,40 +207,66 @@ public class CusControl {
     }
 
     public boolean chargeBalance(double amount) {
-        return customer.getWallet().deposit(amount);
+        boolean success = customer.getWallet().deposit(amount);
+        if(success){
+            Transaction transaction = new Transaction(customer.getEmail(), amount, LocalDate.now());
+            customer.getWallet().getTransactions().add(transaction);
+        }
+        return success;
     }
 
     public void showPurchCart() {
         List<Cart> purchased = customer.getCarts().stream().filter(Cart::isPurchased).toList();
         int choice = SplitDisplay.show(purchased);
-        if (choice > 0 && choice < purchased.size()) {
+        if (choice >= 0 && choice <= purchased.size()) {
+            PrintHelper.ask("choose one order: ");
             int chosen = SplitDisplay.show(purchased.get(choice).getOrders());
-            customerServ.rateProduct(purchased.get(choice).getOrders().get(chosen));
+            customerServ.rateProduct(customer, purchased.get(choice).getOrders().get(chosen));
         }
     }
 
     public void editfName() {
         PrintHelper.ask("Enter new name: ");
         String name = ScannerWrapper.nextLine().trim();
-        customer.setfName(name);
+        if(name.matches("\\w+")){
+            customer.setfName(name);
+            PrintHelper.printSuccess("Data was updated successfully.");
+        }else{
+            PrintHelper.printError("Invalid name input, couldn't edit.");
+        }
     }
 
     public void editlName() {
         PrintHelper.ask("Enter new family name: ");
         String name = ScannerWrapper.nextLine().trim();
-        customer.setfName(name);
+        if(name.matches("\\w+")){
+            customer.setlName(name);
+            PrintHelper.printSuccess("Data was updated successfully.");
+        }else{
+            PrintHelper.printError("Invalid name input, couldn't edit.");
+        }
     }
 
     public void editEmail() {
         PrintHelper.ask("Enter your new email: ");
         String email = ScannerWrapper.nextLine().trim();
-        customerServ.setEmail(customer, email);
+        if(AuthService.isValidEmail(email)){
+            customerServ.setEmail(customer, email);
+            PrintHelper.printSuccess("Data was updated successfully.");
+        }else{
+            PrintHelper.printError("Invalid name input, couldn't edit.");
+        }
     }
 
     public void editPassword() {
         PrintHelper.ask("Enter your new password: ");
         String pass = ScannerWrapper.nextLine().trim();
-        customerServ.setPassword(customer, pass);
+        if(AuthService.isValidPassword(pass)){
+            customerServ.setPassword(customer, pass);
+            PrintHelper.printSuccess("Data was updated successfully.");
+        }else{
+            PrintHelper.printError("Invalid name input, couldn't edit.");
+        }
     }
 
     public void sendComplaint(String context) {
@@ -220,6 +277,56 @@ public class CusControl {
     public void editPhoneNum() {
         PrintHelper.ask("Enter your new phone number: ");
         String num = ScannerWrapper.nextLine().trim();
-        customerServ.setPhoneNum(customer, num);
+        if(AuthService.isValidPhoneNumber(num)){
+            customerServ.setPhoneNum(customer, num);
+            PrintHelper.printSuccess("Data was updated successfully.");
+        }else{
+            PrintHelper.printError("Invalid name input, couldn't edit.");
+        }
+    }
+
+    public void addAddress(Address address) {
+        customer.addAddress(address);
+    }
+
+    public void enhanceCart(Cart cart) {
+        while (true) {
+            if (cart.getOrders().isEmpty()) {
+                PrintHelper.printInfo("Your cart is empty.");
+                break;
+            }
+
+            int index = SplitDisplay.show(cart.getOrders());
+            PrintHelper.option(1, "delete it");
+            PrintHelper.option(2, "return");
+            int choice = ScannerWrapper.nextInt();
+
+            switch (choice) {
+                case 1 -> {
+                    cart.removeFromCart(cart.getOrders().get(index));
+                    PrintHelper.printSuccess("Removed successfully");
+                }
+                case 2 -> {
+                    return;
+                }
+                default -> PrintHelper.printError("Invalid choice");
+            }
+        }
+    }
+
+    public Discount showDiscounts() {
+        int chosen = SplitDisplay.show(customer.getDiscounts());
+        if(chosen>=0 && chosen<customer.getDiscounts().size()){
+            return customer.getDiscounts().get(chosen);
+        }
+        return null;
+    }
+
+    public boolean hasVendiloPlus() {
+        return customer.hasVendiloPlus();
+    }
+
+    public boolean subscribe(Double amount) {
+        return customer.getWallet().withdraw(amount);
     }
 }

@@ -1,8 +1,9 @@
-package ir.ac.kntu.services;
+package ir.ac.kntu.services.authentication;
 
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.Address;
 import ir.ac.kntu.models.Seller;
+import ir.ac.kntu.services.GenerateShopID;
 import ir.ac.kntu.util.PrintHelper;
 
 import java.util.Map;

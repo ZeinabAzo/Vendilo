@@ -1,4 +1,4 @@
-package ir.ac.kntu.ui;
+package ir.ac.kntu.ui.cusmenu;
 
 import ir.ac.kntu.controllers.CusControl;
 import ir.ac.kntu.models.Transaction;
@@ -19,7 +19,10 @@ public class CusWalletM {
 
     public void walletMenu() {
         while (true) {
+            PrintHelper.newLine();
             PrintHelper.miniUpperBorder(" $  Hi, I'm your wallet!  $");
+            System.out.printf("Your wallet balance is: %.2f%n",
+                    cusControl.getCustomer().getWallet().getBalance());
             PrintHelper.option(1, "Show former transactions");
             PrintHelper.option(2, "Charge Balance");
             PrintHelper.option(3, "Return");
@@ -78,11 +81,12 @@ public class CusWalletM {
     }
 
     private void chargeBalance() {
-        boolean success = true;
-        do {
-            PrintHelper.ask("How much do you want to charge? ");
-            double amount = ScannerWrapper.nextDouble();
-            success = cusControl.chargeBalance(amount);
-        } while (success);
+
+        PrintHelper.ask("How much do you want to charge? ");
+        double amount = ScannerWrapper.nextDouble();
+        boolean success = cusControl.chargeBalance(amount);
+        if (!success) {
+            PrintHelper.printError("Something went wrong.");
+        }
     }
 }

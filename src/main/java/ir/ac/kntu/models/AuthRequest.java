@@ -7,10 +7,10 @@ public class AuthRequest {
     private String response;
 
 
-    public AuthRequest(Seller seller, String response) {
+    public AuthRequest(Seller seller) {
         this.seller = seller;
         this.isAccepted = false;
-        this.response = response;
+        this.response = null;
     }
 
     public Seller getSeller() {

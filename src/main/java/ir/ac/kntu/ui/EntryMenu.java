@@ -47,7 +47,7 @@ public class EntryMenu {
     }
 
     private void decide(User user) {
-        if (user != null) {
+        if (user != null ) {
             PrintHelper.printSuccess("Entering your profile successfully ...");
             navigator.decideForUser(user);
         } else {

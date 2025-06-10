@@ -1,11 +1,8 @@
-package ir.ac.kntu.ui;
+package ir.ac.kntu.ui.adminmenu;
 
 import ir.ac.kntu.controllers.AdmControl;
 import ir.ac.kntu.models.*;
-import ir.ac.kntu.util.Exit;
-import ir.ac.kntu.util.PrintHelper;
-import ir.ac.kntu.util.ScannerWrapper;
-import ir.ac.kntu.util.SplitDisplay;
+import ir.ac.kntu.util.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -44,9 +41,7 @@ public class AdminMainMenu {
     }
 
     private void showOrders() {
-        boolean goOn = true;
-
-        while (goOn) {
+        while (true) {
             PrintHelper.upperBorder("Let's explore people's business weirdo ...");
             PrintHelper.option(1, "see all orders");
             PrintHelper.option(2, "filter by customer-email");
@@ -60,7 +55,9 @@ public class AdminMainMenu {
                 case 1 -> filtered = getAll();
                 case 2 -> filtered = getByEmail();
                 case 3 -> filtered = getByDate();
-                case 4 -> goOn = false;
+                case 4 -> {
+                    return;
+                }
                 case 5 -> Exit.exit();
                 default -> {
                     PrintHelper.printError("Invalid choice");

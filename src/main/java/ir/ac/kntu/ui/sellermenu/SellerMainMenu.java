@@ -1,4 +1,4 @@
-package ir.ac.kntu.ui;
+package ir.ac.kntu.ui.sellermenu;
 
 import ir.ac.kntu.controllers.SellControl;
 import ir.ac.kntu.util.Exit;
@@ -13,17 +13,12 @@ public class SellerMainMenu {
         this.sellerController = sellerController;
     }
 
-    public void authenticateReq(){
-        sellerController.sendRequest();
-    }
-
 
     private boolean response() {
         return sellerController.response();
     }
 
     public void showPage() {
-
         if (authentication()) {
             return;
         }
@@ -90,18 +85,16 @@ public class SellerMainMenu {
 
 
     private boolean authentication() {
-        authenticateReq();
         String answer= sellerController.getResponse();
-        if(!response()){
+        if(answer == null){
             PrintHelper.printError("You have not been authenticated by an admin yet.");
-            if(answer!=null){
-                PrintHelper.printInfo(answer);
-            }
+            return true;
+        }else if(!response()) {
+            PrintHelper.printInfo("You have been rejected by our team, see why:");
+            PrintHelper.printInfo(answer);
             return true;
         }
-        if(answer!=null){
-            PrintHelper.printInfo(answer);
-        }
+        PrintHelper.printInfo("Welcome dear businessman/woman ");
         return false;
     }
 

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDatabase {
+public class  ProductDatabase {
     private static final String FILE_PATH = "database/product.json";
 
     private static final Gson gson = new GsonBuilder()
@@ -29,24 +29,23 @@ public class ProductDatabase {
             for (JsonElement element : jsonArray) {
                 String type = element.getAsJsonObject().get("type").getAsString();
 
+                Product product = null;
+
                 switch (type) {
-                    case "book" -> {
-                        Book book = gson.fromJson(element, Book.class);
-                        products.add(book);
+                    case "book" -> product = gson.fromJson(element, Book.class);
+                    case "laptop" -> product = gson.fromJson(element, Laptop.class);
+                    case "mobile" -> product = gson.fromJson(element, Mobile.class);
+                    default -> System.out.println("⚠️ Unknown product type: " + type);
+                }
+
+                if (product != null) {
+                    if (product.getRatedUserIds() == null) {
+                        product.setRatedUserIds(new java.util.HashSet<>());
                     }
-                    case "laptop" -> {
-                        Laptop laptop = gson.fromJson(element, Laptop.class);
-                        products.add(laptop);
-                    }
-                    case "mobile" -> {
-                        Mobile mobile = gson.fromJson(element, Mobile.class);
-                        products.add(mobile);
-                    }
-                    default -> {
-                        System.out.println("⚠️ Unknown product type: " + type);
-                    }
+                    products.add(product);
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

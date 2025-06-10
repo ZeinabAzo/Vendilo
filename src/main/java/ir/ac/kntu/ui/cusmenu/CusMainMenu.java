@@ -1,4 +1,4 @@
-package ir.ac.kntu.ui;
+package ir.ac.kntu.ui.cusmenu;
 
 import ir.ac.kntu.controllers.CusControl;
 import ir.ac.kntu.util.Exit;
@@ -16,17 +16,7 @@ public class CusMainMenu {
 
     public void showPage() {
         while (true) {
-            PrintHelper.upperBorder("Customer profile");
-            PrintHelper.option(1, "Search products");
-            PrintHelper.option(2, "Carts");
-            PrintHelper.option(3, "Addresses");
-            PrintHelper.option(4, "Wallet");
-            PrintHelper.option(5, "Orders");
-            PrintHelper.option(6, "Setting");
-            PrintHelper.option(7, "Support");
-            PrintHelper.option(8, "Return");
-            PrintHelper.lowerBorder("Welcome dear customer");
-
+            showOptions();
             int choice = ScannerWrapper.nextInt();
 
             switch (choice) {
@@ -36,13 +26,47 @@ public class CusMainMenu {
                 case 4 -> walletMenu();
                 case 5 -> orders();
                 case 6 -> setting();
-                case 7 -> support();
-                case 8 -> {
+                case 7 -> discountUI(); //TODO:
+                case 8 -> vendiloPlus();
+                case 9 -> notifications();
+                case 10 -> support();
+                case 11 -> {
                     return;
                 }
                 default -> PrintHelper.printError("Invalid option! Try again.");
             }
         }
+    }
+
+    private static void showOptions() {
+        PrintHelper.upperBorder("Customer profile");
+        PrintHelper.option(1, "Search products");
+        PrintHelper.option(2, "Carts");
+        PrintHelper.option(3, "Addresses");
+        PrintHelper.option(4, "Wallet");
+        PrintHelper.option(5, "Orders");
+        PrintHelper.option(6, "Setting");
+        PrintHelper.option(7, "discount codes");
+        PrintHelper.option(8,"VENDILO+");
+        PrintHelper.option(9, "notifications");
+        PrintHelper.option(10, "Support");
+        PrintHelper.option(11, "Return");
+        PrintHelper.lowerBorder("Welcome dear customer");
+    }
+
+    private void notifications() {
+        NotifMen notifMen = new NotifMen(cusControl);
+        notifMen.showPage();
+    }
+
+    private void vendiloPlus(){
+        VendiloPlusMen vendiloPlusMen = new VendiloPlusMen(cusControl);
+        vendiloPlusMen.showPage();
+    }
+
+    private void discountUI() {
+        CusDisMen cusDisMen = new CusDisMen(cusControl);
+        cusDisMen.showPage();
     }
 
     private void walletMenu() {
@@ -51,7 +75,7 @@ public class CusMainMenu {
     }
 
     private void addressOptions() {
-        AddressCus addressCus = new AddressCus(cusControl);
+        CusSearchMenu.AddressCus addressCus = new CusSearchMenu.AddressCus(cusControl);
         addressCus.firstShow();
     }
 
@@ -68,7 +92,6 @@ public class CusMainMenu {
     private void orders() {
         PrintHelper.miniUpperBorder("Choose a purchased cart");
         cusControl.showPurchCart();
-
     }
 
     private void setting() {

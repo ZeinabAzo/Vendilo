@@ -4,16 +4,13 @@ import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.data.SellerDB;
-import ir.ac.kntu.models.Admin;
-import ir.ac.kntu.models.Customer;
-import ir.ac.kntu.models.Seller;
-import ir.ac.kntu.models.User;
-import ir.ac.kntu.services.AdminAuthSer;
-import ir.ac.kntu.services.CustAuthSer;
-import ir.ac.kntu.services.SellerAuthSer;
-import ir.ac.kntu.ui.AdminMainMenu;
-import ir.ac.kntu.ui.CusMainMenu;
-import ir.ac.kntu.ui.SellerMainMenu;
+import ir.ac.kntu.models.*;
+import ir.ac.kntu.services.authentication.AdminAuthSer;
+import ir.ac.kntu.services.authentication.CustAuthSer;
+import ir.ac.kntu.services.authentication.SellerAuthSer;
+import ir.ac.kntu.ui.adminmenu.AdminMainMenu;
+import ir.ac.kntu.ui.cusmenu.CusMainMenu;
+import ir.ac.kntu.ui.sellermenu.SellerMainMenu;
 import ir.ac.kntu.util.PrintHelper;
 
 import java.util.Map;
@@ -41,6 +38,10 @@ public class Navigate {
         sellerAuthSer = new SellerAuthSer(sellerDB);
     }
 
+    public void sendRequest(Seller seller) {
+        adminDB.getAuthRequest().add(new AuthRequest(seller));
+    }
+
     public User leadToSignUP(Map<String, String> info, String user) {
         switch (user.toLowerCase()) {
             case "seller" -> {
@@ -48,6 +49,7 @@ public class Navigate {
                 if (seller != null) {
                     String shopId = seller.getShopID();
                     PrintHelper.printInfo(" Your shop-ID is : " + shopId + ". ");
+                    sendRequest(seller);
                 }
                 return seller;
             }
@@ -90,7 +92,7 @@ public class Navigate {
             CusMainMenu customerMainMenu = new CusMainMenu(cusControl);
             customerMainMenu.showPage();
         } else if (user instanceof Seller) {
-            SellControl sellControl = new SellControl(adminDB, (Seller) user);
+            SellControl sellControl = new SellControl(adminDB,productDB, (Seller) user);
             SellerMainMenu sellerMainMenu = new SellerMainMenu(sellControl);
             sellerMainMenu.showPage();
         } else {

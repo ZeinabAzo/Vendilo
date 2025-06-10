@@ -2,14 +2,18 @@ package ir.ac.kntu.models;
 
 import ir.ac.kntu.util.PrintHelper;
 
-public class Product implements Comparable<Product>{
+import java.util.HashSet;
+import java.util.Set;
+
+public class Product implements Comparable<Product> {
 
     private String name;
     private double price;
     private int inventory;
     private String seller;
     private String type;
-    private Integer rate;
+    private double rate;
+    private Set<String> ratedUserIds; // You can initialize this in the constructor
 
     public Product() {
     }
@@ -20,17 +24,51 @@ public class Product implements Comparable<Product>{
         this.inventory = inventory;
         this.seller = seller.getShopID();
         this.type = type;
-        rate = null;
+        rate = -1;
+        ratedUserIds = new HashSet<>();
     }
 
-    public boolean rateProduct(int rate) {
-        if (rate >= 0 && rate <= 5 && this.rate == null) {
-            this.rate = rate;
-            return true;
-        } else {
+    public Set<String> getRatedUserIds() {
+        if (ratedUserIds == null) {
+            ratedUserIds = new HashSet<>();
+        }
+        return ratedUserIds;
+    }
+
+    public boolean rateProduct(String userId, double rate) {
+        if (rate < 0 || rate > 5) {
             PrintHelper.printError("Invalid rate range, please try again.");
             return false;
         }
+
+        if (ratedUserIds == null) {
+            ratedUserIds = new HashSet<>();
+        }
+
+        if (ratedUserIds.contains(userId)) {
+            PrintHelper.printError("You have already rated this product.");
+            return false;
+        }
+
+        if (this.rate == -1 || ratedUserIds.isEmpty()) {
+            this.rate = rate;
+        } else {
+            this.rate = (this.rate * ratedUserIds.size() + rate) / (ratedUserIds.size() + 1);
+        }
+
+        ratedUserIds.add(userId);
+        PrintHelper.printSuccess("Rated successfully. New average: " + this.rate);
+        return true;
+    }
+
+
+
+    public int getRateCount() {
+        return ratedUserIds.size();
+    }
+
+    public double getRate() {
+        return rate;
     }
 
     public String getName() {
@@ -80,5 +118,20 @@ public class Product implements Comparable<Product>{
     @Override
     public int compareTo(Product other) {
         return Double.compare(this.price, other.price);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", inventory=" + inventory +
+                ", type='" + type + '\'' +
+                ", rate=" + rate +
+                '}';
+    }
+
+    public void setRatedUserIds(Set<String> ratedUserIds) {
+        this.ratedUserIds = ratedUserIds;
     }
 }

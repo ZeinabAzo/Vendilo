@@ -3,6 +3,7 @@ package ir.ac.kntu.services;
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.*;
+import ir.ac.kntu.services.authentication.AuthService;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 
@@ -26,7 +27,8 @@ public class CustomerService {
             return;
         }
 
-        double totalPrice = getTotalPrice(cart, address);
+        cart.setShippingAddress(address);
+        double totalPrice = getTotalPrice(cart);
 
         boolean success = customer.getWallet().withdraw(totalPrice);
 
@@ -44,19 +46,20 @@ public class CustomerService {
         for (Order order : cart.getOrders()) {
             Seller seller = sellerDB.findSeller(order.getShopID());
             seller.getWallet().receivePaymentFromSale(order.getProduct().getPrice());
+            order.getProduct().sellProduct();//new - forgot to do this =( T_T
         }
 
         customerCart.setPurchased(true);
     }
 
-    private double getTotalPrice(Cart cart, Address address) {
+    private double getTotalPrice(Cart cart) {
         boolean shippingCost = true;
         double totalPrice = 0;
 
         for (Order order : cart.getOrders()) {
             if (order != null && order.getProduct() != null) {
                 Seller seller = sellerDB.findSeller(order.getShopID());
-                if (!(seller.getShopLocation().getState().equals(address.getState()))) {
+                if (!(seller.getShopLocation().getState().equals(cart.getShippingAddress().getState()))) {
                     shippingCost = false;
                 }
                 totalPrice += order.getProduct().getPrice();
@@ -132,16 +135,16 @@ public class CustomerService {
     }
 
 
-    public void rateProduct(Order order) {
+    public void rateProduct(Customer customer, Order order) {
 
-        PrintHelper.ask("Please rate this product-be careful bro you only get to do it once!(-1 to return");
-        int rate = ScannerWrapper.nextInt();
-        if (rate == -1) {
-            return;
-        }
         boolean success = false;
         while (!success) {
-            success = order.getProduct().rateProduct(rate);
+            PrintHelper.ask("Please rate this product-be careful bro you only get to do it once!(-1 to return");
+            double rate = ScannerWrapper.nextDouble();
+            if (rate == -1) {
+                return;
+            }
+            success = order.getProduct().rateProduct(customer.getEmail(), rate);
         }
     }
 

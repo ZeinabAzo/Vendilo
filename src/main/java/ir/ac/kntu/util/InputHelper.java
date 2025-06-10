@@ -48,10 +48,18 @@ public class InputHelper {
         ask("Enter description (if needed) :");
         String description=ScannerWrapper.nextLine();
 
-        return new Address(title, state, city, description);
+        try{
+            return new Address(title, state, city, description);
+        } catch (Exception e) {
+            PrintHelper.printError("Invalid address");
+            return null;
+        }
     }
 
     public static double calculateSimilarity(String str1, String str2) {
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+
         int commonChars = 0;
         for (char c1 : str1.toCharArray()) {
             if (str2.contains(String.valueOf(c1))) {
@@ -60,5 +68,6 @@ public class InputHelper {
         }
         return (double) commonChars / Math.max(str1.length(), str2.length());
     }
+
 
 }

@@ -12,7 +12,7 @@ public class Mobile extends Digital {
     public Mobile(String name, double price, int inventory, Seller seller,  String brand,
                   double internalStorage, String ram, CameraResolution frontCam,
                   CameraResolution backCam, MobileNetworkType type) {
-        super(name, price, seller, "mobile", inventory, brand, internalStorage, ram);
+        super(name, price, seller,"mobile", inventory, brand, internalStorage, ram);
         this.frontCam = frontCam;
         this.backCame = backCam;
         this.mobileNetType = type;
@@ -44,8 +44,8 @@ public class Mobile extends Digital {
 
     public String mobileToString() {
         return String.format("Mobile name: %s | price: %.2f | inventory: %d | seller: %s | front cam: %s | " +
-                        "back cam: %s | network: %s",
-               getName(),getPrice(), getInventory(), getSellerId(), frontCam, backCame, mobileNetType);
+                        "back cam: %s | network: %s | rate: %s ",
+               getName(),getPrice(), getInventory(), getSellerId(), frontCam, backCame, mobileNetType, this.getRate());
     }
 
 

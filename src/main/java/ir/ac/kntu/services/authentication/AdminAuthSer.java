@@ -1,4 +1,4 @@
-package ir.ac.kntu.services;
+package ir.ac.kntu.services.authentication;
 
 import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.models.Admin;
