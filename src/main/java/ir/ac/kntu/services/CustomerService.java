@@ -175,4 +175,8 @@ public class CustomerService {
                 .orElse(null);
         return foundPNum != null;
     }
+
+    public void deleteAccount(Customer customer) {
+        customerDB.getCustomers().remove(customer);
+    }
 }

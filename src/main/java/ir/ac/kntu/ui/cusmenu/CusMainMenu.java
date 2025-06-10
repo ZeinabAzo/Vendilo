@@ -33,13 +33,18 @@ public class CusMainMenu {
                 case 11 -> {
                     return;
                 }
+                case 12 -> deleteAccount();
                 default -> PrintHelper.printError("Invalid option! Try again.");
             }
         }
     }
 
+    private void deleteAccount() {
+        cusControl.deleteAccount();
+    }
+
     private static void showOptions() {
-        PrintHelper.upperBorder("Customer profile");
+        PrintHelper.upperBorder("     Customer profile     ");
         PrintHelper.option(1, "Search products");
         PrintHelper.option(2, "Carts");
         PrintHelper.option(3, "Addresses");
@@ -51,7 +56,8 @@ public class CusMainMenu {
         PrintHelper.option(9, "notifications");
         PrintHelper.option(10, "Support");
         PrintHelper.option(11, "Return");
-        PrintHelper.lowerBorder("Welcome dear customer");
+        PrintHelper.option(12, "Dare to choose me?");
+        PrintHelper.lowerBorder("     Customer profile     ");
     }
 
     private void notifications() {

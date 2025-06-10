@@ -329,4 +329,8 @@ public class CusControl {
     public boolean subscribe(Double amount) {
         return customer.getWallet().withdraw(amount);
     }
+
+    public void deleteAccount() {
+        customerServ.deleteAccount(customer);
+    }
 }
