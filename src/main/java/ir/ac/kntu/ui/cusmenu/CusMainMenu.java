@@ -40,7 +40,16 @@ public class CusMainMenu {
     }
 
     private void deleteAccount() {
-        cusControl.deleteAccount();
+        PrintHelper.surprise("OOPS, DELETED YOUR ACCOUNT SUCCESSFULLY! ○( ＾皿＾)っ Hehehe…");
+        PrintHelper.ask("if you think you messed up just enter the number 0");
+        int isSorry = ScannerWrapper.nextInt();
+        if(isSorry == 0){
+            PrintHelper.printInfo("it's never late to feel sorry you little explorer!");
+            PrintHelper.printSuccess("your account is back.");// it was never deleted to be honest
+        }else{
+            PrintHelper.printInfo("your loss!");
+            cusControl.deleteAccount();
+        }
     }
 
     private static void showOptions() {
