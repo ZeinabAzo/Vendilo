@@ -79,7 +79,7 @@ public class CusMainMenu {
     }
 
     private void vendiloPlus(){
-        VendiloPlusMen vendiloPlusMen = new VendiloPlusMen(cusControl);
+        VendiloPlusSubs vendiloPlusMen = new VendiloPlusSubs(cusControl);
         vendiloPlusMen.showPage();
     }
 

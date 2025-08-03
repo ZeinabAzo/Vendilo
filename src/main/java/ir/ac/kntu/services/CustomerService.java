@@ -30,8 +30,7 @@ public class CustomerService {
         }
 
         cart.setShippingAddress(address);
-        double totalPrice = getTotalPrice(cart);
-
+        double totalPrice = getTotalPrice(cart, customer);
         boolean success = customer.getWallet().withdraw(totalPrice);
 
         if (!success) {
@@ -56,7 +55,7 @@ public class CustomerService {
         customerCart.setPurchased(true);
     }
 
-    private double getTotalPrice(Cart cart) {
+    private double getTotalPrice(Cart cart, Customer customer) {
         boolean shippingCost = true;
         double totalPrice = 0;
 
@@ -70,10 +69,20 @@ public class CustomerService {
             }
         }
 
+        if(customer.hasVendiloPlus()){
+            totalPrice = totalPrice*95/100;
+        }
+
         if (shippingCost) {
-            totalPrice += shippingFee / 3;
+            if(!customer.hasVendiloPlus()){
+                totalPrice += shippingFee / 3;
+            }
         } else {
-            totalPrice += shippingFee;
+            if(customer.hasVendiloPlus()){
+                totalPrice += shippingFee / 3;
+            }else {
+                totalPrice += shippingFee;
+            }
         }
         return totalPrice;
     }

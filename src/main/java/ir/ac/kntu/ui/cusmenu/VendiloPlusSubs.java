@@ -7,10 +7,10 @@ import ir.ac.kntu.util.ScannerWrapper;
 
 import java.util.HashMap;
 
-public class VendiloPlusMen {
+public class VendiloPlusSubs {
     private CusControl cusControl;
 
-    public VendiloPlusMen(CusControl cusControl) {
+    public VendiloPlusSubs(CusControl cusControl) {
         this.cusControl = cusControl;
     }
 
@@ -26,7 +26,7 @@ public class VendiloPlusMen {
     private void handleSignIn() {
         PrintHelper.ask("THESE ARE YOUR OPTIONS NOW:");
         PrintHelper.option(1, "buy vendilo plus subscription ");
-        PrintHelper.option(2, "return and forget it(we recommend you buy it though!)");
+        PrintHelper.option(2, "forget it and return(we recommend you buy it though!)");
         PrintHelper.option(3, "exit");
         int choice = ScannerWrapper.nextInt();
         switch (choice) {
@@ -39,7 +39,7 @@ public class VendiloPlusMen {
     }
 
     private void subscribe() {
-        PrintHelper.miniUpperBorder("EXCELLENT CHOICE!!! ;) now come on- Choose your plan :");
+        PrintHelper.miniUpperBorder("EXCELLENT CHOICE!!! ;) come on now- Choose your plan :");
         PrintHelper.option(1, "one month plan: 99.9$");
         PrintHelper.option(2, "three months plan: 259.9$");
         PrintHelper.option(3, "yearly subscription: 999.9$");
@@ -74,11 +74,6 @@ public class VendiloPlusMen {
     }
 
     private void showMainPage() {
-        boolean goOn = true;
-        while (goOn){
-            PrintHelper.upperBorder("HI THIS IS VENDILO PLUS");
-            PrintHelper.ask("How can I help you? ");
-            //todo: continue on writing this.
-        }
+        PrintHelper.printSuccess("you do have a vendilo+ version.");
     }
 }
