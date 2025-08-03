@@ -6,6 +6,10 @@ import static ir.ac.kntu.util.ProductPrinter.centerText;
 
 public class PrintHelper {
 
+    public static void surprise(String massage) {
+        System.out.println(ConsoleColors.DIM + ConsoleColors.BRIGHT_RED + ConsoleColors.WHITE + "✨🎈🪄🧿" +  massage + ConsoleColors.RESET);
+    }
+
     public static class ConsoleColors {
 
         // Dim/Faint style

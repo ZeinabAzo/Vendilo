@@ -1,5 +1,6 @@
 package ir.ac.kntu.models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class Seller extends User {
         this.shopID = null;//generate later
         productsForSale = new ArrayList<>();
         orders = new ArrayList<>();
+        this.setActive(true);
     }
 
     public List<Order> getOrders() {
@@ -77,5 +79,17 @@ public class Seller extends User {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public double preMonthActivity() {
+        double sum = 0;
+        LocalDate thirtyDaysAgo = LocalDate.now().minusDays(30);
+
+        for (Transaction transaction : this.getWallet().getTransactions()) {
+            if (transaction.getDate().isAfter(thirtyDaysAgo) && transaction.getAmount()>0) {
+                sum += transaction.getAmount();
+            }
+        }
+        return sum;
     }
 }

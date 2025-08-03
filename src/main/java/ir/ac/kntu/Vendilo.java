@@ -5,10 +5,7 @@ import ir.ac.kntu.data.*;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.ui.EntryMenu;
 import ir.ac.kntu.util.*;
-import ir.ac.kntu.util.loaddb.AdminDatabase;
-import ir.ac.kntu.util.loaddb.CustomerDatabase;
-import ir.ac.kntu.util.loaddb.ProductDatabase;
-import ir.ac.kntu.util.loaddb.SellerDatabase;
+import ir.ac.kntu.util.loaddb.*;
 
 import java.util.List;
 
@@ -16,15 +13,17 @@ public class Vendilo {
 
     public void run() {
 
-        AdminWrapper adminWrapper = AdminDatabase.load(); // ← load full wrapper
+        AdminWrapper adminWrapper = AdminDatabase.load(); // load full wrapper
         List<Customer> customers = CustomerDatabase.load();
         List<Seller> sellers = SellerDatabase.load();
         List<Product> products = ProductDatabase.load();
+        List<Manager> managers = ManagerDataBase.load();
 
         CustomerDB customerDB = new CustomerDB(customers);
         SellerDB sellerDB = new SellerDB(sellers);
-        AdminDB adminDB = new AdminDB(adminWrapper); // ← use full data
+        AdminDB adminDB = new AdminDB(adminWrapper); // use full data
         ProductDB productDB = new ProductDB();
+        ManagerDB managerDB = new ManagerDB(managers);
 
         addProducts(products, productDB);
 
@@ -38,10 +37,11 @@ public class Vendilo {
             CustomerDatabase.save(customerDB.getCustomers());
             SellerDatabase.save(sellerDB.getSellers());
             ProductDatabase.save(productDB.getProducts());
+            ManagerDataBase.save(managerDB.getManagers());
             PrintHelper.printSuccess("All data saved successfully.");
         }));
 
-        Navigate navigator = new Navigate(customerDB, sellerDB, adminDB, productDB);
+        Navigate navigator = new Navigate(customerDB, sellerDB, adminDB, productDB, managerDB);
         navigator.setServices();
 
         EntryMenu entryMenu = new EntryMenu(navigator);

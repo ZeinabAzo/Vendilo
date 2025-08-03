@@ -7,6 +7,7 @@ import ir.ac.kntu.util.ShowProductInfo;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.SplitDisplay;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,6 +98,8 @@ public class SellControl {
 
     public void withdraw(double value) {
         seller.getWallet().withdraw(value);
+        Transaction transaction = new Transaction(seller.getShopID(), -value, LocalDate.now());
+        seller.getWallet().addTransaction(transaction);
     }
 
     public void showOrders() {

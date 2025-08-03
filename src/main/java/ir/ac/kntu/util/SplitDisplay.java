@@ -151,6 +151,8 @@ public class SplitDisplay {
             System.out.println(authRequest);
         }else if(item instanceof Discount discount){
             System.out.println(discount);
+        }else if (item instanceof Complaint complaint){
+            System.out.println(complaint);
         }
     }
 }

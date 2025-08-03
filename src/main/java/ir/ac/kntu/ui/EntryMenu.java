@@ -31,6 +31,9 @@ public class EntryMenu {
             switch (choice) {
                 case 1 -> {
                     user = loginMenu();
+                    if(user.getActive()==null || !user.getActive()){
+                        PrintHelper.printError("you are banned honey!!");
+                    }
                     decide(user);
                 }
                 case 2 -> {
@@ -117,21 +120,43 @@ public class EntryMenu {
                     return handleAdminLogin();
                 }
                 case 4 -> {
+                    return handleManagerLog();
+                }
+                case 5 -> {
                     return null;
                 }
-                case 5 -> exit();
+                case 6 -> exit();
                 default -> PrintHelper.printError("Invalid choice! try again:");
             }
         }
     }
 
+    private User handleManagerLog() {
+        HashMap<String, String> info = new HashMap<>();
+
+        PrintHelper.newLine();
+        PrintHelper.miniUpperBorder("Enter your information");
+        PrintHelper.ask("Enter your name");
+        String name = ScannerWrapper.nextLine();
+        info.put("name", name);
+        PrintHelper.ask("Enter your username");
+        String username = ScannerWrapper.nextLine();
+        info.put("username", username);
+        PrintHelper.ask("Enter your password");
+        String password = ScannerWrapper.nextLine();
+        info.put("password", password);
+
+        return navigator.login("manager", info, null);
+    }
+
     private static int getAnInt() {
-        PrintHelper.upperBorder("Choose your role to sign up");
+        PrintHelper.upperBorder("Choose your role to Log in");
         PrintHelper.option(1, "Customer");
         PrintHelper.option(2, "Seller");
         PrintHelper.option(3, "Admin");
-        PrintHelper.option(4, "return");
-        PrintHelper.option(5, "exit");
+        PrintHelper.option(4, "Manager");
+        PrintHelper.option(5, "return");
+        PrintHelper.option(6, "exit");
         return ScannerWrapper.nextInt();
     }
 

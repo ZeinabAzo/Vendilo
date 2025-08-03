@@ -21,6 +21,7 @@ public class Customer extends User {
         addresses = new ArrayList<>();
         carts = new ArrayList<>();
         hasVendiloPlus = false;
+        this.setActive(true);
     }
 
     public List<Discount> getDiscounts() {

@@ -333,4 +333,9 @@ public class CusControl {
     public void deleteAccount() {
         customerServ.deleteAccount(customer);
     }
+
+    public List<Complaint> getPreReports() {
+        return adminDB.getCusComplaint().stream()
+                .filter(c -> c.getUserID().equals(customer.getEmail())).toList();
+    }
 }

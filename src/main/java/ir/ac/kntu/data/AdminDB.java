@@ -58,6 +58,10 @@ public class AdminDB {
                 .orElse(null);
     }
 
+    public void addAdmin(Admin admin){
+        admins.add(admin);
+    }
+
     public Complaint findCusComp(int index) {
         return cusComplaint.get(index);
     }

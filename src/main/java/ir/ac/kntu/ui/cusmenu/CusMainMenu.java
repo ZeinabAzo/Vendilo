@@ -1,9 +1,10 @@
 package ir.ac.kntu.ui.cusmenu;
 
 import ir.ac.kntu.controllers.CusControl;
-import ir.ac.kntu.util.Exit;
-import ir.ac.kntu.util.PrintHelper;
-import ir.ac.kntu.util.ScannerWrapper;
+import ir.ac.kntu.models.Complaint;
+import ir.ac.kntu.util.*;
+
+import java.util.List;
 
 public class CusMainMenu {
 
@@ -33,7 +34,10 @@ public class CusMainMenu {
                 case 11 -> {
                     return;
                 }
-                case 12 -> deleteAccount();
+                case 12 -> {
+                    deleteAccount();
+                    return;
+                }
                 default -> PrintHelper.printError("Invalid option! Try again.");
             }
         }
@@ -65,7 +69,7 @@ public class CusMainMenu {
         PrintHelper.option(9, "notifications");
         PrintHelper.option(10, "Support");
         PrintHelper.option(11, "Return");
-        PrintHelper.option(12, "Dare to choose me?");
+        PrintHelper.option(12, "Dare to choose me? 💀");
         PrintHelper.lowerBorder("     Customer profile     ");
     }
 
@@ -154,8 +158,14 @@ public class CusMainMenu {
     }
 
     private void support() {
-        PrintHelper.ask("Whats wrong bro? ");
+        PrintHelper.miniUpperBorder("your previous reports:");
+        List<Complaint> reports = cusControl.getPreReports();
+        SplitDisplay.show(reports);
+        PrintHelper.miniLowerBorder("your previous reports:");
+        PrintHelper.ask("Whats wrong bro?(in case nothing is wrong type 'return')");
         String complaint = ScannerWrapper.nextLine();
-        cusControl.sendComplaint(complaint);
+        if(InputHelper.calculateSimilarity(complaint, "return")<0.75){
+            cusControl.sendComplaint(complaint);
+        }
     }
 }

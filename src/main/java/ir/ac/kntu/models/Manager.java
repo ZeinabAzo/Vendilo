@@ -7,6 +7,7 @@ public class Manager extends User {
     public Manager(String fName, String lName, String password, int creatorLevel) {
         super(fName, lName, password);
         level = creatorLevel + 1;
+        this.setActive(true);
     }
 
     public int getLevel() {

@@ -68,10 +68,15 @@ public class Wallet {
         return true;
     }
 
-    public void receivePaymentFromSale(double productPrice) {
+    public double receivePaymentFromSale(double productPrice) {
         //for sellers: 90% of product price goes to wallet
-        if (!canCharge) {
-            balance += productPrice * 0.9;
+        balance += productPrice * 0.9;
+        return productPrice;
+    }
+
+    public void receiveBonus(Double amount) {
+        if(!canCharge){
+            balance += amount;
         }
     }
 }

@@ -6,11 +6,13 @@ public class User {
     private String lName;
     private String password;
     private Wallet wallet;
+    private Boolean isActive;
 
     public User(String fName, String lName, String password) {
         this.fName = fName;
         this.lName = lName;
         this.password = password;
+        isActive = true;
     }
 
     public User() {
@@ -18,6 +20,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public void banAccount(){
+        isActive = false;
     }
 
     public void setPassword(String password) {
@@ -47,4 +53,13 @@ public class User {
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
     }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
 }

@@ -7,6 +7,8 @@ import ir.ac.kntu.services.authentication.AuthService;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
 
+import java.time.LocalDate;
+
 import static ir.ac.kntu.util.PrintHelper.printError;
 
 public class CustomerService {
@@ -45,8 +47,10 @@ public class CustomerService {
 
         for (Order order : cart.getOrders()) {
             Seller seller = sellerDB.findSeller(order.getShopID());
-            seller.getWallet().receivePaymentFromSale(order.getProduct().getPrice());
+            double amount = seller.getWallet().receivePaymentFromSale(order.getProduct().getPrice());
             order.getProduct().sellProduct();//new - forgot to do this =( T_T
+            Transaction transaction = new Transaction(seller.getShopID(), amount, LocalDate.now());
+            seller.getWallet().addTransaction(transaction);
         }
 
         customerCart.setPurchased(true);

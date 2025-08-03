@@ -45,4 +45,14 @@ public class Complaint {
     public void setResponseStatus(boolean responseStatus) {
         this.responseStatus = responseStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Complaint{" +
+                "userID='" + userID + '\'' +
+                ", context='" + context + '\'' +
+                ", response='" + response + '\'' +
+                ", responseStatus=" + responseStatus +
+                '}';
+    }
 }
