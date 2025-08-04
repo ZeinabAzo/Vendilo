@@ -153,6 +153,10 @@ public class SplitDisplay {
             System.out.println(discount);
         }else if (item instanceof Complaint complaint){
             System.out.println(complaint);
+        } else if (item instanceof Notification notification) {
+            System.out.println(notification);
+        } else if (item instanceof Manager manager) {
+            System.out.println(manager);
         }
     }
 }

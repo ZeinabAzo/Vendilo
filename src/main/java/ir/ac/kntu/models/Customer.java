@@ -11,6 +11,7 @@ public class Customer extends User {
     private List<Cart> carts;
     private List<Discount> discounts;
     private boolean hasVendiloPlus;
+    private List<Notification> notifications;
 
     public Customer(String fName, String lName, String email,
                     String phoneNumber, String password) {
@@ -22,6 +23,11 @@ public class Customer extends User {
         carts = new ArrayList<>();
         hasVendiloPlus = false;
         this.setActive(true);
+        notifications = new ArrayList<>();
+    }
+
+    public void sendNotification(Notification notification){
+        notifications.add(notification);
     }
 
     public List<Discount> getDiscounts() {
@@ -116,5 +122,9 @@ public class Customer extends User {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
     }
 }

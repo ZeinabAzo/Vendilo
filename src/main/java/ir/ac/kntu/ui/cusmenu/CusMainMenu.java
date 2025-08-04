@@ -74,7 +74,7 @@ public class CusMainMenu {
     }
 
     private void notifications() {
-        NotifMen notifMen = new NotifMen(cusControl);
+        NotifMenu notifMen = new NotifMenu(cusControl);
         notifMen.showPage();
     }
 
