@@ -3,6 +3,7 @@ package ir.ac.kntu.models;
 import ir.ac.kntu.util.PrintHelper;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Product implements Comparable<Product> {
@@ -13,7 +14,8 @@ public class Product implements Comparable<Product> {
     private String seller;
     private String type;
     private double rate;
-    private Set<String> ratedUserIds; // You can initialize this in the constructor
+    private Set<String> ratedUserIds;
+    private Set<String> customersToInform;
 
     public Product() {
     }
@@ -26,6 +28,19 @@ public class Product implements Comparable<Product> {
         this.type = type;
         rate = -1;
         ratedUserIds = new HashSet<>();
+        customersToInform = new HashSet<>();
+    }
+
+    public void addCustomerInform(Customer customer){
+        customersToInform.add(customer.getEmail());
+    }
+
+    public Set<String> getCustomersToInform() {
+        return customersToInform;
+    }
+
+    public boolean informOrNot(Customer customer){
+        return customersToInform.contains(customer.getEmail());
     }
 
     public Set<String> getRatedUserIds() {
@@ -133,5 +148,13 @@ public class Product implements Comparable<Product> {
 
     public void setRatedUserIds(Set<String> ratedUserIds) {
         this.ratedUserIds = ratedUserIds;
+    }
+
+    public boolean addInventory(int count) {
+        if(count>0){
+            inventory += count;
+            return true;
+        }
+        return false;
     }
 }

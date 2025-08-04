@@ -9,10 +9,7 @@ import ir.ac.kntu.services.authentication.AuthService;
 import ir.ac.kntu.services.CustomerService;
 import ir.ac.kntu.services.SearchProducts;
 
-import ir.ac.kntu.util.Exit;
-import ir.ac.kntu.util.PrintHelper;
-import ir.ac.kntu.util.ScannerWrapper;
-import ir.ac.kntu.util.SplitDisplay;
+import ir.ac.kntu.util.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -138,15 +135,35 @@ public class CusControl {
         PrintHelper.ask("What will you do now?");
         PrintHelper.option(1, "forget it, let's return!");
         PrintHelper.option(2, "delete all unavailable orders in the cart");
-        PrintHelper.option(3, "exit");
+        PrintHelper.option(3, "vendilo+: choose which product to get informed when available");
+        PrintHelper.option(4, "exit");
         int choice = ScannerWrapper.nextInt();
 
         switch (choice) {
             case 1 -> {
             }
             case 2 -> deleteUnavailable(cart);
-            case 3 -> Exit.exit();
+            case 3 -> {
+                if(customer.hasVendiloPlus()){
+                   checkToInform(cart);
+                }else{
+                    PrintHelper.printInfo("You are not a vendilo+ user. Try buying your membership!!");
+                }
+            }
+            case 4 -> Exit.exit();
             default -> PrintHelper.printError("Invalid command");
+        }
+    }
+
+    private void checkToInform(Cart cart) {
+        PrintHelper.printInfo("If you want to get informed check it with (yes)");
+        for(Order order : cart.getOrders()){
+            if(order.getProduct().getInventory()==0){
+                ShowProductInfo.showProduct(order.getProduct());
+                if(InputHelper.inputYesNo("Do you want to get informed about this product?")){
+                    
+                }
+            }
         }
     }
 

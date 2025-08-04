@@ -1,6 +1,7 @@
 package ir.ac.kntu.controllers;
 
 import ir.ac.kntu.data.AdminDB;
+import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.util.ShowProductInfo;
@@ -14,13 +15,15 @@ import java.util.List;
 public class SellControl {
 
     private AdminDB adminDB;
+    private CustomerDB customerDB;
     private Seller seller;
     private ProductDB productDB;
 
-    public SellControl(AdminDB adminDB,ProductDB productDB, Seller seller) {
+    public SellControl(AdminDB adminDB,ProductDB productDB, Seller seller,CustomerDB customerDB) {
         this.productDB=productDB;
         this.seller = seller;
         this.adminDB = adminDB;
+        this.customerDB = customerDB;
     }
 
 
@@ -104,5 +107,13 @@ public class SellControl {
 
     public void showOrders() {
         SplitDisplay.show(seller.getOrders());
+    }
+
+    public void informRefill(Product product) {
+        String massage = "This product is available now!! Tap to see details";
+        StockRefill notification = new StockRefill(massage, product.getSellerId(), product);
+        for(String email: product.getCustomersToInform()){
+            customerDB.findByEmail(email).sendNotification(notification);
+        }
     }
 }

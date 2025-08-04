@@ -98,7 +98,7 @@ public class Navigate {
             CusMainMenu customerMainMenu = new CusMainMenu(cusControl);
             customerMainMenu.showPage();
         } else if (user instanceof Seller) {
-            SellControl sellControl = new SellControl(adminDB,productDB, (Seller) user);
+            SellControl sellControl = new SellControl(adminDB,productDB, (Seller) user, customerDB);
             SellerMainMenu sellerMainMenu = new SellerMainMenu(sellControl);
             sellerMainMenu.showPage();
         } else if (user instanceof Manager) {

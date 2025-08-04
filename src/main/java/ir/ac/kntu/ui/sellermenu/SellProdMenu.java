@@ -1,6 +1,7 @@
 package ir.ac.kntu.ui.sellermenu;
 
 import ir.ac.kntu.controllers.SellControl;
+import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.enums.*;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.util.InputHelper;
@@ -59,16 +60,23 @@ public class SellProdMenu {
     private void extracted(int choice, Product product) {
         PrintHelper.ask("Enter the number of items to " + (choice == 1 ? "add" : "remove") + ":");
         int count = ScannerWrapper.nextInt();
+        int initial = product.getInventory();
         if (choice == 2) {
             count = -count;
         }
-
         boolean success = sellerController.changeInventory(count, product);
         if (success) {
             PrintHelper.printSuccess("Inventory updated successfully.");
+            if(count>0 && initial==0){
+                informRefill(product);
+            }
         } else {
             PrintHelper.printError("Operation failed. Please try again.");
         }
+    }
+
+    private void informRefill(Product product) {
+        sellerController.informRefill(product);
     }
 
     private static int getChoice() {

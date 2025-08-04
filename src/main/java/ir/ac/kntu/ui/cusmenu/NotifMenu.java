@@ -24,7 +24,9 @@ public class NotifMenu {
         List<Notification> notifications = cusControl.getCustomer().getNotifications();
         int choice = SplitDisplay.show(notifications);
         Notification notification = notifications.get(choice);
-        notificationSpecifics(notification);
+        if((notification instanceof StockRefill) || (notification instanceof DiscountNotif)){
+            notificationSpecifics(notification);
+        }
     }
 
     private void notificationSpecifics(Notification notification) {
@@ -44,7 +46,7 @@ public class NotifMenu {
             PrintHelper.ask("Do you want to add this product to your cart?");
             cusControl.orderProduct(stockRefill.getProduct());
         }else {
-
+            PrintHelper.printError("NotifMenu -> detectNotifType: Error of recognition.");
         }
     }
 }
