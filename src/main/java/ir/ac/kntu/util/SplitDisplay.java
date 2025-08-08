@@ -145,14 +145,22 @@ public class SplitDisplay {
             System.out.println(cart);
         } else if (item instanceof Address address) {
             System.out.println(address);
-        } else if (item instanceof Transaction transaction) {
+        } else {
+            others(item);
+        }
+    }
+
+    private static void others(Object item) {
+        if (item instanceof Transaction transaction) {
             System.out.println(transaction);
         } else if (item instanceof AuthRequest authRequest) {
             System.out.println(authRequest);
+        } else if (item instanceof StockRefill stock) {
+            System.out.println(stock);
         }else if(item instanceof Discount discount){
             System.out.println(discount);
-        }else if (item instanceof Complaint complaint){
-            System.out.println(complaint);
+        }else if (item instanceof Report report){
+            System.out.println(report);
         } else if (item instanceof Notification notification) {
             System.out.println(notification);
         } else if (item instanceof Manager manager) {

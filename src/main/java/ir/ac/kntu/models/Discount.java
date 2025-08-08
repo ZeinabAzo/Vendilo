@@ -1,6 +1,7 @@
 package ir.ac.kntu.models;
 
 import ir.ac.kntu.enums.DiscountType;
+import ir.ac.kntu.util.CodeGenerator;
 import ir.ac.kntu.util.PrintHelper;
 
 public class Discount {// TODO: be careful and customize your getters and setters
@@ -9,8 +10,8 @@ public class Discount {// TODO: be careful and customize your getters and setter
     private double value;
     private int maxUsages;
 
-    public Discount(String disCode, DiscountType type, double value, int maxUsages) {
-        this.disCode = disCode;
+    public Discount(DiscountType type, double value, int maxUsages) {
+        setDisCode();
         this.type = type;
         this.value = value;
         this.maxUsages = maxUsages;
@@ -20,8 +21,8 @@ public class Discount {// TODO: be careful and customize your getters and setter
         return disCode;
     }
 
-    public void setDisCode(String disCode) {
-        this.disCode = disCode;
+    public void setDisCode() {
+        disCode = CodeGenerator.generateUniqueCode();
     }
 
     public DiscountType getType() {
@@ -64,6 +65,6 @@ public class Discount {// TODO: be careful and customize your getters and setter
                 "  ► type: " + type.toString() + "\n" +
                 "  ► code: " + disCode + "\n" +
                 "-------------------------------------------------------"
-                + PrintHelper.ConsoleColors.RESET ;
+                + PrintHelper.ConsoleColors.RESET;
     }
 }

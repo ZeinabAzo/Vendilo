@@ -1,16 +1,28 @@
 package ir.ac.kntu.models;
 
-public class Complaint {
+import ir.ac.kntu.enums.ReportType;
+
+public class Report {
 
     private String userID;
     private String context;
     private String response;
     private boolean responseStatus;
+    private ReportType reportType;
 
-    public Complaint(String context, String userID) {
+    public Report(String context, String userID, ReportType reportType) {
         this.context = context;
         this.userID = userID;
         this.responseStatus=false;
+        this.reportType = reportType;
+    }
+
+    public ReportType getReportType() {
+        return reportType;
+    }
+
+    public void setReportType(ReportType reportType) {
+        this.reportType = reportType;
     }
 
     public String getUserID() {
@@ -44,6 +56,7 @@ public class Complaint {
 
     public void setResponseStatus(boolean responseStatus) {
         this.responseStatus = responseStatus;
+
     }
 
     @Override

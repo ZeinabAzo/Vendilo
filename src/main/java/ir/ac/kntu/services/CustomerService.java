@@ -2,6 +2,7 @@ package ir.ac.kntu.services;
 
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.SellerDB;
+import ir.ac.kntu.enums.DiscountType;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.services.authentication.AuthService;
 import ir.ac.kntu.util.PrintHelper;
@@ -23,14 +24,14 @@ public class CustomerService {
         this.sellerDB = sellerDB;
     }
 
-    public void purchaseCart(Cart cart, Customer customer, Address address) {
+    public void purchaseCart(Cart cart, Customer customer, Address address, Discount discount) {
         if (cart == null || customer == null) {
             printError("Cart or customer not recognized.");
             return;
         }
 
         cart.setShippingAddress(address);
-        double totalPrice = getTotalPrice(cart, customer);
+        double totalPrice = getPrice(customer, cart, discount);
         boolean success = customer.getWallet().withdraw(totalPrice);
 
         if (!success) {
@@ -53,7 +54,30 @@ public class CustomerService {
         }
 
         customerCart.setPurchased(true);
+        customerCart.setAmountPurchased(totalPrice);
+        customerCart.setDatePurchased(LocalDate.now());
     }
+
+    private double getPrice(Customer customer, Cart cart, Discount discount) {
+        double totalPrice = getTotalPrice(cart, customer);
+        if(discount != null && discount.getMaxUsages()>0){
+            if(discount.getType() == DiscountType.GENERAL){
+                totalPrice = totalPrice * ((100-discount.getValue())/100);
+                discount.setMaxUsages(discount.getMaxUsages()-1);
+            }else if (discount.getType() == DiscountType.SPECIAL){
+                if(totalPrice>10*discount.getValue()){
+                    totalPrice -= discount.getValue();
+                    discount.setMaxUsages(discount.getMaxUsages() - 1);
+                }else{
+                    printError("your purchase wasn't enough to use your discount");
+                }
+            }else{
+                printError("didn't use discount: CustomerService -> purchaseCart");
+            }
+        }
+        return totalPrice;
+    }
+
 
     private double getTotalPrice(Cart cart, Customer customer) {
         boolean shippingCost = true;
@@ -191,5 +215,10 @@ public class CustomerService {
 
     public void deleteAccount(Customer customer) {
         customerDB.getCustomers().remove(customer);
+    }
+
+    public Discount getDiscount(String code, Customer customer) {
+        return customerDB.getCustomer(customer).getDiscounts().stream().
+                filter(discount -> discount.getDisCode().equals(code)).findFirst().orElse(null);
     }
 }

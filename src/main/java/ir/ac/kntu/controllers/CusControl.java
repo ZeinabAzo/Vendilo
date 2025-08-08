@@ -4,6 +4,7 @@ import ir.ac.kntu.data.AdminDB;
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.ProductDB;
 import ir.ac.kntu.data.SellerDB;
+import ir.ac.kntu.enums.ReportType;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.services.authentication.AuthService;
 import ir.ac.kntu.services.CustomerService;
@@ -70,7 +71,7 @@ public class CusControl {
             case 1 -> {
                 cart = findCart();
             }
-            case 2 ->{
+            case 2 -> {
                 cart = new Cart();
                 customer.setCarts(cart);
                 PrintHelper.printSuccess("new cart has been created");
@@ -92,7 +93,7 @@ public class CusControl {
 
     private Cart findCart() {
         int chosen = SplitDisplay.show(customer.getCarts());
-        while (customer.getCart(chosen).isPurchased()){
+        while (customer.getCart(chosen).isPurchased()) {
             PrintHelper.printError("this cart is purchased choose another one");
             chosen = SplitDisplay.show(customer.getCarts());
         }
@@ -119,10 +120,10 @@ public class CusControl {
         return searchProducts.searchByType(type);
     }
 
-    public void purchaseCart(Address address, Cart cart) {
+    public void purchaseCart(Address address, Cart cart, Discount discount) {
         if (!customer.getCart(cart).isPurchased()) {
             if (isAvailable(cart)) {
-                customerServ.purchaseCart(cart, customer, address);
+                customerServ.purchaseCart(cart, customer, address, discount);
             } else {
                 handleUnav(cart);
             }
@@ -144,9 +145,9 @@ public class CusControl {
             }
             case 2 -> deleteUnavailable(cart);
             case 3 -> {
-                if(customer.hasVendiloPlus()){
-                   checkToInform(cart);
-                }else{
+                if (customer.hasVendiloPlus()) {
+                    checkToInform(cart);
+                } else {
                     PrintHelper.printInfo("You are not a vendilo+ user. Try buying your membership!!");
                 }
             }
@@ -157,11 +158,11 @@ public class CusControl {
 
     private void checkToInform(Cart cart) {
         PrintHelper.printInfo("If you want to get informed check it with (yes)");
-        for(Order order : cart.getOrders()){
-            if(order.getProduct().getInventory()==0){
+        for (Order order : cart.getOrders()) {
+            if (order.getProduct().getInventory() == 0) {
                 ShowProductInfo.showProduct(order.getProduct());
-                if(InputHelper.inputYesNo("Do you want to get informed about this product?")){
-                    
+                if (InputHelper.inputYesNo("Do you want to get informed about this product's restock?")) {
+                    order.getProduct().addCustomerInform(customer);
                 }
             }
         }
@@ -211,9 +212,9 @@ public class CusControl {
     }
 
     public void showTransactions() {
-        if(customer.getWallet().getTransactions().isEmpty()){
+        if (customer.getWallet().getTransactions().isEmpty()) {
             PrintHelper.printError("No transactions");
-        }else {
+        } else {
             SplitDisplay.show(customer.getWallet().getTransactions());
         }
     }
@@ -225,7 +226,7 @@ public class CusControl {
 
     public boolean chargeBalance(double amount) {
         boolean success = customer.getWallet().deposit(amount);
-        if(success){
+        if (success) {
             Transaction transaction = new Transaction(customer.getEmail(), amount, LocalDate.now());
             customer.getWallet().getTransactions().add(transaction);
         }
@@ -245,10 +246,10 @@ public class CusControl {
     public void editfName() {
         PrintHelper.ask("Enter new name: ");
         String name = ScannerWrapper.nextLine().trim();
-        if(name.matches("\\w+")){
+        if (name.matches("\\w+")) {
             customer.setfName(name);
             PrintHelper.printSuccess("Data was updated successfully.");
-        }else{
+        } else {
             PrintHelper.printError("Invalid name input, couldn't edit.");
         }
     }
@@ -256,10 +257,10 @@ public class CusControl {
     public void editlName() {
         PrintHelper.ask("Enter new family name: ");
         String name = ScannerWrapper.nextLine().trim();
-        if(name.matches("\\w+")){
+        if (name.matches("\\w+")) {
             customer.setlName(name);
             PrintHelper.printSuccess("Data was updated successfully.");
-        }else{
+        } else {
             PrintHelper.printError("Invalid name input, couldn't edit.");
         }
     }
@@ -267,10 +268,10 @@ public class CusControl {
     public void editEmail() {
         PrintHelper.ask("Enter your new email: ");
         String email = ScannerWrapper.nextLine().trim();
-        if(AuthService.isValidEmail(email)){
+        if (AuthService.isValidEmail(email)) {
             customerServ.setEmail(customer, email);
             PrintHelper.printSuccess("Data was updated successfully.");
-        }else{
+        } else {
             PrintHelper.printError("Invalid name input, couldn't edit.");
         }
     }
@@ -278,26 +279,26 @@ public class CusControl {
     public void editPassword() {
         PrintHelper.ask("Enter your new password: ");
         String pass = ScannerWrapper.nextLine().trim();
-        if(AuthService.isValidPassword(pass)){
+        if (AuthService.isValidPassword(pass)) {
             customerServ.setPassword(customer, pass);
             PrintHelper.printSuccess("Data was updated successfully.");
-        }else{
+        } else {
             PrintHelper.printError("Invalid name input, couldn't edit.");
         }
     }
 
-    public void sendComplaint(String context) {
-        Complaint complaint = new Complaint(context, customer.getEmail());
-        adminDB.addCusComplaint(complaint);
+    public void sendComplaint(String context, ReportType type) {
+        Report report = new Report(context, customer.getEmail(), type);
+        adminDB.getReports().add(report);
     }
 
     public void editPhoneNum() {
         PrintHelper.ask("Enter your new phone number: ");
         String num = ScannerWrapper.nextLine().trim();
-        if(AuthService.isValidPhoneNumber(num)){
+        if (AuthService.isValidPhoneNumber(num)) {
             customerServ.setPhoneNum(customer, num);
             PrintHelper.printSuccess("Data was updated successfully.");
-        }else{
+        } else {
             PrintHelper.printError("Invalid name input, couldn't edit.");
         }
     }
@@ -333,7 +334,7 @@ public class CusControl {
 
     public Discount showDiscounts() {
         int chosen = SplitDisplay.show(customer.getDiscounts());
-        if(chosen>=0 && chosen<customer.getDiscounts().size()){
+        if (chosen >= 0 && chosen < customer.getDiscounts().size()) {
             return customer.getDiscounts().get(chosen);
         }
         return null;
@@ -351,8 +352,12 @@ public class CusControl {
         customerServ.deleteAccount(customer);
     }
 
-    public List<Complaint> getPreReports() {
-        return adminDB.getCusComplaint().stream()
+    public List<Report> getPreReports() {
+        return adminDB.getReports().stream()
                 .filter(c -> c.getUserID().equals(customer.getEmail())).toList();
+    }
+
+    public Discount getDiscount(String code) {
+        return customerServ.getDiscount(code, customer);
     }
 }

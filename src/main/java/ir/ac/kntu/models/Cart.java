@@ -1,5 +1,6 @@
 package ir.ac.kntu.models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,12 +9,30 @@ public class Cart {   //contains orders, whether purchased or not
     private List<Order> orders = new ArrayList<>();
     private Address shippingAddress;
     private boolean isPurchased = false;
+    private double amountPurchased;
+    private LocalDate datePurchased;
 
     public Cart(){
     }
 
     public Cart(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public double getAmountPurchased() {
+        return amountPurchased;
+    }
+
+    public void setAmountPurchased(double amountPurchased) {
+        this.amountPurchased = amountPurchased;
+    }
+
+    public LocalDate getDatePurchased() {
+        return datePurchased;
+    }
+
+    public void setDatePurchased(LocalDate datePurchased) {
+        this.datePurchased = datePurchased;
     }
 
     public List<Order> getOrders() {

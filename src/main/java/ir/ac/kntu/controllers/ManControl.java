@@ -1,13 +1,12 @@
 package ir.ac.kntu.controllers;
 
 import ir.ac.kntu.data.*;
-import ir.ac.kntu.models.Admin;
-import ir.ac.kntu.models.Customer;
-import ir.ac.kntu.models.Manager;
-import ir.ac.kntu.models.User;
+import ir.ac.kntu.enums.ReportType;
+import ir.ac.kntu.models.*;
 import ir.ac.kntu.services.ManagerService;
-import ir.ac.kntu.services.SearchProducts;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -15,23 +14,19 @@ import java.util.List;
 public class ManControl {
 
     private Manager manager;
-    private ProductDB productDB;
     private CustomerDB customerDB;
     private SellerDB sellerDB;
     private AdminDB adminDB;
-    private SearchProducts searchProducts;
     private ManagerDB managerDB;
     private ManagerService managerService;
 
-    public ManControl(Manager manager,ManagerDB managerDB, ProductDB productDB, CustomerDB customerDB, 
+    public ManControl(Manager manager,ManagerDB managerDB, CustomerDB customerDB,
                       SellerDB sellerDB, AdminDB adminDB) {
         this.manager = manager;
-        this.productDB = productDB;
         this.customerDB = customerDB;
         this.sellerDB = sellerDB;
         this.adminDB = adminDB;
         managerService = new ManagerService(manager, managerDB, customerDB, sellerDB, adminDB);
-        this.searchProducts = new SearchProducts(productDB);
     }
 
     public List<User> filterCusEmail(String email) {
@@ -70,14 +65,14 @@ public class ManControl {
         return managerService.lowerManagers(manager);
     }
 
-    public void createAdmin(String name, String username, String password) {
-        Admin admin = new Admin(name, username, password);
-        adminDB.addAdmin(admin);
+    public void createAdmin(String name, String username, String password, List<ReportType> type) {
+        Admin admin = new Admin(name, username, password, type);
+        adminDB.getAdmins().add(admin);
     }
 
     public void createManager(String name, String username, String password) {
         Manager newManager = new Manager(name, username, password, manager.getLevel());
-        managerDB.addManager(manager);
+        managerDB.addManager(newManager);
     }
 
     public void modifyManName(String name, Manager toBeModified) {
@@ -102,5 +97,38 @@ public class ManControl {
 
     public void modifyCuslName(String username, Customer customer) {
         customer.setlName(username);
+    }
+
+    public double cusActivityCheck(Customer customer) {
+        double amount = 0;
+        for(Cart cart : customer.getCarts()){
+            if(cart.isPurchased() && ChronoUnit.DAYS.between(cart.getDatePurchased(), LocalDate.now()) < 30){
+                amount += cart.getAmountPurchased();
+            }
+        }
+        return amount;
+    }
+
+    public void giftDiscount(Customer customer, Discount discount, String massage) {
+        DiscountNotif discountNotif = new DiscountNotif(massage, manager.getlName(), discount);
+        customer.sendNotification(discountNotif);
+    }
+
+    public  void giftPublicDiscount(Discount discount, String massage){
+        DiscountNotif discountNotif = new DiscountNotif(massage, manager.getlName(), discount);
+        for (Customer customer : customerDB.getCustomers()){
+            customer.sendNotification(discountNotif);
+        }
+    }
+
+    public void sendToAll(String massage) {
+        Notification notification = new Notification(massage, manager.getlName());
+        for (Customer customer : customerDB.getCustomers()){
+            customer.sendNotification(notification);
+        }
+    }
+
+    public Admin getAdmin(Admin admin) {
+        return adminDB.getAdmins().stream().filter(admin1 -> admin1==admin).findFirst().orElse(null);
     }
 }

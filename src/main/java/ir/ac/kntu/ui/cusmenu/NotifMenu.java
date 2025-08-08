@@ -32,7 +32,7 @@ public class NotifMenu {
     private void notificationSpecifics(Notification notification) {
         PrintHelper.ask("Do you want to see details of this notification?(yes/no) ");
         String answer = ScannerWrapper.nextLine().trim().toLowerCase();
-        if(answer.equals("yes")){
+        if("yes".equals(answer)){
             detectNotifType(notification);
         }
     }

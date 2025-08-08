@@ -1,8 +1,12 @@
 package ir.ac.kntu.ui.manager.usermanager;
 
 import ir.ac.kntu.controllers.ManControl;
+import ir.ac.kntu.enums.ReportType;
 import ir.ac.kntu.util.PrintHelper;
+import ir.ac.kntu.util.RTypeSelector;
 import ir.ac.kntu.util.ScannerWrapper;
+
+import java.util.List;
 
 import static ir.ac.kntu.services.authentication.AuthService.isValidName;
 import static ir.ac.kntu.services.authentication.AuthService.isValidPassword;
@@ -28,7 +32,8 @@ public class AdminCreator {
             PrintHelper.printError("incorrect name or password");
             return;
         }
-        manControl.createAdmin(name, username, password);
+        List<ReportType> types = RTypeSelector.chooseReportTypes();
+        manControl.createAdmin(name, username, password, types);
         PrintHelper.printSuccess(" New admin was created successfully! ");
     }
 }

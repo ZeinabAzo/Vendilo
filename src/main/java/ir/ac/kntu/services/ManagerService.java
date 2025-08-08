@@ -6,9 +6,7 @@ import ir.ac.kntu.data.ManagerDB;
 import ir.ac.kntu.data.SellerDB;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.util.InputHelper;
-import ir.ac.kntu.util.PrintHelper;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,10 +62,10 @@ public class ManagerService {
 
     private double getMaxSimilarity(String name, User user) {
         String fullName = user.getfName() + user.getlName();
-        double fullNameSimilarity = InputHelper.calculateSimilarity(name, fullName);
-        double firstNameSimilarity = InputHelper.calculateSimilarity(name, user.getfName());
-        double lastNameSimilarity = InputHelper.calculateSimilarity(name, user.getlName());
-        return Math.max(fullNameSimilarity, Math.max(firstNameSimilarity, lastNameSimilarity));
+        double fullNameSimilar = InputHelper.calculateSimilarity(name, fullName);
+        double fNameSimilarity = InputHelper.calculateSimilarity(name, user.getfName());
+        double lNameSimilarity = InputHelper.calculateSimilarity(name, user.getlName());
+        return Math.max(fullNameSimilar, Math.max(fNameSimilarity, lNameSimilarity));
     }
 
     public List<User> filterSellName(String name) {
@@ -98,7 +96,7 @@ public class ManagerService {
         if (target != null) {
             target.setfName(name);
         } else {
-            PrintHelper.printError("Manager not found! : managerService->modifyName"); // a debugging massage
+            printError("Manager not found! : managerService->modifyName"); // a debugging massage
         }
     }
 
@@ -107,7 +105,7 @@ public class ManagerService {
         if (target != null) {
             target.setlName(username);
         } else {
-            PrintHelper.printError("Manager not found! : managerService->modifyUserName"); // a debugging massage
+            printError("Manager not found! : managerService->modifyUserName"); // a debugging massage
         }
     }
 }

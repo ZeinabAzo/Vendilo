@@ -44,7 +44,7 @@ public class VendiloPlusSubs {
         PrintHelper.option(2, "three months plan: 259.9$");
         PrintHelper.option(3, "yearly subscription: 999.9$");
         PrintHelper.option(4, "return");
-        PrintHelper.option(5 , "exit");
+        PrintHelper.option(5, "exit");
         PrintHelper.miniLowerBorder("EXCELLENT CHOICE!!! ;) now come on- Choose your plan :");
         int choice = ScannerWrapper.nextInt();
 

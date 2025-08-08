@@ -68,7 +68,7 @@ public class UserManagement {
     }
 
     private void adminModification(Admin admin) {
-        adminModMenu.firstPage();
+        adminModMenu.firstPage(admin);
     }
 
 
@@ -86,7 +86,7 @@ public class UserManagement {
     private void banManager(Manager manager) {
         PrintHelper.ask("Are you sure you want to BAN this manager?(yes/no)");
         String answer = ScannerWrapper.nextLine();
-        if(!answer.equals("yes")){
+        if(!"yes".equals(answer)){
             return;
         }
         manControl.banManager(manager);
@@ -148,6 +148,7 @@ public class UserManagement {
                     return;
                 }
                 case 4 -> Exit.exit();
+                default -> PrintHelper.printError("Wrong input");
             }
         }
     }
@@ -166,7 +167,7 @@ public class UserManagement {
     private void banCustomer(Customer customer) {
         PrintHelper.ask("Are you sure you want to BAN this customer?(yes/no)");
         String answer = ScannerWrapper.nextLine();
-        if(!answer.equals("yes")){
+        if(!"yes".equals(answer)){
             return;
         }
         manControl.banCustomer(customer);

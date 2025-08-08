@@ -1,9 +1,11 @@
 package ir.ac.kntu.ui.cusmenu;
 
 import ir.ac.kntu.controllers.CusControl;
-import ir.ac.kntu.models.Complaint;
+import ir.ac.kntu.enums.ReportType;
+import ir.ac.kntu.models.Report;
 import ir.ac.kntu.util.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CusMainMenu {
@@ -159,13 +161,23 @@ public class CusMainMenu {
 
     private void support() {
         PrintHelper.miniUpperBorder("your previous reports:");
-        List<Complaint> reports = cusControl.getPreReports();
+        List<Report> reports = cusControl.getPreReports();
         SplitDisplay.show(reports);
         PrintHelper.miniLowerBorder("your previous reports:");
         PrintHelper.ask("Whats wrong bro?(in case nothing is wrong type 'return')");
         String complaint = ScannerWrapper.nextLine();
+
         if(InputHelper.calculateSimilarity(complaint, "return")<0.75){
-            cusControl.sendComplaint(complaint);
+            PrintHelper.ask("Whats your report type?");
+            String type = ScannerWrapper.nextLine().trim().toUpperCase();
+
+            try {
+                ReportType reportType = ReportType.valueOf(type);
+                cusControl.sendComplaint(complaint, reportType);
+            } catch (IllegalArgumentException e) {
+                PrintHelper.printError("Invalid report type. Please enter one of: " +
+                        Arrays.toString(ReportType.values()));
+            }
         }
     }
 }

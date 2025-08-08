@@ -1,6 +1,7 @@
 package ir.ac.kntu.controllers;
 
 import ir.ac.kntu.data.*;
+import ir.ac.kntu.enums.ReportType;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.services.authentication.AdminAuthSer;
 import ir.ac.kntu.services.authentication.CustAuthSer;
@@ -42,7 +43,8 @@ public class Navigate {
     }
 
     public void sendRequest(Seller seller) {
-        adminDB.getAuthRequest().add(new AuthRequest(seller));
+        adminDB.getReports().add(new AuthRequest("This is an authentication request: ", seller.getShopID(),
+                ReportType.AUTHENTICATION));
     }
 
     public User leadToSignUP(Map<String, String> info, String user) {
@@ -102,7 +104,7 @@ public class Navigate {
             SellerMainMenu sellerMainMenu = new SellerMainMenu(sellControl);
             sellerMainMenu.showPage();
         } else if (user instanceof Manager) {
-            ManControl manControl = new ManControl((Manager) user, managerDB, productDB, customerDB,sellerDB, adminDB);
+            ManControl manControl = new ManControl((Manager) user, managerDB,  customerDB,sellerDB, adminDB);
             ManagerMenu managerMenu = new ManagerMenu(manControl);
             managerMenu.firstPage();
         } else {

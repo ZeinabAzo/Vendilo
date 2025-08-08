@@ -30,9 +30,7 @@ public class Vendilo {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             AdminDatabase.save(new AdminWrapper(
                     adminDB.getAdmins(),
-                    adminDB.getCusComplaint(),
-                    adminDB.getSellerCompliant(),
-                    adminDB.getAuthRequest()
+                    adminDB.getReports()
             ));
             CustomerDatabase.save(customerDB.getCustomers());
             SellerDatabase.save(sellerDB.getSellers());

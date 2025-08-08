@@ -30,6 +30,6 @@ public class Notification {
     public String toString() {
         return  "¦  ⁂Notification⁂  ¦" +
                 "¦  massage='" + massage + '\'' +
-                "¦  senderUsername='" + senderUsername + '\'' ;
+                "¦  senderUsername='" + senderUsername + '\'';
     }
 }

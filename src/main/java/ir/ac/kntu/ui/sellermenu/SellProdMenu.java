@@ -1,7 +1,6 @@
 package ir.ac.kntu.ui.sellermenu;
 
 import ir.ac.kntu.controllers.SellControl;
-import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.enums.*;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.util.InputHelper;

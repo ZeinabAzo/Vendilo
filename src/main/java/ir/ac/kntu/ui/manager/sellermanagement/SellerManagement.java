@@ -57,7 +57,7 @@ public class SellerManagement {
                 + String.format("%.2f", preMonthActivity) + " in the last month.");
         PrintHelper.ask("Are you planning to offer a bonus to this seller?(yes/no)");
         String answer = ScannerWrapper.nextLine().trim().toLowerCase();
-        if(answer.equals("yes")){
+        if("yes".equals(answer)){
             PrintHelper.ask("Enter bonuses amount: ");
             Double amount = ScannerWrapper.nextDouble();
             seller.getWallet().receiveBonus(amount);
