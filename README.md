@@ -1,82 +1,173 @@
-Vendilo: Advanced Multi-Role E-Commerce Engine (Java)
-📌 Project Overview
-Vendilo (وندیلو) is a sophisticated, full-scale e-commerce simulation developed at K. N. Toosi University of Technology (KNTU). Moving far beyond a simple classroom assignment, this project implements a complex ecosystem with five distinct user roles, dynamic financial logic, and a subscription-based loyalty program.
+# 🛒 Vendilo: Advanced Multi-Role E-Commerce Engine
 
-The project was developed in two major phases (V2 and V3), evolving from a basic marketplace into a managed platform with administrative oversight and automated notifications.
+## 🏗️ System Architecture
 
-🏗️ Architecture & Clean Code Standards
-This project was built with a heavy focus on Scalable Architecture and Clean Code principles.
+The system follows a **layered architecture pattern** to ensure separation of concerns:
 
-Strict OOP: Advanced use of Inheritance and Polymorphism to manage diverse products (Digital vs. Books) and user roles.
+- **UI Layer (CLI Interface)**  
+  Handles user input and displays menus.
 
-No Statics Policy: Per the strict requirements, the project avoids static methods and the Singleton pattern in favor of instance-based logic and proper object lifecycle management.
+- **Controller Layer**  
+  Orchestrates logic between the UI and Services.
 
-Automated Quality Assurance: The project includes a dedicated test suite featuring:
+- **Service Layer**  
+  Contains core business logic and functional requirements.
 
-PMD Tests: Automated scans for "Code Smells" and suboptimal programming patterns.
+- **Model Layer**  
+  Defines core domain entities (Users, Products, etc.).
 
-Checkstyle: Strict adherence to industry-standard Java naming conventions and formatting.
+- **Storage Layer**  
+  Handles data persistence using JSON storage.
 
-JSON Data Persistence: Custom data-loading layer (loaddb) to manage persistent storage for Users, Products, and Transactions.
+---
 
-🚀 Key Features
-👥 User Roles & Permissions
-Customer: Advanced product searching/filtering, Province-based shipping calculation, and Wallet management.
+## 🎯 Design Principles
 
-Seller: Inventory management for specific product types (Laptops, Mobiles, Books) and revenue tracking (90% profit share).
+### Strict Object-Oriented Design
+- Heavy use of **Inheritance & Polymorphism** to manage complex product types.
+- Clear separation of concerns between logic, data, and presentation.
 
-Support: Ticket resolution system and Seller identity verification.
+### Modern Object Lifecycle
+- **No static methods** or **Singleton patterns**.
+- Instance-based object lifecycle management for better testability.
 
-Manager: Global user management, performance auditing for sellers, and reward/penalty systems.
+---
 
-Admin: Full system oversight and credential management.
+## 🧹 Clean Code & Quality Assurance
 
-💎 The Vendilo+ System
-A comprehensive Loyalty Club (باشگاه مشتریان) where users can purchase monthly/yearly subscriptions to unlock:
+Vendilo enforces professional-grade Java standards to exceed academic requirements:
 
-A flat 5% discount across the entire catalog.
+- **PMD**  
+  Detects code smells and suboptimal programming patterns.
 
-Subsidized Shipping: Free shipping for local province orders and 66% discounts for inter-province orders.
+- **Checkstyle**  
+  Enforces strict Java naming conventions and formatting.
 
-🎫 Dynamic Discount Engine
-Percentage-based codes: Reductions on the total cart value.
+- **Automated Test Suite**  
+  Ensures system correctness and long-term maintainability.
 
-Threshold-based codes: Fixed discounts for high-value orders.
+- **High Testability**  
+  By avoiding global state and static methods, the system achieves significantly higher testability and scalability.
 
-Global Announcements: Manager-issued discount codes that trigger system-wide notifications.
+---
 
-📦 Product Hierarchy
-Sophisticated modeling of products using deep inheritance:
+## 👥 User Roles & Permissions
 
-Digital Products: Specific logic for RAM, CPU models, and Network types (Mobiles/Laptops).
+| Role     | Responsibilities |
+|----------|------------------|
+| Customer | Product search & filtering, wallet management, province-based shipping calculations |
+| Seller   | Inventory management (Laptops, Mobiles, Books), revenue tracking (90% profit share) |
+| Support  | Ticket resolution system, seller identity verification and onboarding |
+| Manager  | Seller performance audits, user management, reward/penalty system |
+| Admin    | Full system oversight, credential management, role assignment |
 
-Books: Management of ISBNs, Authors, and Age Group categories.
+---
 
-📂 Project Structure
-As seen in the source code:
+## 💎 Vendilo+ Loyalty Club
 
-controllers/: Orchestrates logic between the UI and Data layers.
+**Vendilo+ (باشگاه مشتریان)** is a subscription-based loyalty system available through monthly or yearly plans.
 
-models/: Defines the core entities (User, Product, Order, etc.).
+### Membership Benefits
+- 5% flat discount on all purchases
+- Free shipping for same-province orders
+- 66% shipping discount for inter-province orders
 
-services/: Core business logic (Authentication, Search, Management).
+---
 
-ui/: A robust hierarchical menu system for a CLI-based interactive experience.
+## 🎫 Discount Engine
 
-util/: Helper utilities including a custom Calendar for time-sensitive logic simulation.
+The system supports multiple dynamic discount strategies:
 
-🛠️ How to Run
-Ensure you have JDK 17+ and Gradle installed.
+- **Percentage-based**  
+  Discounts applied to the total cart value.
 
-Clone the repository.
+- **Threshold-based**  
+  Fixed discounts triggered by high-value orders.
 
-Run the application:
+- **Global Announcements**  
+  System-wide notifications for discounts issued by Managers.
 
-Bash
+---
 
-./gradlew run
-To run the Clean Code quality checks:
+## 📦 Product Hierarchy
 
-Bash
+The system uses deep inheritance to model products:
 
-./gradlew test
+- **Product**  
+  - ID  
+  - Price  
+  - Seller  
+
+- **Book**  
+  - ISBN  
+  - Author  
+  - Age Group  
+
+- **DigitalProduct**  
+  - RAM  
+  - CPU  
+  - Network Type  
+
+- **Laptop**
+
+- **Mobile**
+
+---
+
+## 📂 Project Structure
+
+```plaintext
+src/
+├── controllers/    # Coordinates UI interactions and services
+├── models/         # Core domain entities and data structures
+├── services/       # Business logic and functional requirements
+├── ui/             # CLI hierarchical menu system
+└── util/           # Helper utilities (calendar, input helpers)
+```
+
+## 🖥️ User Interface
+
+Vendilo features a robust CLI-based interactive menu system designed for professional use:
+
+- **Hierarchical Menus**
+    - Deeply nested navigation for complex tasks.
+
+- **Role-Based Access**
+    - Menus dynamically change based on the logged-in user role.
+
+- **Input Validation**
+    - Strict handling of user input to prevent system crashes.
+
+- **Real-time Notifications**
+    - Alerts for stock updates and support ticket status.
+
+  
+---
+
+## 🛠️ How to Run
+  - Prerequisites
+  - Java JDK 17+
+
+**Gradle**
+
+- Run the Application
+```plaintext
+    ./gradlew run
+```
+- Run Tests & Quality Checks
+```plaintext
+    ./gradlew test
+```
+ 
+---
+
+
+## 🎓 Academic Context
+
+- This project was developed at K. N. Toosi University of Technology (KNTU).
+- While created as part of the Advanced Programming curriculum, it was intentionally designed to reflect real-world software engineering practices and professional industry standards.
+
+---
+
+## 📄 License
+This project is intended for educational and demonstration purposes.
