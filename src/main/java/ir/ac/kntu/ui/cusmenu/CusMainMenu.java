@@ -1,9 +1,12 @@
 package ir.ac.kntu.ui.cusmenu;
 
 import ir.ac.kntu.controllers.CusControl;
-import ir.ac.kntu.util.Exit;
-import ir.ac.kntu.util.PrintHelper;
-import ir.ac.kntu.util.ScannerWrapper;
+import ir.ac.kntu.enums.ReportType;
+import ir.ac.kntu.models.Report;
+import ir.ac.kntu.util.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class CusMainMenu {
 
@@ -16,17 +19,7 @@ public class CusMainMenu {
 
     public void showPage() {
         while (true) {
-            PrintHelper.upperBorder("Customer profile");
-            PrintHelper.option(1, "Search products");
-            PrintHelper.option(2, "Carts");
-            PrintHelper.option(3, "Addresses");
-            PrintHelper.option(4, "Wallet");
-            PrintHelper.option(5, "Orders");
-            PrintHelper.option(6, "Setting");
-            PrintHelper.option(7, "Support");
-            PrintHelper.option(8, "Return");
-            PrintHelper.lowerBorder("Welcome dear customer");
-
+            showOptions();
             int choice = ScannerWrapper.nextInt();
 
             switch (choice) {
@@ -36,13 +29,65 @@ public class CusMainMenu {
                 case 4 -> walletMenu();
                 case 5 -> orders();
                 case 6 -> setting();
-                case 7 -> support();
-                case 8 -> {
+                case 7 -> discountUI(); //TODO:
+                case 8 -> vendiloPlus();
+                case 9 -> notifications();
+                case 10 -> support();
+                case 11 -> {
+                    return;
+                }
+                case 12 -> {
+                    deleteAccount();
                     return;
                 }
                 default -> PrintHelper.printError("Invalid option! Try again.");
             }
         }
+    }
+
+    private void deleteAccount() {
+        PrintHelper.surprise("OOPS, DELETED YOUR ACCOUNT SUCCESSFULLY! ○( ＾皿＾)っ Hehehe…");
+        PrintHelper.ask("if you think you messed up just enter the number 0");
+        int isSorry = ScannerWrapper.nextInt();
+        if(isSorry == 0){
+            PrintHelper.printInfo("it's never late to feel sorry you little explorer!");
+            PrintHelper.printSuccess("your account is back.");// it was never deleted to be honest
+        }else{
+            PrintHelper.printInfo("your loss!");
+            cusControl.deleteAccount();
+        }
+    }
+
+    private static void showOptions() {
+        PrintHelper.upperBorder("     Customer profile     ");
+        PrintHelper.option(1, "Search products");
+        PrintHelper.option(2, "Carts");
+        PrintHelper.option(3, "Addresses");
+        PrintHelper.option(4, "Wallet");
+        PrintHelper.option(5, "Orders");
+        PrintHelper.option(6, "Setting");
+        PrintHelper.option(7, "discount codes");
+        PrintHelper.option(8,"VENDILO+");
+        PrintHelper.option(9, "notifications");
+        PrintHelper.option(10, "Support");
+        PrintHelper.option(11, "Return");
+        PrintHelper.option(12, "Dare to choose me? 💀");
+        PrintHelper.lowerBorder("     Customer profile     ");
+    }
+
+    private void notifications() {
+        NotifMenu notifMen = new NotifMenu(cusControl);
+        notifMen.showPage();
+    }
+
+    private void vendiloPlus(){
+        VendiloPlusSubs vendiloPlusMen = new VendiloPlusSubs(cusControl);
+        vendiloPlusMen.showPage();
+    }
+
+    private void discountUI() {
+        CusDisMen cusDisMen = new CusDisMen(cusControl);
+        cusDisMen.showPage();
     }
 
     private void walletMenu() {
@@ -115,8 +160,24 @@ public class CusMainMenu {
     }
 
     private void support() {
-        PrintHelper.ask("Whats wrong bro? ");
+        PrintHelper.miniUpperBorder("your previous reports:");
+        List<Report> reports = cusControl.getPreReports();
+        SplitDisplay.show(reports);
+        PrintHelper.miniLowerBorder("your previous reports:");
+        PrintHelper.ask("Whats wrong bro?(in case nothing is wrong type 'return')");
         String complaint = ScannerWrapper.nextLine();
-        cusControl.sendComplaint(complaint);
+
+        if(InputHelper.calculateSimilarity(complaint, "return")<0.75){
+            PrintHelper.ask("Whats your report type?");
+            String type = ScannerWrapper.nextLine().trim().toUpperCase();
+
+            try {
+                ReportType reportType = ReportType.valueOf(type);
+                cusControl.sendComplaint(complaint, reportType);
+            } catch (IllegalArgumentException e) {
+                PrintHelper.printError("Invalid report type. Please enter one of: " +
+                        Arrays.toString(ReportType.values()));
+            }
+        }
     }
 }

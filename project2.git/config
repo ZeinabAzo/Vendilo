@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = https://git.kntu.ac.ir/ap/4032/ZeinabAzordeh/Projects/project2
+	tagOpt = --no-tags
+	fetch = +refs/*:refs/*
+	mirror = true

@@ -2,9 +2,13 @@ package ir.ac.kntu.services;
 
 import ir.ac.kntu.data.CustomerDB;
 import ir.ac.kntu.data.SellerDB;
+import ir.ac.kntu.enums.DiscountType;
 import ir.ac.kntu.models.*;
+import ir.ac.kntu.services.authentication.AuthService;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
+
+import java.time.LocalDate;
 
 import static ir.ac.kntu.util.PrintHelper.printError;
 
@@ -20,14 +24,14 @@ public class CustomerService {
         this.sellerDB = sellerDB;
     }
 
-    public void purchaseCart(Cart cart, Customer customer, Address address) {
+    public void purchaseCart(Cart cart, Customer customer, Address address, Discount discount) {
         if (cart == null || customer == null) {
             printError("Cart or customer not recognized.");
             return;
         }
 
-        double totalPrice = getTotalPrice(cart, address);
-
+        cart.setShippingAddress(address);
+        double totalPrice = getPrice(customer, cart, discount);
         boolean success = customer.getWallet().withdraw(totalPrice);
 
         if (!success) {
@@ -43,30 +47,66 @@ public class CustomerService {
 
         for (Order order : cart.getOrders()) {
             Seller seller = sellerDB.findSeller(order.getShopID());
-            seller.getWallet().receivePaymentFromSale(order.getProduct().getPrice());
+            double amount = seller.getWallet().receivePaymentFromSale(order.getProduct().getPrice());
+            order.getProduct().sellProduct();//new - forgot to do this =( T_T
+            Transaction transaction = new Transaction(seller.getShopID(), amount, LocalDate.now());
+            seller.getWallet().addTransaction(transaction);
         }
 
         customerCart.setPurchased(true);
+        customerCart.setAmountPurchased(totalPrice);
+        customerCart.setDatePurchased(LocalDate.now());
     }
 
-    private double getTotalPrice(Cart cart, Address address) {
+    private double getPrice(Customer customer, Cart cart, Discount discount) {
+        double totalPrice = getTotalPrice(cart, customer);
+        if(discount != null && discount.getMaxUsages()>0){
+            if(discount.getType() == DiscountType.GENERAL){
+                totalPrice = totalPrice * ((100-discount.getValue())/100);
+                discount.setMaxUsages(discount.getMaxUsages()-1);
+            }else if (discount.getType() == DiscountType.SPECIAL){
+                if(totalPrice>10*discount.getValue()){
+                    totalPrice -= discount.getValue();
+                    discount.setMaxUsages(discount.getMaxUsages() - 1);
+                }else{
+                    printError("your purchase wasn't enough to use your discount");
+                }
+            }else{
+                printError("didn't use discount: CustomerService -> purchaseCart");
+            }
+        }
+        return totalPrice;
+    }
+
+
+    private double getTotalPrice(Cart cart, Customer customer) {
         boolean shippingCost = true;
         double totalPrice = 0;
 
         for (Order order : cart.getOrders()) {
             if (order != null && order.getProduct() != null) {
                 Seller seller = sellerDB.findSeller(order.getShopID());
-                if (!(seller.getShopLocation().getState().equals(address.getState()))) {
+                if (!(seller.getShopLocation().getState().equals(cart.getShippingAddress().getState()))) {
                     shippingCost = false;
                 }
                 totalPrice += order.getProduct().getPrice();
             }
         }
 
+        if(customer.hasVendiloPlus()){
+            totalPrice = totalPrice*95/100;
+        }
+
         if (shippingCost) {
-            totalPrice += shippingFee / 3;
+            if(!customer.hasVendiloPlus()){
+                totalPrice += shippingFee / 3;
+            }
         } else {
-            totalPrice += shippingFee;
+            if(customer.hasVendiloPlus()){
+                totalPrice += shippingFee / 3;
+            }else {
+                totalPrice += shippingFee;
+            }
         }
         return totalPrice;
     }
@@ -137,7 +177,7 @@ public class CustomerService {
         boolean success = false;
         while (!success) {
             PrintHelper.ask("Please rate this product-be careful bro you only get to do it once!(-1 to return");
-            int rate = ScannerWrapper.nextInt();
+            double rate = ScannerWrapper.nextDouble();
             if (rate == -1) {
                 return;
             }
@@ -171,5 +211,14 @@ public class CustomerService {
                 .findFirst()
                 .orElse(null);
         return foundPNum != null;
+    }
+
+    public void deleteAccount(Customer customer) {
+        customerDB.getCustomers().remove(customer);
+    }
+
+    public Discount getDiscount(String code, Customer customer) {
+        return customerDB.getCustomer(customer).getDiscounts().stream().
+                filter(discount -> discount.getDisCode().equals(code)).findFirst().orElse(null);
     }
 }

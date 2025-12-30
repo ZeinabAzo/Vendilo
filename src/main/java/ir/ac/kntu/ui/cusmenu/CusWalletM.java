@@ -19,7 +19,10 @@ public class CusWalletM {
 
     public void walletMenu() {
         while (true) {
+            PrintHelper.newLine();
             PrintHelper.miniUpperBorder(" $  Hi, I'm your wallet!  $");
+            System.out.printf("Your wallet balance is: %.2f%n",
+                    cusControl.getCustomer().getWallet().getBalance());
             PrintHelper.option(1, "Show former transactions");
             PrintHelper.option(2, "Charge Balance");
             PrintHelper.option(3, "Return");

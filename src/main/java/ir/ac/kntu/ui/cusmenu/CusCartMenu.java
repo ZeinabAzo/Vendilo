@@ -3,6 +3,7 @@ package ir.ac.kntu.ui.cusmenu;
 import ir.ac.kntu.controllers.CusControl;
 import ir.ac.kntu.models.Address;
 import ir.ac.kntu.models.Cart;
+import ir.ac.kntu.models.Discount;
 import ir.ac.kntu.util.InputHelper;
 import ir.ac.kntu.util.PrintHelper;
 import ir.ac.kntu.util.ScannerWrapper;
@@ -41,16 +42,17 @@ public class CusCartMenu {
     }
 
     private void showCart(Cart cart) {
-        SplitDisplay.show(cart.getOrders());
         PrintHelper.ask("What would you want to do with this cart?");
         PrintHelper.option(1, "purchase it");
         PrintHelper.option(2, "delete it");
+        PrintHelper.option(3, "enhance it");
         PrintHelper.option(3, "nothing, I was just visiting");
         int choice = ScannerWrapper.nextInt();
         switch (choice) {
             case 1 -> purchaseCart(cart);
             case 2 -> cusControl.deleteCart(cart);
-            case 3 -> {
+            case 3 -> cusControl.enhanceCart(cart);
+            case 4 -> {
             }
             default -> PrintHelper.printError("Invalid choice");
         }
@@ -75,8 +77,41 @@ public class CusCartMenu {
         }
 
         if(address != null){
-            cusControl.purchaseCart(address, cart);
+            Discount discount = discountChoose();
+            if (discount==null) {
+                PrintHelper.printInfo("Sorry this discount didn't exist");
+                if (canceling()) {
+                    return;
+                }
+            }
+            if (discount != null && discount.getMaxUsages()==0){
+                PrintHelper.printInfo("usage capacity of this discount code has ended.");
+                if (canceling()) {
+                    return;
+                }
+            }
+            cusControl.purchaseCart(address, cart, discount);
         }
+    }
+
+    private static boolean canceling() {
+        PrintHelper.printInfo("if you want to cancel purchase type 1," +
+                " otherwise just tap on any number");
+        int cancel = ScannerWrapper.nextInt();
+        return cancel == 1;
+    }
+
+    private Discount discountChoose() {
+        PrintHelper.ask("Do you have any discount code you want to use?");
+        PrintHelper.option(1, "yup");
+        PrintHelper.option(2, "no return");
+        int choice = ScannerWrapper.nextInt();
+        if(choice == 2){
+            return null;
+        }
+        PrintHelper.ask("Enter discount code: ");
+        String code = ScannerWrapper.nextLine();
+        return  cusControl.getDiscount(code);
     }
 
     private Address chooseExistingAddress() {
@@ -93,7 +128,12 @@ public class CusCartMenu {
     }
 
     private Address insertAddress() {
-        return InputHelper.newAddress();
+        Address address = null;
+        while (address == null){
+            address = InputHelper.newAddress();
+            cusControl.getCustomer().addAddress(address);
+        }
+        return address;
     }
 
 }

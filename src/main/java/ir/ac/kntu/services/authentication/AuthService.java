@@ -1,4 +1,4 @@
-package ir.ac.kntu.services;
+package ir.ac.kntu.services.authentication;
 
 import static ir.ac.kntu.util.PrintHelper.printError;
 

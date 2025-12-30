@@ -9,6 +9,9 @@ public class Customer extends User {
     private String phoneNumber;
     private List<Address> addresses;
     private List<Cart> carts;
+    private List<Discount> discounts;
+    private boolean hasVendiloPlus;
+    private List<Notification> notifications;
 
     public Customer(String fName, String lName, String email,
                     String phoneNumber, String password) {
@@ -18,6 +21,33 @@ public class Customer extends User {
         this.phoneNumber = phoneNumber;
         addresses = new ArrayList<>();
         carts = new ArrayList<>();
+        hasVendiloPlus = false;
+        this.setActive(true);
+        notifications = new ArrayList<>();
+    }
+
+    public void sendNotification(Notification notification){
+        notifications.add(notification);
+    }
+
+    public List<Discount> getDiscounts() {
+        return discounts;
+    }
+
+    public boolean hasVendiloPlus() {
+        return hasVendiloPlus;
+    }
+
+    public void setVendiloPlus(boolean hasVendiloPlus) {
+        this.hasVendiloPlus = hasVendiloPlus;
+    }
+
+    public void setDiscounts(List<Discount> discounts) {
+        this.discounts = discounts;
+    }
+
+    public void addDiscount(Discount discount){
+        discounts.add(discount);
     }
 
     public String getEmail() {
@@ -92,5 +122,9 @@ public class Customer extends User {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
     }
 }

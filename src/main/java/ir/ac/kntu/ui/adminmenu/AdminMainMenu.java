@@ -1,6 +1,7 @@
 package ir.ac.kntu.ui.adminmenu;
 
 import ir.ac.kntu.controllers.AdmControl;
+import ir.ac.kntu.enums.ReportType;
 import ir.ac.kntu.models.*;
 import ir.ac.kntu.util.*;
 
@@ -21,29 +22,23 @@ public class AdminMainMenu {
         boolean goON = true;
         while (goON){
             PrintHelper.upperBorder("Welcome dear admin");
-            PrintHelper.option(1, "Authentication requests");
-            PrintHelper.option(2, "Reports");
-            PrintHelper.option(3, "Orders");
-            PrintHelper.option(4, "return");
+            PrintHelper.option(1, "Reports");
+            PrintHelper.option(2, "Orders");
+            PrintHelper.option(3, "return");
             PrintHelper.lowerBorder("Welcome dear admin");
             int choice = ScannerWrapper.nextInt();
 
             switch (choice) {
-                case 1 -> showAuthRequest();
-                case 2 -> showReports();
-                case 3 -> showOrders();
-                case 4 -> {
-                    goON = false;
-                }
+                case 1 -> showReports();
+                case 2 -> showOrders();
+                case 3 -> goON = false;
                 default -> PrintHelper.printError("Invalid command");
             }
         }
     }
 
     private void showOrders() {
-        boolean goOn = true;
-
-        while (goOn) {
+        while (true) {
             PrintHelper.upperBorder("Let's explore people's business weirdo ...");
             PrintHelper.option(1, "see all orders");
             PrintHelper.option(2, "filter by customer-email");
@@ -57,7 +52,9 @@ public class AdminMainMenu {
                 case 1 -> filtered = getAll();
                 case 2 -> filtered = getByEmail();
                 case 3 -> filtered = getByDate();
-                case 4 -> goOn = false;
+                case 4 -> {
+                    return;
+                }
                 case 5 -> Exit.exit();
                 default -> {
                     PrintHelper.printError("Invalid choice");
@@ -111,24 +108,72 @@ public class AdminMainMenu {
     }
 
     private void showReports() {
-        adminController.showReports();
-    }
+        List<ReportType> reportTypes = adminController.getAdmin().getAccesses();
+        if (reportTypes == null || reportTypes.isEmpty()) {
+            PrintHelper.printInfo("You don't have access to any of the report types.");
+            return;
+        }
 
-    private void showAuthRequest() {
-        int choice = adminController.showAuthREq();
-        PrintHelper.option(1, "answer");
-        PrintHelper.option(2, "ignore and return");
-        int chosen = ScannerWrapper.nextInt();
+        PrintHelper.printInfo("Available report types:");
+        for (int i = 0; i < reportTypes.size(); i++) {
+            PrintHelper.option(i + 1, formatEnumName(reportTypes.get(i)));
+        }
 
-        switch (chosen) {
-            case 1 -> answer(choice);
-            case 2 -> {
-            }
-            default -> PrintHelper.printError("Invalid command");
+        PrintHelper.ask("Choose a report type (enter number):");
+        int choice = ScannerWrapper.nextInt() - 1;
+
+        if (choice >= 0 && choice < reportTypes.size()) {
+            ReportType selected = reportTypes.get(choice);
+            PrintHelper.printInfo("You selected: " + selected);
+            decideForType(selected);
+        } else {
+            PrintHelper.printInfo("Invalid choice. Try again.");
         }
     }
 
-    private void answer(int choice) {
-        adminController.sendAuthRes(choice);
+    private void decideForType(ReportType selected) {
+        List<Report> reports = adminController.getReports(selected);
+        if (reports == null || reports.isEmpty()) {
+            PrintHelper.printInfo("No reports found for this type.");
+            return;
+        }
+
+        int choice = SplitDisplay.show(reports);
+        if (choice < 0 || choice >= reports.size()) {
+            PrintHelper.printInfo("Invalid choice.");
+            return;
+        }
+
+        Report report = reports.get(choice);
+
+        if (report.getReportType() == ReportType.AUTHENTICATION) {
+            authRequest((AuthRequest) report);
+
+        } else {
+            PrintHelper.ask("Set a response:");
+            String answer = ScannerWrapper.nextLine();
+            report.setResponse(answer);
+            report.setResponseStatus(true);
+        }
     }
+
+    private static void authRequest(AuthRequest report) {
+        PrintHelper.ask("Do you want to accept this seller's request? (yes/no with reason)");
+        String answer = ScannerWrapper.nextLine();
+        AuthRequest authRequest = report;
+
+        if ("yes".equalsIgnoreCase(answer.trim())) {
+            authRequest.setAccepted(true);
+        } else {
+            authRequest.setAccepted(false);
+            authRequest.setResponse(answer);
+        }
+        authRequest.setResponseStatus(true);
+    }
+
+
+    private String formatEnumName(ReportType type) {
+        return type.name().toLowerCase().replace('_', ' ');
+    }
+
 }

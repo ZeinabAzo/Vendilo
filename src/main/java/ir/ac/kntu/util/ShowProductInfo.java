@@ -3,10 +3,23 @@ package ir.ac.kntu.util;
 import ir.ac.kntu.models.Book;
 import ir.ac.kntu.models.Laptop;
 import ir.ac.kntu.models.Mobile;
+import ir.ac.kntu.models.Product;
 
 import java.util.HashMap;
 
 public class ShowProductInfo {
+
+    public static void showProduct(Product product){
+        if(product instanceof Mobile mobile){
+            showMobile(mobile);
+        } else if (product instanceof Laptop laptop) {
+            showLaptop(laptop);
+        } else if (product instanceof Book book) {
+            showBook(book);
+        }else {
+            PrintHelper.printError("ShowProductInfo -> showProduct: Error of recognition");
+        }
+    }
 
     public static void showMobile(Mobile mobile) {
 

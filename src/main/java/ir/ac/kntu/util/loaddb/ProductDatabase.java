@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDatabase {
+public class  ProductDatabase {
     private static final String FILE_PATH = "database/product.json";
 
     private static final Gson gson = new GsonBuilder()

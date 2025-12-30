@@ -239,7 +239,7 @@ public class CusSearchMenu {
 
         public void firstShow(){
             while (true) {
-                PrintHelper.miniUpperBorder("  Address display  ");
+                PrintHelper.miniUpperBorder(" Address display  ");
                 PrintHelper.option(1, "Show all addresses");
                 PrintHelper.option(2, "Insert a new address");
                 PrintHelper.option(3, "Return");

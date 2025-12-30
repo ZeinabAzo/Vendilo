@@ -12,8 +12,9 @@ public class Product implements Comparable<Product> {
     private int inventory;
     private String seller;
     private String type;
-    private int rate;
-    private Set<String> ratedUserIds; // You can initialize this in the constructor
+    private double rate;
+    private Set<String> ratedUserIds;
+    private Set<String> customersToInform;
 
     public Product() {
     }
@@ -26,6 +27,19 @@ public class Product implements Comparable<Product> {
         this.type = type;
         rate = -1;
         ratedUserIds = new HashSet<>();
+        customersToInform = new HashSet<>();
+    }
+
+    public void addCustomerInform(Customer customer){
+        customersToInform.add(customer.getEmail());
+    }
+
+    public Set<String> getCustomersToInform() {
+        return customersToInform;
+    }
+
+    public boolean informOrNot(Customer customer){
+        return customersToInform.contains(customer.getEmail());
     }
 
     public Set<String> getRatedUserIds() {
@@ -35,7 +49,7 @@ public class Product implements Comparable<Product> {
         return ratedUserIds;
     }
 
-    public boolean rateProduct(String userId, int rate) {
+    public boolean rateProduct(String userId, double rate) {
         if (rate < 0 || rate > 5) {
             PrintHelper.printError("Invalid rate range, please try again.");
             return false;
@@ -67,7 +81,7 @@ public class Product implements Comparable<Product> {
         return ratedUserIds.size();
     }
 
-    public Integer getRate() {
+    public double getRate() {
         return rate;
     }
 
@@ -133,5 +147,13 @@ public class Product implements Comparable<Product> {
 
     public void setRatedUserIds(Set<String> ratedUserIds) {
         this.ratedUserIds = ratedUserIds;
+    }
+
+    public boolean addInventory(int count) {
+        if(count>0){
+            inventory += count;
+            return true;
+        }
+        return false;
     }
 }
