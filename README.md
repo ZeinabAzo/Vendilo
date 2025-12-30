@@ -65,7 +65,7 @@ Vendilo enforces professional-grade Java standards to exceed academic requiremen
 
 ## 💎 Vendilo+ Loyalty Club
 
-**Vendilo+ (باشگاه مشتریان)** is a subscription-based loyalty system available through monthly or yearly plans.
+**Vendilo+ ** is a subscription-based loyalty system available through monthly or yearly plans.
 
 ### Membership Benefits
 - 5% flat discount on all purchases
